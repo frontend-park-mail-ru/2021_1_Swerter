@@ -4,6 +4,7 @@
   "description": "## Описание",
   "main": "index.js",
   "scripts": {
+    "start": "DEBUG=* node server/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
