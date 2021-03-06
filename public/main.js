@@ -15,6 +15,8 @@ const postData = {
 }
 
 application.innerHTML = header();
+application.innerHTML += profileHeader();
+application.innerHTML += post(postData);
 
 
 
