@@ -4,12 +4,6 @@ html, body {
     height: 100vh;
 }
 
-body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
 .title {
     color: blue;
     font-size: 42px;

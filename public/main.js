@@ -4,6 +4,7 @@ const application = document.getElementById("app");
 
 //Шаблон работы с постом
 const postData = {
+
     imgAvatar: "./assets/imgUser.jpg",
     imgContent: "./assets/imgContent.jpg",
     postCreator: "Vasya pupkin",
@@ -12,7 +13,8 @@ const postData = {
         "\n" +
         "В форме рождающегося полумесяца Байкал вытянулся с юго-запада на северо-восток. Длина озера — 636 км, наибольшая ширина в центральной части — 81 км, минимальная ширина напротив дельты Селенги — 27 км. Расположен Байкал на высоте 455 м над уровнем моря, длина береговой линии — около 2 тыс. км. Более половины длины береговой линии озера находится под охраной." ,
 }
-application.innerHTML = post(postData);
+
+application.innerHTML = header();
 
 
 
