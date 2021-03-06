@@ -1,0 +1,12 @@
+.news-feed {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-image: url(./assets/background.jpg);
+    background-repeat: no-repeat ;
+    background-attachment: fixed
+}
+
+.wrap-post {
+    margin-top: 40px;
+}
