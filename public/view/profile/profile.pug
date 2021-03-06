@@ -1,0 +1,12 @@
+include ../../components/header/header
+include ../../components/profile-header/profile-header
+
+mixin post(postData)
+    include ../../components/post/post
+
+div(class="profile-content")
+    div(class="left-content")
+
+    div(class="right-content")
+        div(class="lenta")
+            +post(postData)
