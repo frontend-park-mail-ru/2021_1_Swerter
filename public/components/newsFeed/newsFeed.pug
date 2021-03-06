@@ -1,0 +1,10 @@
+style
+    include newsFeed.css
+mixin post(data)
+    div(class="wrap-post")
+        include ../post/post.pug
+
+
+div(class="news-feed")
+    each postData in postsData
+        +post(postData)
