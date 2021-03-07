@@ -9,3 +9,12 @@ html, body {
     color: blue;
     font-size: 42px;
 }
+
+a {
+    text-decoration:none;
+}
+
+a:visited{
+    text-decoration:none;
+    color:blue;
+}

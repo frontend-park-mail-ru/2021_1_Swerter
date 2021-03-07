@@ -39,11 +39,26 @@
 
 .profile-info-content {
     display: flex;
-    justify-content: center;
-    align-items: flex-end;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
     size: 40px;
     flex-basis: 90%;
     height: 200px;
     background-color: #FFFFFF;
     box-shadow: 0 0 6px  rgba(0, 0, 0, 0.5);
+    padding-top: 10px;
+}
+
+.btn-edit-profile {
+    size: 12px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    background-color: #E4E6EB;
+    padding: 8px;
+}
+
+.btn-edit-profile:hover {
+    cursor: pointer;
+    background-color: #D8DADF;
 }
