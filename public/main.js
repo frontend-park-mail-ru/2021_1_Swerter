@@ -5,10 +5,10 @@ const application = document.getElementById("app");
 
 
 //Страница ленты
-// application.innerHTML += newsFeed(postsData);
+// application.innerHTML = newsFeed(postsData);
 
 //Страница юзера
-// application.innerHTML = profile(postData);
+application.innerHTML = profile(postData);
 
 
 
