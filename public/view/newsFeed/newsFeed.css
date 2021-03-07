@@ -4,7 +4,9 @@
     align-items: center;
     background-image: url(./assets/background.jpg);
     background-repeat: no-repeat ;
-    background-attachment: fixed
+    background-attachment: fixed;
+    background-size: 100%;
+
 }
 
 .wrap-post {
