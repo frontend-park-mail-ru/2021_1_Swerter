@@ -1,5 +1,9 @@
 include ../../components/header/header
-include ../../components/profile-header/profile-header
+mixin profileHeader(data)
+    include ../../components/profile-header/profile-header
+
+-console.log(profileData.userData.modEdited)
++profileHeader(profileData.userData)
 
 mixin post(data)
     include ../../components/post/post
@@ -9,4 +13,6 @@ div(class="profile-content")
 
     div(class="right-content")
         div(class="lenta")
-            +post(postData)
+            each postData in profileData.postsData
+                div(class="post-profile-wrapper")
+                    +post(postData)

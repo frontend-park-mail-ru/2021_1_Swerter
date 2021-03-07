@@ -1,13 +1,24 @@
+script
+    console.log("ff")
+
 div(class="profile-header-content")
     div(class="header-content")
         img(class="background-img" src="./assets/imgContent.jpg")
         div(class="ava-img")
             img(class="ava" src="./assets/imgUser.jpg")
         div(class="profile-info")
-            div(class="profile-info-content")
-                h1
-                    |#{data.firstName}
-                    |#{data.lastName}
-                div(class="btn-edit-profile")
-                    a(href="#")
+            if !data.modEdited
+                div(class="profile-info-content")
+                    h1
+                        | #{data.firstName}
+                        | #{data.lastName}
+                    div(class="btn-edit-profile" id="btn-edit-profile" onclick='profileEdit()')
                         b Edit
+            else
+                div(class="profile-editing")
+                    label Firstname:
+                        input(id="input-firstname" class="edit-input")
+                    label Lastname:
+                        input(id="input-lastname" class="edit-input")
+                    div(class="btn-edit-submit-profile" onclick='profileEditSubmit()')
+                        b Submit

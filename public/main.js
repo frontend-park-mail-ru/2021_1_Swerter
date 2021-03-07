@@ -8,8 +8,6 @@ const application = document.getElementById("app");
 // application.innerHTML = newsFeed(postsData);
 
 //Страница юзера
-application.innerHTML = profile(postData);
-
-
+application.innerHTML = profile(profileData);
 
 

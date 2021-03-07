@@ -57,9 +57,44 @@
     margin-bottom: 5px;
     background-color: #E4E6EB;
     padding: 8px;
+    color: blue;
 }
 
 .btn-edit-profile:hover {
     cursor: pointer;
     background-color: #D8DADF;
+}
+
+.test {
+    width: 300px;
+    height: 500px;
+    background-color: #5EACF4;
+}
+
+.profile-editing {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 120px;
+}
+
+.btn-edit-submit-profile {
+    size: 12px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    background-color: #E4E6EB;
+    padding: 8px;
+    color: blue;
+    margin-top: 10px;
+}
+
+.btn-edit-submit-profile:hover {
+    cursor: pointer;
+    background-color: #D8DADF;
+}
+
+.edit-input {
+    width: 200px;
+    height: 15px;
+    margin-top: 10px;
 }
