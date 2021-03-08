@@ -1,6 +1,7 @@
-(function() {
+(function () {
     class ProfileHeader {
         counter = 0;
+
         render(config) {
             counter++;
             config.id = counter;
@@ -13,7 +14,7 @@
         endEdit,
     }
 
-    function edit () {
+    function edit() {
         console.log('edit')
         profileData.userData.modEdited = true
         application.innerHTML = profile(profileData);
@@ -27,6 +28,18 @@
         application.innerHTML = profile(profileData);
     }
 
-    window.profileEditSubmit = endEdit;
-    window.profileEdit = edit;
+    function uploadImg(id) {
+        let input = document.createElement('input');
+        input.type = 'file';
+        input.onchange = e => {
+            document.getElementById(id).src = URL.createObjectURL(input.files[0]);
+        }
+        input.click();
+    }
+
+    window.profileHeader = {
+        profileEdit: edit,
+        profileEditSubmit: endEdit,
+        uploadImg,
+    }
 })()

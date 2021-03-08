@@ -1,8 +1,12 @@
-include ../../components/header/header
+mixin header(data)
+    include ../../components/header/header
+
++header(profileData.userData)
+
 mixin profileHeader(data)
     include ../../components/profile-header/profile-header
 
--console.log(profileData.userData.modEdited)
+-console.log(profileData)
 +profileHeader(profileData.userData)
 
 mixin post(data)

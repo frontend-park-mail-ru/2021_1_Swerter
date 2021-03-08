@@ -1,16 +1,15 @@
-script
-    console.log("ff")
 
+-console.log(profileData.userData.imgAvatar)
 div(class="profile-header-content")
     div(class="header-content")
-        img(class="background-img" src="./assets/imgContent.jpg")
+        img(id="bg" class="background-img" src=data.imgBg)
         div(class="upload-bg-wr")
-            div(class="upload-bg")
+            div(class="upload-bg" onclick='profileHeader.uploadImg("bg")')
                 i(class="fas fa-camera fa-2x")
         div(class="ava-img")
             div.ava-wrapper
-                img(class="ava" src="./assets/imgUser.jpg")
-                div(class="upload-ava")
+                img(id="ava" class="ava" src=data.imgAvatar)
+                div(class="upload-ava" onclick='profileHeader.uploadImg("ava")')
                     i(class="fas fa-camera fa-2x")
         div(class="profile-info")
             if !data.modEdited
@@ -18,14 +17,13 @@ div(class="profile-header-content")
                     h1
                         | #{data.firstName}
                         | #{data.lastName}
-                    div(class="btn-edit-profile" id="btn-edit-profile" onclick='profileEdit()')
+                    div(class="btn-edit-profile" id="btn-edit-profile" onclick='profileHeader.profileEdit()')
                         b Edit
             else
                 div
                     form(class="profile-editing")
-                        label Firstname:
+                        label.profile-edit-lbl Firstname:
                             input(id="input-firstname" class="edit-input")
-                        label Lastname:
+                        label.profile-edit-lbl Lastname:
                             input(id="input-lastname" class="edit-input")
-                        b
-                            input(type="submit" class="btn-edit-submit-profile" onclick='profileEditSubmit()')
+                        input(type="submit" class="btn-edit-submit-profile" onclick='profileHeader.profileEditSubmit()')
