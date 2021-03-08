@@ -60,11 +60,24 @@
     background-color: #D8DADF;
 }
 
-.upload-background-wrapper {
-    width: inherit;
-    position: absolute;
+.upload-bg-wr {
     display: flex;
     justify-content: flex-end;
+    position: relative;
+}
+
+.upload-bg {
+    position: absolute;
+    height: 50px;
+    width: 100px;
+    background-color: #E4E6EB;
+    bottom: 30px;
+    right: 30px;
+    border-radius: 10px;
+    border: 3px solid white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .upload-background {
