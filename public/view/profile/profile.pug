@@ -1,12 +1,24 @@
-include ../../components/header/header
-include ../../components/profile-header/profile-header
+mixin header(data)
+    include ../../components/header/header
+
++header(profileData.userData)
+
+mixin profileHeader(data)
+    include ../../components/profile-header/profile-header
+
+-console.log(profileData)
++profileHeader(profileData.userData)
 
 mixin post(data)
     include ../../components/post/post
 
 div(class="profile-content")
-    div(class="left-content")
+    div(class="left-content-column")
+        div(class="left-content-1")
+        div(class="left-content-2")
 
     div(class="right-content")
         div(class="lenta")
-            +post(postData)
+            each postData in profileData.postsData
+                div(class="post-profile-wrapper")
+                    +post(postData)
