@@ -8,6 +8,10 @@
     background-size: 100%;
 }
 
+.wrap-post:first-child {
+    margin-top: 100px;
+}
+
 .wrap-post {
     margin-top: 40px;
 }
