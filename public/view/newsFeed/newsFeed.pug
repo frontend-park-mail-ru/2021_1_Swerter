@@ -1,4 +1,7 @@
-include ../../components/header/header.pug
+mixin header(data)
+    include ../../components/header/header
+
++header(profileData.userData)
 
 style
     include newsFeed.css
