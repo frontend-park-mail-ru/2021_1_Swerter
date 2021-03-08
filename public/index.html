@@ -7,26 +7,26 @@
     <title>MyMotivation</title>
     <link rel="stylesheet" href="main.css">
     <link href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
-
-    <link rel="stylesheet" href="components/post/post.css">
-    <link rel="stylesheet" href="components/header/header.css">
-    <link rel="stylesheet" href="components/profile-header/profile-header.css">
-    <link rel="stylesheet" href="view/profile/profile.css">
-    <link rel="stylesheet" href="view/newsFeed/newsFeed.css">
+    <!--Components-->
+    <link rel="stylesheet" href="components/Post/Post.css">
+    <link rel="stylesheet" href="components/Header/Header.css">
+    <link rel="stylesheet" href="components/ProfileHeader/ProfileHeader.css">
+    <!--Views-->
+    <link rel="stylesheet" href="view/Profile/Profile.css">
+    <link rel="stylesheet" href="view/NewsFeed/NewsFeed.css">
 
 </head>
 
 <body>
-    <div id="app"></div>
-    <script src="components/profile-header/main.js"></script>
-    <script src="components/post/main.js"></script>
-    <script src="components/header/main.js"></script>
-    <script src="components/profile/main.js"></script>
+<div id="app"></div>
 
-    <script src="modelTest.js"></script>
-    <script src="view/profile/profile.js"></script>
-    <script src="view/newsFeed/newsFeed.js"></script>
-    <script type="module" src="main.js"></script>
+<script src="components/ProfileHeader/handler.js"></script>
+<script src="components/Header/handler.js"></script>
+
+<script src="modelTest.js"></script>
+<script src="view/Profile/Profile.tmpl.js"></script>
+<script src="view/NewsFeed/NewsFeed.tmpl.js"></script>
+<script type="module" src="main.js"></script>
 </body>
 
 </html>

@@ -1,12 +1,12 @@
 (function () {
     function goProfile() {
-        console.log('profile')
-        application.innerHTML = profile(profileData);
+        console.log('Profile')
+        application.innerHTML = profileTemplate(profileData);
     }
 
     function goNews() {
         console.log('news')
-        application.innerHTML = newsFeed(postsData);
+        application.innerHTML = newsfeedTemplate(postsData);
     }
 
     window.router = {
