@@ -1,4 +1,18 @@
 (function() {
+    class ProfileHeader {
+        counter = 0;
+        render(config) {
+            counter++;
+            config.id = counter;
+            return profileHeader(config);
+        }
+    }
+
+    config = {
+        edit,
+        endEdit,
+    }
+
     function edit () {
         console.log('edit')
         profileData.userData.modEdited = true

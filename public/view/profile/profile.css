@@ -1,4 +1,4 @@
-.profile-content{
+.profile-content {
     display: flex;
     justify-content: center;
 }
@@ -11,8 +11,23 @@
     padding-top: 20px;
 }
 
-.left-content {
+.left-content-column {
     margin-right: 80px;
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+}
+
+.left-content-1 {
+    border-radius: 10px;
+    height: 220px;
+    width: 500px;
+    background-color: #D8DADF;
+}
+
+.left-content-2 {
+    margin-top: 30px;
+    border-radius: 10px;
     height: 670px;
     width: 500px;
     background-color: #D8DADF;

@@ -5,7 +5,10 @@ div(class="profile-header-content")
     div(class="header-content")
         img(class="background-img" src="./assets/imgContent.jpg")
         div(class="ava-img")
-            img(class="ava" src="./assets/imgUser.jpg")
+            div.ava-wrapper
+                img(class="ava" src="./assets/imgUser.jpg")
+                div(class="upload-ava")
+                    i(class="fas fa-camera fa-2x")
         div(class="profile-info")
             if !data.modEdited
                 div(class="profile-info-content")
@@ -15,10 +18,11 @@ div(class="profile-header-content")
                     div(class="btn-edit-profile" id="btn-edit-profile" onclick='profileEdit()')
                         b Edit
             else
-                div(class="profile-editing")
-                    label Firstname:
-                        input(id="input-firstname" class="edit-input")
-                    label Lastname:
-                        input(id="input-lastname" class="edit-input")
-                    div(class="btn-edit-submit-profile" onclick='profileEditSubmit()')
-                        b Submit
+                div
+                    form(class="profile-editing")
+                        label Firstname:
+                            input(id="input-firstname" class="edit-input")
+                        label Lastname:
+                            input(id="input-lastname" class="edit-input")
+                        b
+                            input(type="submit" class="btn-edit-submit-profile" onclick='profileEditSubmit()')
