@@ -8,7 +8,7 @@ window.application = document.getElementById("app");
 // application.innerHTML = newsfeedTemplate(postsData);
 
 //Страница юзера
-application.innerHTML = profileTemplate(postsData);
+// application.innerHTML = profileTemplate(postsData);
 
 //Страница логина
 // application.innerHTML = loginpageTemplate();
@@ -17,3 +17,9 @@ application.innerHTML = profileTemplate(postsData);
 // application.innerHTML = registerpageTemplate();
 
 window.http = new HttpRequest('http://localhost:8000');
+
+window.http.get({url: "/posts"})
+    .then((response) => {
+        console.log(response)
+    })
+    .catch(() => console.log("fail"))
