@@ -44,6 +44,11 @@
     border: none;
 }
 
+.login-form__button-login:hover {
+    opacity: 0.9;
+    cursor: pointer;
+}
+
 .login-form__link-forget-password {
     text-align: center;
     margin-bottom: 3%;
@@ -63,4 +68,9 @@
     font-weight: bold;
     border-radius: 10px;
     border: none;
+}
+
+.login-form__button-register:hover {
+    opacity: 0.9;
+    cursor: pointer;
 }
