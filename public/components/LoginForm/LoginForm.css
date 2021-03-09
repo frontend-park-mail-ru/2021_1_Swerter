@@ -1,3 +1,13 @@
+.message-non-valid-form {
+    width: 100%;
+    margin-bottom: 5%;
+    color: #cd0e0e;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #e20808; ;
+}
+
 .login-form {
     border-radius: 20px;
     background-color: white;

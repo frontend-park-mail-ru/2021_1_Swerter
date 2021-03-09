@@ -14,6 +14,6 @@ application.innerHTML = loginpageTemplate();
 // application.innerHTML = profileTemplate(postsData);
 
 //Страница ленты
-// application.innerHTML = newsfeedTemplate(postsData);
+// application.innerHTML = newsfeedTemplate(postData);
 
 window.http = new HttpRequest('http://localhost:8000');
