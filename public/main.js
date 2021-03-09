@@ -4,16 +4,16 @@ import {HttpRequest} from './modules/http.js';
 
 window.application = document.getElementById("app");
 
-//Страница ленты
-// application.innerHTML = newsfeedTemplate(postsData);
-
-//Страница юзера
-application.innerHTML = profileTemplate(postsData);
-
 //Страница логина
-// application.innerHTML = loginpageTemplate();
+application.innerHTML = loginpageTemplate();
 
 //Страница регистрации
 // application.innerHTML = registerpageTemplate();
+
+//Страница юзера
+// application.innerHTML = profileTemplate(postsData);
+
+//Страница ленты
+// application.innerHTML = newsfeedTemplate(postsData);
 
 window.http = new HttpRequest('http://localhost:8000');

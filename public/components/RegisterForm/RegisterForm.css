@@ -1,0 +1,102 @@
+.register-form {
+    border-radius: 20px;
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.25);
+    padding: 30px 25px 40px 25px;
+    margin-left: 5%;
+}
+
+.register-form__content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.register-form__div-item {
+    width: 100%;
+    margin-bottom: 5%;
+}
+
+.register-form__input {
+    width: 18em;
+    font-size: 22px;
+    line-height: 2.5em;
+    border-radius: 10px;
+    border: 2px solid rgba(221, 223, 226, 1);
+    text-indent: 1em;
+}
+
+.register-form__input::placeholder {
+    font-size: 18px;
+    color: rgba(144, 147, 156, 1);
+}
+
+.register-form__button-register {
+    width: 100%;
+    height: 2.5em;
+    background-color: rgba(42, 92, 243, 1);
+    color: white;
+    font-weight: bold;
+    font-size: 26px;
+    border-radius: 10px;
+    border: none;
+}
+
+.register-form__button-register:hover {
+    opacity: 0.9;
+    cursor: pointer;
+}
+
+.register-form__link-forget-password {
+    text-align: center;
+    margin-bottom: 3%;
+}
+
+.register-form__hr {
+    width: 95%;
+    margin-bottom: 5%;
+}
+
+.register-form__button-register {
+    width: 100%;
+    height: 2.5em;
+    background-color: rgba(0, 195, 38, 1);
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    border-radius: 10px;
+    border: none;
+}
+
+.register-form__button-register:hover {
+    opacity: 0.9;
+    cursor: pointer;
+}
+
+.register-form__header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5%;
+}
+
+.register-form__title {
+    font-size: 22px;
+}
+
+.register-form__img-close {
+    width: 50%;
+    height: auto;
+}
+
+.register-form__div-close {
+    margin-right: -5%;
+}
+
+.register-form__div-close:hover {
+    opacity: 0.5;
+    cursor: pointer;
+}
+
