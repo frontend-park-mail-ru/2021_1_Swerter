@@ -4,42 +4,45 @@
     }
 
     function submitLoginForm() {
-        loginValue = document.getElementById("input-login-login-page").value.replace(/<\/?[^>]+(>|$)/g, "");
-        password = document.getElementById("input-password-login-page").value.replace(/<\/?[^>]+(>|$)/g, "");
-        if (loginValue.length < 5 || loginValue.indexOf('@') === -1 || password.length < 5 ) {
-            loginData.validForm = false
-            loginData.errMessage = "Невалидные данные"
-            router.goLogin();
-            return
-        }
-        const data = {
-            login: loginValue,
-            password: password
-        };
+        login = document.getElementsByName('login')[0];
+        password = document.getElementsByName('password')[0];
 
-        sendLoginRequest(data);
+        if (login.checkValidity() === true && password.checkValidity() === true) {
+            const data = {
+                login: login.value,
+                password: password.value
+            };
+
+            sendLoginRequest(data);
+        }
+
+    }
+
+    function displayLoginFormValidationError() {
+        if (Array.from(document.getElementsByClassName('login-form__div-error')).length === 0) {
+            const sib = document.getElementsByClassName('login-form__div-item')[0];
+            const par = sib.parentNode;
+            let errorBox = document.createElement('div')
+            errorBox.className = 'login-form__div-error';
+            errorBox.innerHTML = '<h2>Неверный логин или пароль!</h2>';
+            par.insertBefore(errorBox, sib);
+        }
     }
 
     async function sendLoginRequest(data) {
-        res = await http.post({ url: '/login', data: data })
+        res = await http.post({url: '/login', data: data})
         if (res.status === 200) {
             let user = window.profileData.userData;
-            let profile = await http.get({url:'/profile'});
+            let profile = await http.get({url: '/profile'});
             let userInfo = profile.body
             user.firstName = userInfo.FirstName;
             user.lastName = userInfo.LastName;
             router.goProfile();
         } else if (res.status == 403) {
-            loginData.validForm = false
-            loginData.errMessage = "Неверный логин или пароль"
-            router.goLogin();
+            displayLoginFormValidationError();
         }
     }
 
     window.router.register(goLogin);
-     window.loginData = {
-         submitLoginForm : submitLoginForm,
-         validForm : true,
-         errMessage : "Невалидные данные"
-    }
+    window.submitLoginForm = submitLoginForm;
 })()

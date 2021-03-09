@@ -5,27 +5,38 @@
     }
 
     function submitRegisterForm() {
-        loginValue = document.getElementById("input-login-register-page").value.replace(/<\/?[^>]+(>|$)/g, "");
-        password1 = document.getElementById("input-password-1-register-page").value.replace(/<\/?[^>]+(>|$)/g, "");
-        password2 = document.getElementById("input-password-2-register-page").value.replace(/<\/?[^>]+(>|$)/g, "");
-        name = document.getElementById("input-name-register-page").value.replace(/<\/?[^>]+(>|$)/g, "");
-        surname = document.getElementById("input-surname-register-page").value.replace(/<\/?[^>]+(>|$)/g, "");
+        login = document.getElementsByName('login')[0];
+        password = document.getElementsByName('password')[0];
+        passwordRepeat = document.getElementsByName('password-repeat')[0];
+        firstName = document.getElementsByName('first-name')[0];
+        lastName = document.getElementsByName('last-name')[0];
 
-        if (loginValue.length < 5 || loginValue.indexOf('@') === -1 || password1.length < 5 ||
-            password1 !== password2 || name === '' || surname === '') {
-            registerData.validForm = false
-            router.goRegister();
-            return
+        if (login.checkValidity() === true &&
+            password.checkValidity() === true &&
+            passwordRepeat.checkValidity() === true &&
+            firstName.checkValidity() === true &&
+            lastName.checkValidity() === true &&
+            password.value == passwordRepeat.value) {
+            const data = {
+                login: login.value,
+                password: password.value,
+                firstName: firstName.value,
+                lastName: lastName.value
+            };
+
+            sendRegisterRequest(data);
         }
+    }
 
-        const data = {
-            login: loginValue,
-            password: password1,
-            firstName: name,
-            lastName: surname
-        };
-
-        sendRegisterRequest(data);
+    function displayRegisterFormValidationError() {
+        if (Array.from(document.getElementsByClassName('register-form__div-error')).length === 0) {
+            const sib = document.getElementsByClassName('register-form__div-item')[0];
+            const par = sib.parentNode;
+            let errorBox = document.createElement('div')
+            errorBox.className = 'login-form__div-error';
+            errorBox.innerHTML = '<h2>Введенный логин занят!</h2>';
+            par.insertBefore(errorBox, sib);
+        }
     }
 
     async function sendRegisterRequest(data) {
@@ -33,12 +44,12 @@
 
         if (res.status === 200) {
             router.goLogin();
+        } else if (res.status === 403) {
+            displayRegisterFormValidationError();
         }
     }
 
     window.router.register(goRegister);
-    window.registerData = {
-        submitRegisterForm : submitRegisterForm,
-        validForm : true
-    }
+    window.displayRegisterFormValidationError = displayRegisterFormValidationError;
+    window.submitRegisterForm = submitRegisterForm;
 })()

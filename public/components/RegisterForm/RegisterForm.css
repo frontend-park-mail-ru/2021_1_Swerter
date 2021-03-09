@@ -110,3 +110,18 @@
     cursor: pointer;
 }
 
+.register-form__input:focus:invalid {
+    border: 2px solid red;
+}
+
+.register-form__div-error {
+    width: 100%;
+    margin-bottom: 5%;
+    color: #cd0e0e;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #e20808;
+    border-radius: 10px;
+}
+

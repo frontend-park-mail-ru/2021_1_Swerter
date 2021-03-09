@@ -1,13 +1,3 @@
-.message-non-valid-form {
-    width: 100%;
-    margin-bottom: 5%;
-    color: #cd0e0e;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 2px solid #e20808; ;
-}
-
 .login-form {
     border-radius: 20px;
     background-color: white;
@@ -89,4 +79,23 @@
 .login-form__button-register:hover {
     opacity: 0.9;
     cursor: pointer;
+}
+
+.login-form__input_login:focus:invalid {
+    border: 2px solid red;
+}
+
+.login-form__input_password:focus:invalid {
+    border: 2px solid red;
+}
+
+.login-form__div-error {
+    width: 100%;
+    margin-bottom: 5%;
+    color: #cd0e0e;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #e20808;
+    border-radius: 10px;
 }

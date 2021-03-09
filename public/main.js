@@ -2,7 +2,6 @@
 
 window.application = document.getElementById("app");
 
-
 //Страница логина
 application.innerHTML = loginpageTemplate();
 
@@ -15,6 +14,4 @@ application.innerHTML = loginpageTemplate();
 //Страница ленты
 
 // application.innerHTML = newsfeedTemplate(postsData);
-
-window.http = new HttpRequest('http://localhost:8000');
 
