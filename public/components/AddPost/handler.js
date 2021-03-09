@@ -14,6 +14,7 @@
             textPost: document.getElementById("text-post").value.replace(/<\/?[^>]+(>|$)/g, "")
         }
         profileData.postsData.unshift(newPost);
+        newPostPhoto = ''
         router.goProfile()
 
     }
