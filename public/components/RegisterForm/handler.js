@@ -6,10 +6,10 @@
 
     function submitRegisterForm() {
         const data = {
-            login: document.getElementsByName('login')[0].value,
-            password: document.getElementsByName('password')[0].value,
-            firstName: document.getElementsByName('first-name')[0].value,
-            lastName: document.getElementsByName('last-name')[0].value
+            login: document.getElementsByName('login')[0].value.replace(/<\/?[^>]+(>|$)/g, ""),
+            password: document.getElementsByName('password')[0].value.replace(/<\/?[^>]+(>|$)/g, ""),
+            firstName: document.getElementsByName('first-name')[0].value.replace(/<\/?[^>]+(>|$)/g, ""),
+            lastName: document.getElementsByName('last-name')[0].value.replace(/<\/?[^>]+(>|$)/g, "")
         };
 
         sendRegisterRequest(data);

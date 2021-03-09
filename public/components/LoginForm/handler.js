@@ -6,8 +6,8 @@
 
     function submitLoginForm() {
         const data = {
-            login: document.getElementsByName('login')[0].value,
-            password: document.getElementsByName('password')[0].value
+            login: document.getElementsByName('login')[0].value.replace(/<\/?[^>]+(>|$)/g, ""),
+            password: document.getElementsByName('password')[0].value.replace(/<\/?[^>]+(>|$)/g, "")
         };
 
         sendLoginRequest(data);
