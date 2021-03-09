@@ -7,7 +7,7 @@ window.application = document.getElementById("app");
 // application.innerHTML = newsfeedTemplate(postsData);
 
 //Страница юзера
-application.innerHTML = profileTemplate(postData);
+application.innerHTML = profileTemplate(postsData);
 
 //Страница логина
 // application.innerHTML = loginpageTemplate();
