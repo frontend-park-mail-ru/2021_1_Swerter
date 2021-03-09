@@ -32,6 +32,8 @@
         res = await http.post({url: '/register', data: data})
 
         if (res.status === 200) {
+            registerData.validForm = true
+            loginData.validForm = true
             router.goLogin();
         }
     }
