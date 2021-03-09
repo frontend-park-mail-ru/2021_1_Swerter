@@ -30,8 +30,6 @@
                 console.log(data)
         });
 
-        // window.http.get({url:"/posts"}).then((data)=> console.log(data))
-
         router.goProfile()
     }
 

@@ -22,7 +22,8 @@ div(class="profile-content")
 
     div(class="right-content")
         div(class="lenta")
-            +addPost(profileData.userData)
+            if profileData.userData.myPage
+                +addPost(profileData.userData)
             each postData in profileData.postsData
                 div(class="post-profile-wrapper")
                     +post(postData)

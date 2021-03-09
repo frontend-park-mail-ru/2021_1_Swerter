@@ -10,6 +10,10 @@ html, body {
     font-size: 42px;
 }
 
+input:focus {
+    outline: none;
+}
+
 a {
     text-decoration:none;
 }
