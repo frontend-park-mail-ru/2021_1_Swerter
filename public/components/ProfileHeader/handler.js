@@ -28,11 +28,22 @@
         application.innerHTML = profileTemplate(profileData);
     }
 
-    function uploadImg(id) {
+    function uploadAva() {
         let input = document.createElement('input');
         input.type = 'file';
         input.onchange = e => {
-            document.getElementById(id).src = URL.createObjectURL(input.files[0]);
+            profileData.userData.imgAvatar = URL.createObjectURL(input.files[0]);
+            router.goProfile();
+        }
+        input.click();
+    }
+
+    function uploadBg() {
+        let input = document.createElement('input');
+        input.type = 'file';
+        input.onchange = e => {
+            profileData.userData.imgBg = URL.createObjectURL(input.files[0]);
+            router.goProfile();
         }
         input.click();
     }
@@ -40,6 +51,7 @@
     window.profileHeader = {
         profileEdit: edit,
         profileEditSubmit: endEdit,
-        uploadImg,
+        uploadAva,
+        uploadBg
     }
 })()
