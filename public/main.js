@@ -13,4 +13,8 @@ application.innerHTML = loginpageTemplate();
 // application.innerHTML = profileTemplate(postsData);
 
 //Страница ленты
+
 // application.innerHTML = newsfeedTemplate(postsData);
+
+window.http = new HttpRequest('http://localhost:8000');
+

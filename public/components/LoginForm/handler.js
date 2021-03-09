@@ -1,13 +1,20 @@
 (function () {
     function goLogin() {
-        console.log('Login')
         application.innerHTML = loginpageTemplate();
     }
 
     function submitLoginForm() {
+        loginValue = document.getElementById("input-login-login-page").value.replace(/<\/?[^>]+(>|$)/g, "");
+        password = document.getElementById("input-password-login-page").value.replace(/<\/?[^>]+(>|$)/g, "");
+        if (loginValue.length < 5 || loginValue.indexOf('@') === -1 || password.length < 5 ) {
+            loginData.validForm = false
+            loginData.errMessage = "Невалидные данные"
+            router.goLogin();
+            return
+        }
         const data = {
-            login: document.getElementsByName('login')[0].value.replace(/<\/?[^>]+(>|$)/g, ""),
-            password: document.getElementsByName('password')[0].value.replace(/<\/?[^>]+(>|$)/g, "")
+            login: loginValue,
+            password: password
         };
 
         sendLoginRequest(data);
@@ -22,9 +29,17 @@
             user.firstName = userInfo.FirstName;
             user.lastName = userInfo.LastName;
             router.goProfile();
+        } else if (res.status == 403) {
+            loginData.validForm = false
+            loginData.errMessage = "Неверный логин или пароль"
+            router.goLogin();
         }
     }
 
     window.router.register(goLogin);
-    window.submitLoginForm = submitLoginForm;
+     window.loginData = {
+         submitLoginForm : submitLoginForm,
+         validForm : true,
+         errMessage : "Невалидные данные"
+    }
 })()

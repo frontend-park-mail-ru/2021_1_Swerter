@@ -4,15 +4,18 @@ div(class='register-form')
             div(class='register-form__title') Регистрация
             div(class='register-form__div-close' onclick='router.goLogin()')
                 img(src='assets/close.png' class='register-form__img-close')
+        if !registerData.validForm
+            div(class='message-non-valid-form')
+                h2 Невалидные данные
         div(class='register-form__div-item')
-            input(type='text' name='login' class='register-form__input' autocomplete='on' placeholder='Электронный адрес или номер телефона')
+            input(id = "input-login-register-page" type='text' name='login' class='register-form__input' autocomplete='on' placeholder='Электронный адрес или номер телефона')
         div(class='register-form__div-item')
-            input(type='password' name='password' class='register-form__input register-form__input_password' autocomplete='on' placeholder='Пароль')
+            input(id = "input-password-1-register-page" type='password' name='password' class='register-form__input register-form__input_password' autocomplete='on' placeholder='Пароль')
         div(class='register-form__div-item')
-            input(type='password' name='password_repeat' class='register-form__input register-form__input_password' autocomplete='on' placeholder='Повтор пароля')
+            input(id = "input-password-2-register-page" type='password' name='password_repeat' class='register-form__input register-form__input_password' autocomplete='on' placeholder='Повтор пароля')
         div(class='register-form__div-item')
-            input(type='text' name='first-name' class='register-form__input' autocomplete='on' placeholder='Имя')
+            input(id = "input-name-register-page" type='text' name='first-name' class='register-form__input' autocomplete='on' placeholder='Имя')
         div(class='register-form__div-item')
-            input(type='text' name='last-name' class='register-form__input' autocomplete='on' placeholder='Фамилия')
-        button(type='button' class='register-form__button-register' onclick='submitRegisterForm()') Зарегистроваться
+            input(id = "input-surname-register-page" type='text' name='last-name' class='register-form__input' autocomplete='on' placeholder='Фамилия')
+        button(type='button' class='register-form__button-register' onclick='registerData.submitRegisterForm()') Зарегистроваться
 
