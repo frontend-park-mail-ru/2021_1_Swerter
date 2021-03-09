@@ -18,9 +18,9 @@ div(class="profile-header-content")
                     h1
                         | #{data.firstName}
                         | #{data.lastName}
-                if data.myPage
-                    div(class="btn-edit-profile" id="btn-edit-Profile" onclick='profileHeader.profileEdit()')
-                        b Edit
+                    if data.myPage
+                        div(class="btn-edit-profile" id="btn-edit-Profile" onclick='profileHeader.profileEdit()')
+                            b Edit
             else
                 div
                     form(class="profile-editing")
