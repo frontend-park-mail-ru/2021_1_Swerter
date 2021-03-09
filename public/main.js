@@ -3,6 +3,7 @@
 import {HttpRequest} from './modules/http.js';
 
 window.application = document.getElementById("app");
+
 //Страница ленты
 // application.innerHTML = newsfeedTemplate(postsData);
 

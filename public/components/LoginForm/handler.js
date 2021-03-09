@@ -4,5 +4,11 @@
         application.innerHTML = registerpageTemplate();
     }
 
-    window.router.goRegister = goRegister;
+    function goLogin() {
+        console.log('Login')
+        application.innerHTML = loginpageTemplate();
+    }
+
+    window.router.register(goRegister)
+    window.router.register(goLogin)
 })()

@@ -9,9 +9,7 @@
         application.innerHTML = newsfeedTemplate(postsData);
     }
 
-    window.router = {
-        goProfile,
-        goNews
-    }
+    window.router.register(goProfile)
+    window.router.register(goNews)
 
 })()
