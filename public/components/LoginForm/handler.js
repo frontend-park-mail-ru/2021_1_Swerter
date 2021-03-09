@@ -14,13 +14,9 @@
     }
 
     async function sendLoginRequest(data) {
-        let status = 200;
-        await http.post({ url: '/login', data: data })
-            .then((res) => { status = 200; console.log(res) })
-            .catch((err) => { status = 400; });
+        res = await http.post({ url: '/login', data: data })
 
-        console.log(status)
-        if (status === 200) {
+        if (res.status === 200) {
             router.goProfile();
         }
     }

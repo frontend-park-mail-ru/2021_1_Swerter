@@ -16,13 +16,9 @@
     }
 
     async function sendRegisterRequest(data) {
-        let status = 200;
-        await http.post({ url: '/register', data: data })
-            .then((res) => { status = 200; })
-            .catch((err) => { status = 400; });
+        res = await http.post({ url: '/register', data: data })
 
-        console.log(status)
-        if (status === 200) {
+        if (res.status === 200) {
             router.goLogin();
         }
     }
