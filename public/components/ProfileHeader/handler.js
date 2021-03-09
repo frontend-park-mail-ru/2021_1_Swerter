@@ -93,7 +93,6 @@
         }
     }
 
-
     window.profileHeader = {
         profileEdit: edit,
         profileEditSubmit: endEdit,

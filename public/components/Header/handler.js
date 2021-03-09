@@ -1,5 +1,10 @@
 (function () {
-    function goProfile() {
+    async function goProfile() {
+        let user = window.profileData.userData;
+        let profile = await http.get({url:'/profile'});
+        let userInfo = profile.body
+        user.firstName = userInfo.FirstName;
+        user.lastName = userInfo.LastName;
         application.innerHTML = profileTemplate(profileData);
     }
 

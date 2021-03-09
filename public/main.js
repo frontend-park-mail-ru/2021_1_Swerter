@@ -2,6 +2,7 @@
 
 window.application = document.getElementById("app");
 
+
 //Страница логина
 application.innerHTML = loginpageTemplate();
 
