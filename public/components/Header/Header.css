@@ -18,6 +18,7 @@
     justify-content: flex-start;
 }
 
+
 .logo {
     padding-right: 10px;
     width: 50px;
@@ -33,6 +34,7 @@
     height: 45px;
     border-radius: 100%;
     background-color: #F0F2F5;
+    box-shadow: 0 0 7px #666;
 }
 
 .search:hover {
@@ -111,4 +113,5 @@
     border-radius: 100%;
     width: 55px;
     height: 55px;
+    box-shadow: 0 0 7px #666;
 }
