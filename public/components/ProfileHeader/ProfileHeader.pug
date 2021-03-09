@@ -24,8 +24,12 @@ div(class="profile-header-content")
             else
                 div
                     form(class="profile-editing")
+                        label.profile-edit-lbl Login:
+                            input(id="input-login" class="edit-input")
+                        label.profile-edit-lbl Password:
+                            input(id="input-password" class="edit-input")
                         label.profile-edit-lbl Firstname:
-                            input(id="input-firstname" class="edit-input")
+                            input(id="input-lastname" class="edit-input")
                         label.profile-edit-lbl Lastname:
                             input(id="input-lastname" class="edit-input")
                         input(type="submit" class="btn-edit-submit-profile" onclick='profileHeader.profileEditSubmit()')
