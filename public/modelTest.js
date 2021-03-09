@@ -31,6 +31,8 @@ let profileData = {
         imgBg:"./assets/imgContent.jpg",
         imgAvatar: "./assets/imgLogo.jpg",
         modEdited:false,
+        login:"login",
+        password:"password",
         firstName:"Dima",
         lastName:"Akzhigitov",
     }

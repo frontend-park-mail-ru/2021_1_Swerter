@@ -2,10 +2,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-image: url(./assets/background.jpg);
-    background-repeat: no-repeat ;
+    background-image: url(../../assets/f-14.jpg);
     background-attachment: fixed;
-    background-size: 100%;
 }
 
 .wrap-post:first-child {

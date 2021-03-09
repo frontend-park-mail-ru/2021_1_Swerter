@@ -22,14 +22,17 @@ div(class="profile-header-content")
                         div(class="btn-edit-profile" id="btn-edit-Profile" onclick='profileHeader.profileEdit()')
                             b Edit
             else
-                div
-                    form(class="profile-editing")
+                div(class="profile-editing")
+                    div
                         label.profile-edit-lbl Login:
                             input(id="input-login" class="edit-input")
+                    div
                         label.profile-edit-lbl Password:
                             input(id="input-password" class="edit-input")
+                    div
                         label.profile-edit-lbl Firstname:
-                            input(id="input-lastname" class="edit-input")
+                            input(id="input-firstname" class="edit-input")
+                    div
                         label.profile-edit-lbl Lastname:
                             input(id="input-lastname" class="edit-input")
-                        input(type="submit" class="btn-edit-submit-profile" onclick='profileHeader.profileEditSubmit()')
+                    input(type="submit" class="btn-edit-submit-profile" onclick='profileHeader.profileEditSubmit()')

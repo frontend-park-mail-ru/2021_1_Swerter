@@ -17,15 +17,17 @@
     function edit() {
         console.log('edit')
         profileData.userData.modEdited = true
-        application.innerHTML = profileTemplate(profileData);
+        router.goProfile()
     }
 
     function endEdit() {
         console.log('end edit');
         profileData.userData.modEdited = false;
+        profileData.userData.login = document.getElementById("input-login").value;
+        profileData.userData.password = document.getElementById("input-password").value;
         profileData.userData.firstName = document.getElementById("input-firstname").value;
         profileData.userData.lastName = document.getElementById("input-lastname").value;
-        application.innerHTML = profileTemplate(profileData);
+        router.goProfile()
     }
 
     function uploadAva() {
