@@ -1,0 +1,15 @@
+.logo {
+    width: auto;
+    height: fit-content;
+}
+
+.logo__p-title {
+    font-size: 64px;
+    color: rgba(42, 92, 243, 1);
+    text-align: left;
+}
+
+.logo__p-description {
+    font-size: 36px;
+    text-align: left;
+}
