@@ -27,6 +27,7 @@ let postsData = [
 let profileData = {
     postsData,
     userData: {
+        myPage: true,
         imgBg:"./assets/imgContent.jpg",
         imgAvatar: "./assets/imgLogo.jpg",
         modEdited:false,

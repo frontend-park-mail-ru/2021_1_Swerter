@@ -1,13 +1,15 @@
 'use strict'
 
-import {HttpRequest} from './modules/http.js';
+window.application = document.getElementById("app");
 
-const application = document.getElementById("app");
+//Страница логина
+application.innerHTML = loginpageTemplate();
 
-//Страница ленты
-application.innerHTML = newsFeed(postsData);
+//Страница регистрации
+// application.innerHTML = registerpageTemplate();
 
 //Страница юзера
-// application.innerHTML = profile(postData);
+// application.innerHTML = profileTemplate(postsData);
 
-window.http = new HttpRequest('http://localhost:8000');
+//Страница ленты
+// application.innerHTML = newsfeedTemplate(postsData);

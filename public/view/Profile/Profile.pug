@@ -1,16 +1,16 @@
 mixin header(data)
-    include ../../components/header/header
+    include ../../components/Header/Header
 
 +header(profileData.userData)
 
 mixin profileHeader(data)
-    include ../../components/profile-header/profile-header
+    include ../../components/ProfileHeader/ProfileHeader
 
 -console.log(profileData)
 +profileHeader(profileData.userData)
 
 mixin post(data)
-    include ../../components/post/post
+    include ../../components/Post/Post
 
 div(class="profile-content")
     div(class="left-content-column")

@@ -1,14 +1,11 @@
 mixin header(data)
-    include ../../components/header/header
+    include ../../components/Header/Header
 
 +header(profileData.userData)
 
-style
-    include newsFeed.css
-
 mixin post(data)
     div(class="wrap-post")
-        include ../../components/post/post.pug
+        include ../../components/Post/Post
 
 
 div(class="news-feed")

@@ -17,7 +17,7 @@
     function edit() {
         console.log('edit')
         profileData.userData.modEdited = true
-        application.innerHTML = profile(profileData);
+        application.innerHTML = profileTemplate(profileData);
     }
 
     function endEdit() {
@@ -25,7 +25,7 @@
         profileData.userData.modEdited = false;
         profileData.userData.firstName = document.getElementById("input-firstname").value;
         profileData.userData.lastName = document.getElementById("input-lastname").value;
-        application.innerHTML = profile(profileData);
+        application.innerHTML = profileTemplate(profileData);
     }
 
     function uploadImg(id) {
