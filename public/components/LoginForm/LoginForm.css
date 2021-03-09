@@ -54,6 +54,10 @@
     margin-bottom: 3%;
 }
 
+.login-form__link-forget-password:hover {
+    text-decoration: underline;
+}
+
 .login-form__hr {
     width: 95%;
     margin-bottom: 5%;
