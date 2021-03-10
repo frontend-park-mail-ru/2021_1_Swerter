@@ -1,5 +1,12 @@
 (function () {
     async function goProfile() {
+        const user = await http.get({url: '/profile'});
+
+        if (user.status === 200) {
+            profileData.userData.login = user.body['login'];
+            profileData.userData.firstName = user.body['firstName'];
+            profileData.userData.lastName = user.body['lastName'];
+        }
 
         application.innerHTML = profileTemplate(profileData);
     }
