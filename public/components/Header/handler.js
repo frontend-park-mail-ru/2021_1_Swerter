@@ -6,7 +6,8 @@
             profileData.userData.login = user.body['login'];
             profileData.userData.firstName = user.body['firstName'];
             profileData.userData.lastName = user.body['lastName'];
-            profileData.userData.myPage = false;
+            profileData.userData.imgAvatar = window.profileUserAva;
+            profileData.userData.myPage = true;
         }
 
         application.innerHTML = profileTemplate(profileData);
@@ -14,10 +15,12 @@
 
     async function goFriends() {
         const user = await http.get({url: '/profile/id2'});
-
+        profileUserAva = profileData.userData.imgAvatar;
         if (user.status === 200) {
             profileData.userData.firstName = user.body['firstName'];
             profileData.userData.lastName = user.body['lastName'];
+            profileData.userData.lastName = user.body['lastName'];
+            profileData.userData.imgAvatar = '../../assets/imgUser.jpg'
             profileData.userData.myPage = false;
         }
 

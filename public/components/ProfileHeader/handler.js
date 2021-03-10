@@ -31,15 +31,15 @@
                 console.log(data)
         });
 
-        router.goProfile()
+        application.innerHTML = profileTemplate(profileData);
     }
 
     function uploadAva() {
         let input = document.createElement('input');
         input.type = 'file';
         input.onchange = e => {
-            profileData.userData.imgAvatar = URL.createObjectURL(input.files[0]);
-            router.goProfile();
+            window.profileUserAva = URL.createObjectURL(input.files[0]);
+            router.goProfile()
         }
         input.click();
     }
@@ -53,7 +53,7 @@
         }
         input.click();
     }
-
+    window.profileUserAva = './assets/imgLogo.jpg';
     window.profileData = {
         postsData: [
             {
