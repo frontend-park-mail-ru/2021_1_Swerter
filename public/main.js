@@ -2,4 +2,4 @@
 
 window.application = document.getElementById("app");
 
-application.innerHTML = loginpageTemplate();
+router.goProfile();

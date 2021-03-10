@@ -33,7 +33,7 @@
             const sib = document.getElementsByClassName('register-form__div-item')[0];
             const par = sib.parentNode;
             let errorBox = document.createElement('div')
-            errorBox.className = 'login-form__div-error';
+            errorBox.className = 'register-form__div-error';
             errorBox.innerHTML = '<h2>Введенный логин занят!</h2>';
             par.insertBefore(errorBox, sib);
         }

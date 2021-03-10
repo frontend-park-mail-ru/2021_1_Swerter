@@ -8,6 +8,9 @@
             profileData.userData.lastName = user.body['lastName'];
             profileData.userData.imgAvatar = window.profileUserAva;
             profileData.userData.myPage = true;
+        } else {
+            router.goLogin();
+            return;
         }
 
         application.innerHTML = profileTemplate(profileData);
