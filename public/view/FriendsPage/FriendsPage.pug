@@ -1,0 +1,15 @@
+mixin header(data)
+    include ../../components/Header/Header
+
++header(profileData.userData)
+
+
+mixin userCard()
+    div(class="wrap-user-card")
+        include ../../components/UserCard/UserCard
+
+div.friends-page-wrapper
+    div.people
+        div.friends
+        div.all-people
+            +userCard()

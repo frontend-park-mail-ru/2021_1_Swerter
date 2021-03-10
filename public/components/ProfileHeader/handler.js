@@ -31,7 +31,7 @@
                 console.log(data)
         });
 
-        router.goProfile()
+        application.innerHTML = profileTemplate(profileData) // Чтоб не получить старые данные с бека
     }
 
     function uploadAva() {

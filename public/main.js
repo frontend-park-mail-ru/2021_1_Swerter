@@ -2,4 +2,6 @@
 
 window.application = document.getElementById("app");
 
-application.innerHTML = loginpageTemplate();
+// application.innerHTML = loginpageTemplate();
+// application.innerHTML = profileTemplate(profileData);
+application.innerHTML = friendspageTemplate();
