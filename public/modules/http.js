@@ -71,5 +71,5 @@
 
     }
 
-    window.http = new HttpRequest('http://localhost:8000');
+    window.http = new HttpRequest('https://my-motivation-swerter.herokuapp.com');
 })()
