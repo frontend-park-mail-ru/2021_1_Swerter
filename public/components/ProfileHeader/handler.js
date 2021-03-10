@@ -35,13 +35,30 @@
     }
 
     function uploadAva() {
-        let input = document.createElement('input');
-        input.type = 'file';
-        input.onchange = e => {
-            profileData.userData.imgAvatar = URL.createObjectURL(input.files[0]);
-            router.goProfile();
+        // let input = document.createElement('input');
+        // input.type = 'file';
+        // input.onchange = e => {
+        //     profileData.userData.imgAvatar = URL.createObjectURL(input.files[0]);
+        //     router.goProfile();
+        // }
+        // input.click();
+        formElem = document.getElementById("formElem");
+        formElem.onsubmit = async (e) => {
+            e.preventDefault();
+            console.log(formElem)
+            const formData = new FormData();
+            avatarFile = document.getElementById('avatarFile')[0];
+            formData.append('avatar', avatarFile);
+            let response = await fetch('http://localhost:8000/profile/loadImg', {
+                method: 'POST',
+                mode: 'cors',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'multipart/form-data; boundary=------------------------WebKitFormBoundaryePkpFF7tjBAqx29L'
+                },
+                body: formData
+            });
         }
-        input.click();
     }
 
     function uploadBg() {

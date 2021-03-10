@@ -10,8 +10,11 @@ div(class="profile-header-content")
             div.ava-wrapper
                 img(id="ava" class="ava" src=data.imgAvatar)
                 if data.myPage
-                    div(class="upload-ava" onclick='profileHeader.uploadAva()')
-                        i(class="fas fa-camera fa-2x")
+                    form(id="formElem" enctype="multipart/form-data")
+                        input(id="avatarFile" name="avatar" type="file"  accept="image/*")
+                        input(type="submit" onclick='profileHeader.uploadAva()')
+                    //div(class="upload-ava" onclick='profileHeader.uploadAva()')
+                    //    i(class="fas fa-camera fa-2x")
         div(class="profile-info")
             if !data.modEdited
                 div(class="profile-info-content")
