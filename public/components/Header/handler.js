@@ -6,6 +6,22 @@
             profileData.userData.login = user.body['login'];
             profileData.userData.firstName = user.body['firstName'];
             profileData.userData.lastName = user.body['lastName'];
+<<<<<<< HEAD
+=======
+            profileData.userData.myPage = false;
+        }
+
+        application.innerHTML = profileTemplate(profileData);
+    }
+
+    async function goFriends() {
+        const user = await http.get({url: '/profile/id2'});
+
+        if (user.status === 200) {
+            profileData.userData.firstName = user.body['firstName'];
+            profileData.userData.lastName = user.body['lastName'];
+            profileData.userData.myPage = false;
+>>>>>>> dev
         }
 
         application.innerHTML = profileTemplate(profileData);
@@ -27,8 +43,9 @@
         }
     }
 
-    window.router.register(goProfile)
-    window.router.register(goNews)
+    window.router.register(goProfile);
+    window.router.register(goNews);
+    window.router.register(goFriends);
 
     window.logout = logout;
 })()
