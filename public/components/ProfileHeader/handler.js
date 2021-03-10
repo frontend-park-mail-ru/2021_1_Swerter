@@ -18,6 +18,7 @@
         profileData.userData.password = document.getElementById("input-password").value.replace(/<\/?[^>]+(>|$)/g, "");
         profileData.userData.firstName = document.getElementById("input-firstname").value.replace(/<\/?[^>]+(>|$)/g, "");
         profileData.userData.lastName = document.getElementById("input-lastname").value.replace(/<\/?[^>]+(>|$)/g, "");
+
         let b = profileData.userData
 
         window.http.post({url:"/profile", data: {

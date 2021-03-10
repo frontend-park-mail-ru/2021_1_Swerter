@@ -1,5 +1,6 @@
 (function () {
     async function goProfile() {
+
         application.innerHTML = profileTemplate(profileData);
     }
 

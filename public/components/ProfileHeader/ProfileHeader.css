@@ -173,6 +173,10 @@ input[type="submit" i] {
     border-radius: 10px;
 }
 
+.edit-input:invalid {
+    border: 3px solid red;
+}
+
 .profile-edit-lbl {
     font-weight: bold;
     font-size: 20px;

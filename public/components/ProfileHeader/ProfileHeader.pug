@@ -25,10 +25,10 @@ div(class="profile-header-content")
                 div(class="profile-editing")
                     div
                         label.profile-edit-lbl Login:
-                            input(id="input-login" class="edit-input")
+                            input(id="input-login" class="edit-input" pattern="^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$|^(\\+7|7|8)?[\\s\\-]?\\(?[489][0-9]{2}\\)?[\\s\\-]?[0-9]{3}[\\s\\-]?[0-9]{2}[\\s\\-]?[0-9]{2}$")
                     div
                         label.profile-edit-lbl Password:
-                            input(id="input-password" class="edit-input")
+                            input(id="input-password" class="edit-input" pattern="^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$")
                     div
                         label.profile-edit-lbl Firstname:
                             input(id="input-firstname" class="edit-input")
