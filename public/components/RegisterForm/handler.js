@@ -40,7 +40,7 @@
     }
 
     async function sendRegisterRequest(data) {
-        res = await http.post({url: '/register', data: data})
+        res = await http.post({url: '/register', data: JSON.stringify(data)})
 
         if (res.status === 200) {
             router.goLogin();

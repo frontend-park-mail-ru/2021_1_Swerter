@@ -2,5 +2,4 @@
 
 window.application = document.getElementById("app");
 
-// application.innerHTML = loginpageTemplate();
-application.innerHTML = profileTemplate();
+application.innerHTML = loginpageTemplate();

@@ -21,12 +21,12 @@
 
         let b = profileData.userData
 
-        window.http.post({url:"/profile", data: {
+        window.http.post({url:"/profile", data: JSON.stringify({
                 login: b.login,
                 password: b.password,
                 firstName: b.firstName,
                 lastName: b.lastName,
-            }})
+            })})
             .then((data)=> {
                 console.log(data)
         });
@@ -35,30 +35,19 @@
     }
 
     function uploadAva() {
-        // let input = document.createElement('input');
-        // input.type = 'file';
-        // input.onchange = e => {
-        //     profileData.userData.imgAvatar = URL.createObjectURL(input.files[0]);
-        //     router.goProfile();
-        // }
-        // input.click();
-        formElem = document.getElementById("formElem");
-        formElem.onsubmit = async (e) => {
-            e.preventDefault();
-            console.log(formElem)
-            const formData = new FormData();
-            avatarFile = document.getElementById('avatarFile')[0];
-            formData.append('avatar', avatarFile);
-            let response = await fetch('http://localhost:8000/profile/loadImg', {
-                method: 'POST',
-                mode: 'cors',
-                credentials: 'include',
-                headers: {
-                    'Content-Type': 'multipart/form-data; boundary=------------------------WebKitFormBoundaryePkpFF7tjBAqx29L'
-                },
-                body: formData
-            });
+        let input = document.createElement('input');
+        input.type = 'file';
+        input.onchange = e => {
+            let avatarFile = input.files[0];
+            let formData = new FormData();
+            formData.append("avatar", avatarFile, avatarFile.name);
+            console.log(avatarFile)
+
+            window.http.post({url: "/profile/loadImg", data: formData, headers: {}})
+            profileData.userData.imgAvatar = URL.createObjectURL(avatarFile);
+            router.goProfile();
         }
+        input.click();
     }
 
     function uploadBg() {
