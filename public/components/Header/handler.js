@@ -9,10 +9,10 @@
             profileData.userData.imgAvatar = window.profileUserAva;
             profileData.userData.myPage = true;
         } else {
+            console.log(user.status)
             router.goLogin();
             return;
         }
-
         application.innerHTML = profileTemplate(profileData);
     }
 
