@@ -10,10 +10,7 @@
         }
 
         async post(params = {
-            url: '', data: {}, headers: {
-                'Content-Type': 'application/json'
-            }
-        }) {
+            url: '', data: {}, headers : {}}) {
             return await this.#fetchUnsafe(params);
         }
 
@@ -47,7 +44,9 @@
             return parsedResponse;
         }
 
-        async #fetchUnsafe({url = '', data = JSON.stringify({}), headers = {}, method = 'POST'}) {
+        async #fetchUnsafe({url = '', data = JSON.stringify({}), headers = {
+            'Content-Type': 'application/json'
+        }, method = 'POST'}) {
             const response = await fetch(this.host + url, {
                 method: method,
                 mode: 'cors',
