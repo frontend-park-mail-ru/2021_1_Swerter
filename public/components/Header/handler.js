@@ -30,7 +30,11 @@
         application.innerHTML = profileTemplate(profileData);
     }
 
-    function goNews() {
+    async function goNews() {
+        const data = await http.get({url: '/posts'});
+        window.data = data
+        postsData = data.body
+
         application.innerHTML = newsfeedTemplate(postsData);
     }
 
