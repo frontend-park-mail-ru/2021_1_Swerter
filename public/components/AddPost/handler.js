@@ -16,7 +16,7 @@
         profileData.postsData.unshift(newPost);
         newPostPhoto = ''
         application.innerHTML = profileTemplate(profileData) //чтобы пост добавлялся моментально
-        http.post({url:"/posts/add", data: newPost})
+        http.post({url:"/posts/add", data: JSON.stringify(newPost)})
     }
 
     function uploadPostContent() {
