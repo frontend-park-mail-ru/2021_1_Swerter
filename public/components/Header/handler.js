@@ -7,12 +7,14 @@
             profileData.userData.firstName = user.body['firstName'];
             profileData.userData.lastName = user.body['lastName'];
             profileData.userData.imgAvatar = window.profileUserAva;
+            profileData.postsData = postsObjToList(user.body['postsData'])
             profileData.userData.myPage = true;
         } else {
+            console.log(user.status)
             router.goLogin();
             return;
         }
-
+        console.log(profileData.postsData)
         application.innerHTML = profileTemplate(profileData);
     }
 
@@ -22,7 +24,7 @@
         if (user.status === 200) {
             profileData.userData.firstName = user.body['firstName'];
             profileData.userData.lastName = user.body['lastName'];
-            profileData.userData.lastName = user.body['lastName'];
+            profileData.postsData = postsObjToList(user.body['postsData']);
             profileData.userData.imgAvatar = '../../assets/imgUser.jpg'
             profileData.userData.myPage = false;
         }
@@ -30,8 +32,21 @@
         application.innerHTML = profileTemplate(profileData);
     }
 
-    function goNews() {
+    async function goNews() {
+        const data = await http.get({url: '/posts'});
+        window.data = data
+        postsData = postsObjToList(data.body)
+
         application.innerHTML = newsfeedTemplate(postsData);
+    }
+
+
+    function postsObjToList(posts) {
+        let listPosts = []
+        for (key in posts) {
+            listPosts.push(posts[key])
+        }
+        return listPosts.reverse()
     }
 
     function logout() {
