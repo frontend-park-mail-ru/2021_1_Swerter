@@ -7,7 +7,8 @@
             profileData.userData.firstName = user.body['firstName'];
             profileData.userData.lastName = user.body['lastName'];
             profileData.userData.imgAvatar = window.profileUserAva;
-            profileData.postsData = postsObjToList(user.body['postsData'])
+            profileData.postsData = addMetaPosts(postsObjToList(user.body['postsData']));
+            console.log(profileData.postsData);
             profileData.userData.myPage = true;
         } else {
             console.log(user.status)
@@ -24,7 +25,7 @@
         if (user.status === 200) {
             profileData.userData.firstName = user.body['firstName'];
             profileData.userData.lastName = user.body['lastName'];
-            profileData.postsData = postsObjToList(user.body['postsData']);
+            profileData.postsData = addMetaPosts(postsObjToList(user.body['postsData']));
             profileData.userData.imgAvatar = '../../assets/imgUser.jpg'
             profileData.userData.myPage = false;
         }
@@ -42,11 +43,19 @@
 
 
     function postsObjToList(posts) {
-        let listPosts = []
+        let listPosts = [];
         for (key in posts) {
-            listPosts.push(posts[key])
+            listPosts.push(posts[key]);
         }
-        return listPosts.reverse()
+        return listPosts.reverse();
+    }
+
+    function addMetaPosts(posts) {
+        return posts.map((item) => {
+            item.imgAvatar = profileData.userData.imgAvatar;
+            item.postCreator = profileData.userData.firstName + " " + profileData.userData.lastName;
+            return item;
+        })
     }
 
     function logout() {
@@ -54,7 +63,7 @@
     }
 
     async function sendLogoutRequest() {
-        res = await http.post({ url: '/logout' })
+        res = await http.post({url: '/logout'})
 
         if (res.status === 200) {
             router.goLogin();
