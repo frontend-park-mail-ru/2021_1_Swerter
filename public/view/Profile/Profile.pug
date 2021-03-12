@@ -24,6 +24,10 @@ div(class="profile-content")
         div(class="lenta")
             if profileData.userData.myPage
                 +addPost(profileData.userData)
-            each postData in profileData.postsData
-                div(class="post-profile-wrapper")
-                    +post(postData)
+            if (profileData.postsData.length !== 0)
+                each postData in profileData.postsData
+                    div(class="post-profile-wrapper")
+                        +post(postData)
+            else
+                div(class="no-post-content")
+                    b No posts yet...
