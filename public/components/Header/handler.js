@@ -1,7 +1,7 @@
 (function () {
     async function goProfile(arg = {needUpdate: true}) {
         if(!arg.needUpdate){
-            profileData.postsData = addMetaPosts(profileData.postsData );
+            profileData.postsData = addMetaPosts(profileData.postsData);
             application.innerHTML = profileTemplate(profileData);
             return
         }
@@ -44,10 +44,12 @@
 
     async function goNews() {
         const data = await http.get({url: '/posts'});
-        window.data = data
+        console.log(data)
         postsData = postsObjToList(data.body).map((item) => {
-            item.needDownload = true;
-            return item
+            let urlImg = http.getHost() + '/static/usersAvatar/';
+            urlImg += item.imgAvatar ? item.imgAvatar : 'defaultUser.jpg';
+            item.imgAvatar = urlImg;
+            return item;
         })
 
         application.innerHTML = newsfeedTemplate(postsData);
@@ -57,6 +59,7 @@
     function postsObjToList(posts) {
         let listPosts = [];
         for (key in posts) {
+            posts[key].imgContent = posts[key].imgContent ? 'http://localhost:8000' + posts[key].imgContent : '';
             listPosts.push(posts[key]);
         }
         return listPosts.reverse();
@@ -64,7 +67,6 @@
 
     function addMetaPosts(posts) {
         return posts.map((item) => {
-            item.needDownload = true;
             item.imgAvatar = profileData.userData.imgAvatar;
             item.postCreator = profileData.userData.firstName + " " + profileData.userData.lastName;
             return item;
