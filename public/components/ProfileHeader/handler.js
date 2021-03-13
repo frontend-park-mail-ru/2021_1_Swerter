@@ -43,9 +43,9 @@
             formData.append("avatar", avatarFile, avatarFile.name);
             console.log(avatarFile)
 
-            window.http.post({url: "/profile/loadImg", data: formData, headers: {}})
-            // profileUserAva = URL.createObjectURL(avatarFile);
-            router.goProfile();
+            window.profileData.userData.imgAvatar = URL.createObjectURL(avatarFile);
+            window.http.post({url: "/profile/loadImg", data: formData, headers: {}});
+            router.goProfile(true);
         }
         input.click();
     }
@@ -60,7 +60,6 @@
         input.click();
     }
 
-    window.profileUserAva = './assets/imgLogo.jpg';
     window.profileData = {
         postsData: [],
         userData: {
@@ -72,6 +71,7 @@
             password: "password",
             firstName: "Dima",
             lastName: "Akzhigitov",
+            needUpdate: false,
         }
     }
 
