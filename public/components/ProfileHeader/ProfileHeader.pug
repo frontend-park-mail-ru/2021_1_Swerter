@@ -1,5 +1,4 @@
 -console.log(profileData.userData.imgAvatar)
-// -var = 'http://localhost:8000/static/usersAvatar/'
 div(class="profile-header-content")
     div(class="header-content")
         img(id="bg" class="background-img" src=data.imgBg)
@@ -9,7 +8,7 @@ div(class="profile-header-content")
                     i(class="fas fa-camera fa-2x")
         div(class="ava-img")
             div.ava-wrapper
-                img(id="ava" class="ava" src= window.http.getHost() + '/static/usersAvatar/' + data.imgAvatar)
+                img(id="ava" class="ava" src=data.imgAvatar)
                 if data.myPage
                     div(class="upload-ava" onclick='profileHeader.uploadAva()')
                         i(class="fas fa-camera fa-2x")
