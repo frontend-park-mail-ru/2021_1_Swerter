@@ -43,10 +43,12 @@
 
     async function goNews() {
         const data = await http.get({url: '/posts'});
-        window.data = data
+        console.log(data)
         postsData = postsObjToList(data.body).map((item) => {
-            item.needDownload = true;
-            return item
+            let urlImg = http.getHost() + '/static/usersAvatar/';
+            urlImg += item.imgAvatar ? item.imgAvatar : 'defaultUser.jpg';
+            item.imgAvatar = urlImg;
+            return item;
         })
 
         application.innerHTML = newsfeedTemplate(postsData);
