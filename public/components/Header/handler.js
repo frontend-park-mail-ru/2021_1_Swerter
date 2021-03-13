@@ -33,7 +33,8 @@
       profileData.userData.firstName = user.body['firstName'];
       profileData.userData.lastName = user.body['lastName'];
       profileData.postsData = addMetaPosts(postsObjToList(user.body['postsData']));
-      profileData.userData.imgAvatar = '../../assets/imgUser.jpg';
+      profileData.userData.imgAvatar = http.getHost() + '/static/usersAvatar/';
+      profileData.userData.imgAvatar += user.body['avatar'] ? user.body['avatar'] : 'defaultUser.jpg';
       profileData.userData.myPage = false;
     }
 
