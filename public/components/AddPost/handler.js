@@ -15,8 +15,8 @@
         }
         profileData.postsData.unshift(newPost);
         newPostPhoto = ''
-        router.goProfile()
-
+        application.innerHTML = profileTemplate(profileData) //чтобы пост добавлялся моментально
+        http.post({url:"/posts/add", data: JSON.stringify(newPost)})
     }
 
     function uploadPostContent() {

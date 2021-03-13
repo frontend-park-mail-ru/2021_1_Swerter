@@ -30,13 +30,8 @@
     }
 
     async function sendLoginRequest(data) {
-        res = await http.post({url: '/login', data: data})
+        res = await http.post({url: '/login', data: JSON.stringify(data)})
         if (res.status === 200) {
-            let user = window.profileData.userData;
-            let profile = await http.get({url: '/profile'});
-            let userInfo = profile.body
-            user.firstName = userInfo.FirstName;
-            user.lastName = userInfo.LastName;
             router.goProfile();
         } else if (res.status == 403) {
             displayLoginFormValidationError();

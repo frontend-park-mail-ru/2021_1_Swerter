@@ -21,12 +21,12 @@
 
         let b = profileData.userData
 
-        window.http.post({url:"/profile", data: {
+        window.http.post({url:"/profile", data: JSON.stringify({
                 login: b.login,
                 password: b.password,
                 firstName: b.firstName,
                 lastName: b.lastName,
-            }})
+            })})
             .then((data)=> {
                 console.log(data)
         });
@@ -37,9 +37,15 @@
     function uploadAva() {
         let input = document.createElement('input');
         input.type = 'file';
-        input.onchange = e => {
-            window.profileUserAva = URL.createObjectURL(input.files[0]);
-            router.goProfile()
+
+            let avatarFile = input.files[0];
+            let formData = new FormData();
+            formData.append("avatar", avatarFile, avatarFile.name);
+            console.log(avatarFile)
+
+            window.http.post({url: "/profile/loadImg", data: formData, headers: {}})
+            // profileUserAva = URL.createObjectURL(avatarFile);
+            router.goProfile();
         }
         input.click();
     }
