@@ -36,7 +36,6 @@
         }
         formData.append('textPost', textPost);
         formData.append('date', datetime);
-        application.innerHTML = profileTemplate(profileData); //чтобы пост добавлялся моментально
         http.post({url: "/posts/add", data: formData, headers: {}});
         postContentFile = '';
     }

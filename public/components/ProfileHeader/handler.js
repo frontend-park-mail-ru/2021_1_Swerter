@@ -21,15 +21,17 @@
 
         let b = profileData.userData
 
-        window.http.post({url:"/profile", data: JSON.stringify({
+        window.http.post({
+            url: "/profile", data: JSON.stringify({
                 login: b.login,
                 password: b.password,
                 firstName: b.firstName,
                 lastName: b.lastName,
-            })})
-            .then((data)=> {
+            })
+        })
+            .then((data) => {
                 console.log(data)
-        });
+            });
 
         application.innerHTML = profileTemplate(profileData);
     }
@@ -45,7 +47,7 @@
 
             window.profileData.userData.imgAvatar = URL.createObjectURL(avatarFile);
             window.http.post({url: "/profile/loadImg", data: formData, headers: {}});
-            router.goProfile(true);
+            router.goProfile({needUpdate: false});
         }
         input.click();
     }

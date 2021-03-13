@@ -1,15 +1,19 @@
 (function () {
-    async function goProfile(needUpdate = false) {
+    async function goProfile(arg = {needUpdate: true}) {
+        if(!arg.needUpdate){
+            profileData.postsData = addMetaPosts(profileData.postsData );
+            application.innerHTML = profileTemplate(profileData);
+            return
+        }
         const user = await http.get({url: '/profile'});
         console.log(user)
         if (user.status === 200) {
             profileData.userData.login = user.body['login'];
             profileData.userData.firstName = user.body['firstName'];
             profileData.userData.lastName = user.body['lastName'];
-            if (!needUpdate) {
-                profileData.userData.imgAvatar = http.getHost() + '/static/usersAvatar/';
-                profileData.userData.imgAvatar += user.body['avatar'] ? user.body['avatar'] : 'defaultUser.jpg';
-            }
+
+            profileData.userData.imgAvatar = http.getHost() + '/static/usersAvatar/';
+            profileData.userData.imgAvatar += user.body['avatar'] ? user.body['avatar'] : 'defaultUser.jpg';
 
             profileData.postsData = addMetaPosts(postsObjToList(user.body['postsData']));
             console.log(profileData.postsData);
