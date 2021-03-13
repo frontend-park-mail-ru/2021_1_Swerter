@@ -29,12 +29,12 @@
 
   async function goFriends() {
     const user = await http.get({url: '/profile/id2'});
-    profileUserAva = profileData.userData.imgAvatar;
     if (user.status === 200) {
       profileData.userData.firstName = user.body['firstName'];
       profileData.userData.lastName = user.body['lastName'];
       profileData.postsData = addMetaPosts(postsObjToList(user.body['postsData']));
-      profileData.userData.imgAvatar = '../../assets/imgUser.jpg';
+      profileData.userData.imgAvatar = http.getHost() + '/static/usersAvatar/';
+      profileData.userData.imgAvatar += user.body['avatar'] ? user.body['avatar'] : 'defaultUser.jpg';
       profileData.userData.myPage = false;
     }
 
@@ -54,6 +54,14 @@
     application.innerHTML = newsfeedTemplate(postsData);
   }
 
+  function postsObjToList(posts) {
+    const listPosts = [];
+    for (key in posts) {
+      posts[key].imgContent = posts[key].imgContent ? http.getHost() + posts[key].imgContent : '';
+      listPosts.push(posts[key]);
+    }
+    return listPosts.reverse();
+  }
 
   function postsObjToList(posts) {
     const listPosts = [];
