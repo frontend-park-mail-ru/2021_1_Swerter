@@ -1,6 +1,6 @@
 div(class="post")
     div(class="post-header")
-        img(class="avatar-in-post" src=data.imgAvatar)
+        img(class="avatar-in-post" src=window.http.getHost() + '/static/usersAvatar/' + data.imgAvatar)
         div(class="post-info")
             span(class="post-creator") #{data.postCreator}
             span(clss="date") #{data.date}

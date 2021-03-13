@@ -5,6 +5,10 @@
             this.host = host;
         }
 
+        getHost() {
+            return this.host;
+        }
+
         async get(params = {url: ''}) {
             return await this.#fetchSafe(params);
         }
