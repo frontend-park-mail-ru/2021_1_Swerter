@@ -3,6 +3,7 @@
   let postContentFile = '';
 
   function addPost() {
+    textPost = document.getElementById('text-post').value.replace(/<\/?[^>]+(>|$)/g, '');
     addFrontendPost();
     addBackendPost();
   }
@@ -16,7 +17,7 @@
       imgAvatar: u.imgAvatar,
       postCreator: u.firstName + ' ' + u.lastName,
       date: datetime,
-      textPost: document.getElementById('text-post').value.replace(/<\/?[^>]+(>|$)/g, ''),
+      textPost,
     };
     if (newPostPhoto) {
       newPost.imgContent = newPostPhoto;
@@ -29,12 +30,11 @@
   function addBackendPost() {
     const currentDate = new Date();
     const datetime = currentDate.getDay() + '.' + currentDate.getMonth() + '.' + currentDate.getFullYear();
-    const textPost = document.getElementById('text-post').value.replace(/<\/?[^>]+(>|$)/g, '');
-    // Не нужно отправлять инфу о юзере, потому что только авторизированный делает посты. Бек знает пользователя
     const formData = new FormData();
     if (postContentFile) {
       formData.append('imgContent', postContentFile, postContentFile.name);
     }
+    console.log(textPost);
     formData.append('textPost', textPost);
     formData.append('date', datetime);
     http.post({url: '/posts/add', data: formData, headers: {}});
