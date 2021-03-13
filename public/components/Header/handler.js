@@ -29,7 +29,6 @@
 
     async function goFriends() {
         const user = await http.get({url: '/profile/id2'});
-        profileUserAva = profileData.userData.imgAvatar;
         if (user.status === 200) {
             profileData.userData.firstName = user.body['firstName'];
             profileData.userData.lastName = user.body['lastName'];
@@ -58,7 +57,7 @@
     function postsObjToList(posts) {
         let listPosts = [];
         for (key in posts) {
-            posts[key].imgContent = posts[key].imgContent ? 'http://localhost:8000' + posts[key].imgContent : '';
+            posts[key].imgContent = posts[key].imgContent ? http.getHost() + posts[key].imgContent : '';
             listPosts.push(posts[key]);
         }
         return listPosts.reverse();
