@@ -37,7 +37,7 @@
     function uploadAva() {
         let input = document.createElement('input');
         input.type = 'file';
-
+        input.onchange = e => {
             let avatarFile = input.files[0];
             let formData = new FormData();
             formData.append("avatar", avatarFile, avatarFile.name);
