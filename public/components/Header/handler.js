@@ -6,7 +6,7 @@
             profileData.userData.login = user.body['login'];
             profileData.userData.firstName = user.body['firstName'];
             profileData.userData.lastName = user.body['lastName'];
-            profileData.userData.imgAvatar = user.body['avatar'];;
+            profileData.userData.imgAvatar = user.body['avatar'] ? user.body['avatar'] : 'defaultUser.jpg';
             profileData.postsData = addMetaPosts(postsObjToList(user.body['postsData']));
             console.log(profileData.postsData);
 
