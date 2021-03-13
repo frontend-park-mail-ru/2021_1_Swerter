@@ -14,6 +14,7 @@
 
             profileData.userData.imgAvatar = http.getHost() + '/static/usersAvatar/';
             profileData.userData.imgAvatar += user.body['avatar'] ? user.body['avatar'] : 'defaultUser.jpg';
+            window.userAvatar = profileData.userData.imgAvatar
 
             profileData.postsData = addMetaPosts(postsObjToList(user.body['postsData']));
             console.log(profileData.postsData);
