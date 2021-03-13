@@ -58,7 +58,7 @@
   function postsObjToList(posts) {
     const listPosts = [];
     for (key in posts) {
-      posts[key].imgContent = posts[key].imgContent ? 'http://localhost:8000' + posts[key].imgContent : '';
+      posts[key].imgContent = posts[key].imgContent ? http.getHost() + posts[key].imgContent : '';
       listPosts.push(posts[key]);
     }
     return listPosts.reverse();
