@@ -6,7 +6,8 @@
   "scripts": {
     "start": "DEBUG=* node server/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "pug -c -E tmpl.js -D ./public/view --name-after-file"
+    "build": "pug -c -E tmpl.js -D ./public/view --name-after-file",
+    "lint": "npx eslint --fix --ignore-pattern *.tmpl.js public/"
   },
   "repository": {
     "type": "git",
@@ -23,5 +24,11 @@
     "debug": "^4.3.1",
     "fs": "0.0.1-security",
     "http": "0.0.1-security"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.17.0",
+    "@typescript-eslint/parser": "^4.17.0",
+    "eslint": "^7.22.0",
+    "eslint-config-google": "^0.14.0"
   }
 }

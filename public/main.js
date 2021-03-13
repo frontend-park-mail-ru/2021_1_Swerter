@@ -1,5 +1,5 @@
-'use strict'
+'use strict';
 
-window.application = document.getElementById("app");
+window.application = document.getElementById('app');
 
 router.goProfile();

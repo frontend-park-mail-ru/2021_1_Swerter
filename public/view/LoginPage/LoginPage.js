@@ -1,5 +1,5 @@
 export class LoginPage {
-    render() {
-        application.innerHTML = loginpageTemplate();
-    }
+  render() {
+    application.innerHTML = loginpageTemplate();
+  }
 }
