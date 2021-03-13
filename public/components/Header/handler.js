@@ -1,16 +1,18 @@
 (function () {
-    async function goProfile() {
+    async function goProfile(needUpdate = false) {
         const user = await http.get({url: '/profile'});
-
+        console.log(user)
         if (user.status === 200) {
             profileData.userData.login = user.body['login'];
             profileData.userData.firstName = user.body['firstName'];
             profileData.userData.lastName = user.body['lastName'];
+            if (!needUpdate) {
+                profileData.userData.imgAvatar = http.getHost() + '/static/usersAvatar/';
+                profileData.userData.imgAvatar += user.body['avatar'] ? user.body['avatar'] : 'defaultUser.jpg';
+            }
 
-            profileData.userData.imgAvatar = user.body['avatar'];;
             profileData.postsData = addMetaPosts(postsObjToList(user.body['postsData']));
             console.log(profileData.postsData);
-
             profileData.userData.myPage = true;
         } else {
             console.log(user.status)
@@ -39,7 +41,10 @@
     async function goNews() {
         const data = await http.get({url: '/posts'});
         window.data = data
-        postsData = postsObjToList(data.body)
+        postsData = postsObjToList(data.body).map((item) => {
+            item.needDownload = true;
+            return item
+        })
 
         application.innerHTML = newsfeedTemplate(postsData);
     }
@@ -55,6 +60,7 @@
 
     function addMetaPosts(posts) {
         return posts.map((item) => {
+            item.needDownload = true;
             item.imgAvatar = profileData.userData.imgAvatar;
             item.postCreator = profileData.userData.firstName + " " + profileData.userData.lastName;
             return item;
