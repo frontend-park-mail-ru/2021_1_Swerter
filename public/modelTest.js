@@ -1,4 +1,4 @@
-const postsData = [
+let postsData = [
   {
     imgAvatar: './assets/imgUser.jpg',
     imgContent: './assets/imgContent.jpg',
@@ -24,7 +24,7 @@ const postsData = [
   },
 ];
 
-const postData = {
+let postData = {
   imgAvatar: './assets/imgUser.jpg',
   imgContent: './assets/imgContent.jpg',
   postCreator: 'Vasya pupkin',
