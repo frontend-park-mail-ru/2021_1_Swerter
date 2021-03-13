@@ -5,10 +5,8 @@ div(class="post")
             span(class="post-creator") #{data.postCreator}
             span(clss="date") #{data.date}
     div(class="post-content")
-        if data.needDownload
-            img(class="content-img" src='http://localhost:8000' + data.imgContent)
-        else
-            img(class="content-img" src= data.imgContent)
+        if data.imgContent
+            img(class="content-img" src=data.imgContent)
         if data.textPost
             p(class="content-text") #{data.textPost}
     div(class="post-footer")

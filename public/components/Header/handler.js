@@ -1,15 +1,20 @@
 (function () {
-    async function goProfile(needUpdate = false) {
+    async function goProfile(arg = {needUpdate: true}) {
+        if(!arg.needUpdate){
+            profileData.postsData = addMetaPosts(profileData.postsData);
+            application.innerHTML = profileTemplate(profileData);
+            return
+        }
         const user = await http.get({url: '/profile'});
         console.log(user)
         if (user.status === 200) {
             profileData.userData.login = user.body['login'];
             profileData.userData.firstName = user.body['firstName'];
             profileData.userData.lastName = user.body['lastName'];
-            if (!needUpdate) {
-                profileData.userData.imgAvatar = http.getHost() + '/static/usersAvatar/';
-                profileData.userData.imgAvatar += user.body['avatar'] ? user.body['avatar'] : 'defaultUser.jpg';
-            }
+
+            profileData.userData.imgAvatar = http.getHost() + '/static/usersAvatar/';
+            profileData.userData.imgAvatar += user.body['avatar'] ? user.body['avatar'] : 'defaultUser.jpg';
+            window.userAvatar = profileData.userData.imgAvatar
 
             profileData.postsData = addMetaPosts(postsObjToList(user.body['postsData']));
             console.log(profileData.postsData);
@@ -40,10 +45,12 @@
 
     async function goNews() {
         const data = await http.get({url: '/posts'});
-        window.data = data
+        console.log(data)
         postsData = postsObjToList(data.body).map((item) => {
-            item.needDownload = true;
-            return item
+            let urlImg = http.getHost() + '/static/usersAvatar/';
+            urlImg += item.imgAvatar ? item.imgAvatar : 'defaultUser.jpg';
+            item.imgAvatar = urlImg;
+            return item;
         })
 
         application.innerHTML = newsfeedTemplate(postsData);
@@ -53,6 +60,7 @@
     function postsObjToList(posts) {
         let listPosts = [];
         for (key in posts) {
+            posts[key].imgContent = posts[key].imgContent ? 'http://localhost:8000' + posts[key].imgContent : '';
             listPosts.push(posts[key]);
         }
         return listPosts.reverse();
@@ -60,7 +68,6 @@
 
     function addMetaPosts(posts) {
         return posts.map((item) => {
-            item.needDownload = true;
             item.imgAvatar = profileData.userData.imgAvatar;
             item.postCreator = profileData.userData.firstName + " " + profileData.userData.lastName;
             return item;

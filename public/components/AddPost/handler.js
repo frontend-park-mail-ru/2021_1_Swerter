@@ -15,13 +15,15 @@
         let newPost = {
             needDownload:false,
             imgAvatar: u.imgAvatar,
-            imgContent: newPostPhoto,
             postCreator: u.firstName + " " + u.lastName,
             date: datetime,
             textPost: document.getElementById("text-post").value.replace(/<\/?[^>]+(>|$)/g, "")
         }
+        if (newPostPhoto) {
+            newPost.imgContent = newPostPhoto;
+        }
         profileData.postsData.unshift(newPost);
-        application.innerHTML = profileTemplate(profileData); //чтобы пост добавлялся моментально
+        router.goProfile({needUpdate:false})
         newPostPhoto = '';
     }
 
@@ -36,7 +38,6 @@
         }
         formData.append('textPost', textPost);
         formData.append('date', datetime);
-        application.innerHTML = profileTemplate(profileData); //чтобы пост добавлялся моментально
         http.post({url: "/posts/add", data: formData, headers: {}});
         postContentFile = '';
     }
