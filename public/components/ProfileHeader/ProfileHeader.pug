@@ -8,7 +8,7 @@ div(class="profile-header-content")
                     i(class="fas fa-camera fa-2x")
         div(class="ava-img")
             div.ava-wrapper
-                img(id="ava" class="ava" src=data.imgAvatar)
+                img(id="ava" class="ava" src='http://localhost:8000/static/usersAvatar/' + data.imgAvatar)
                 if data.myPage
                     div(class="upload-ava" onclick='profileHeader.uploadAva()')
                         i(class="fas fa-camera fa-2x")

@@ -44,7 +44,7 @@
             console.log(avatarFile)
 
             window.http.post({url: "/profile/loadImg", data: formData, headers: {}})
-            profileUserAva = URL.createObjectURL(avatarFile);
+            // profileUserAva = URL.createObjectURL(avatarFile);
             router.goProfile();
         }
         input.click();

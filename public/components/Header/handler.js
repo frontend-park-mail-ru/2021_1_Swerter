@@ -6,7 +6,7 @@
             profileData.userData.login = user.body['login'];
             profileData.userData.firstName = user.body['firstName'];
             profileData.userData.lastName = user.body['lastName'];
-            profileData.userData.imgAvatar = window.profileUserAva;
+            profileData.userData.imgAvatar = user.body['avatar'];
             profileData.userData.myPage = true;
         } else {
             router.goLogin();
