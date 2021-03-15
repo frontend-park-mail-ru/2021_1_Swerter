@@ -47,11 +47,16 @@
     input.type = 'file';
     input.onchange = (e) => {
       postContentFile = input.files[0];
+      addImgName(postContentFile.name);
       newPostPhoto = URL.createObjectURL(postContentFile);
     };
     input.click();
   }
 
+  function addImgName(fileName) {
+    const imgPostName = document.getElementById('uploaded-post-img');
+    imgPostName.innerText = fileName.slice(0, 15)+ '...';
+  }
 
   window.addPost = addPost;
   window.uploadPostContent = uploadPostContent;

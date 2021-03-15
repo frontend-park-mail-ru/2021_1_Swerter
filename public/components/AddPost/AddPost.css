@@ -6,6 +6,7 @@
     flex-direction: column;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
     background-color: #FFFFFF;
+    position: relative;
 }
 
 .add-text-content {
@@ -40,6 +41,11 @@
     padding: 12px;
     border: none;
     width: 500px;
+}
+
+.add-btn-wrapper {
+    display: flex;
+    flex-direction: column;
 }
 
 .add-media-wrap {
@@ -85,4 +91,15 @@
 
 .btn-add-post:hover {
     cursor: pointer;
+}
+
+.uploaded-post-img {
+    max-width: 50px;
+    max-height: 30px;
+    bottom: 10px;
+    position: absolute;
+    padding: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
