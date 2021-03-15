@@ -14,7 +14,7 @@
 
       profileData.userData.imgAvatar = http.getHost() + '/static/usersAvatar/';
       profileData.userData.imgAvatar += user.body['avatar'] ? user.body['avatar'] : 'defaultUser.jpg';
-      window.userAvatar = profileData.userData.imgAvatar
+      window.userAvatar = profileData.userData.imgAvatar;
 
       profileData.postsData = addMetaPosts(postsObjToList(user.body['postsData']));
       console.log(profileData.postsData);
@@ -37,6 +37,7 @@
       profileData.userData.imgAvatar = http.getHost() + '/static/usersAvatar/';
       profileData.userData.imgAvatar += user.body['avatar'] ? user.body['avatar'] : 'defaultUser.jpg';
       profileData.userData.myPage = false;
+      profileData.userData.modEdited = false;
     }
 
     application.innerHTML = profileTemplate(profileData);

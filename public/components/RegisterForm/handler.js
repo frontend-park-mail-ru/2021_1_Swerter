@@ -40,11 +40,13 @@
   }
 
   async function sendRegisterRequest(data) {
-    res = await http.post({url: '/register', data: JSON.stringify(data)});
-
-    if (res.status === 200) {
-      router.goLogin();
-    } else if (res.status === 403) {
+    resReg = await http.post({url: '/register', data: JSON.stringify(data)});
+    if (resReg.status === 200) {
+      resLogin = await http.post({url: '/login', data: JSON.stringify(data)});
+      if (resLogin.status == 200) {
+        router.goProfile();
+      }
+    } else if (resReg.status === 403) {
       displayRegisterFormValidationError();
     }
   }
