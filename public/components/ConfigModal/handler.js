@@ -7,26 +7,35 @@
     router.goProfile();
   }
 
-  async function endEdit() {
-    console.log('end edit');
-    profileData.userData.modEdited = false;
-    profileData.userData.firstName = document.getElementById('input-firstname').value.replace(/<\/?[^>]+(>|$)/g, '');
-    profileData.userData.lastName = document.getElementById('input-lastname').value.replace(/<\/?[^>]+(>|$)/g, '');
-
-    const b = profileData.userData;
-
-    window.http.post({
-      url: '/profile', data: JSON.stringify({
-        firstName: b.firstName,
-        lastName: b.lastName,
-      }),
-    })
-        .then((data) => {
-          console.log(data);
-        });
-
-    router.goProfile({needUpdate: false});
+  async function submitChangeLogin() {
+    const login = document.getElementById('input-new-login').value.replace(/<\/?[^>]+(>|$)/g, '');
+    result = await window.http.post({
+      url: '/profile',
+      data: JSON.stringify({login}),
+    });
+    if (result.status === 200) {
+      profileData.userData.changeLogin = false;
+      router.goProfile({needUpdate: false});
+    }
   }
 
+  async function submitChangePassword() {
+    // const oldPassword = document.getElementById('input-new-login').value.replace(/<\/?[^>]+(>|$)/g, '');
+    const newPassword = document.getElementById('input-new-password').value.replace(/<\/?[^>]+(>|$)/g, '');
+    // const repNewPassword = document.getElementById('input-new-login').value.replace(/<\/?[^>]+(>|$)/g, '');
+    result = await window.http.post({
+      url: '/profile',
+      data: JSON.stringify({
+        'password': newPassword,
+      }),
+    });
+    if (result.status === 200) {
+      profileData.userData.changePassword = false;
+      router.goProfile({needUpdate: false});
+    }
+  }
+
+  window.submitChangePassword = submitChangePassword;
+  window.submitChangeLogin = submitChangeLogin;
   window.closeModal = closeModal;
 })();
