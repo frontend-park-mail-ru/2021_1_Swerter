@@ -94,9 +94,16 @@
     }
   }
 
+
+  function showModal() {
+    profileData.userData.adminEdited = true;
+    router.goProfile();
+  }
+
   window.router.register(goProfile);
   window.router.register(goNews);
   window.router.register(goFriends);
 
   window.logout = logout;
+  window.showModal = showModal;
 })();

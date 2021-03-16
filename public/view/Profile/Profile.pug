@@ -15,6 +15,9 @@ mixin post(data)
 mixin addPost(data)
     include ../../components/AddPost/AddPost
 
+mixin modalConf(data)
+    include ../../components/ConfigModal/ConfigModal
+
 div(class="profile-content")
     div(class="left-content-column")
         div(class="left-content-1")
@@ -31,3 +34,6 @@ div(class="profile-content")
             else
                 div(class="no-post-content")
                     b No posts yet...
+
+if profileData.userData.adminEdited
+    +modalConf(profileData.userData)
