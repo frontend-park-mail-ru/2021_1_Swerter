@@ -1,9 +1,9 @@
-(function() {
-  class Router {
-    register(route) {
-      this[route.name] = route;
-    }
+class Router {
+  register(route) {
+    this[route.name] = route;
   }
+}
 
-  window.router = new Router();
-})();
+export let router = new Router()
+// window.router = new Router();
+

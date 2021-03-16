@@ -1,11 +1,17 @@
+import {router} from '../../modules/router.js';
+
 (function() {
   function goLogin() {
     application.innerHTML = loginpageTemplate();
+    document.getElementById('submit-go-register').addEventListener('click', function() {
+      router.goRegister();
+    });
+    document.getElementById('submit-login-form').addEventListener('click', submitLoginForm);
   }
 
   function submitLoginForm() {
-    login = document.getElementsByName('login')[0];
-    password = document.getElementsByName('password')[0];
+    const login = document.getElementsByName('login')[0];
+    const password = document.getElementsByName('password')[0];
 
     if (login.checkValidity() === true && password.checkValidity() === true) {
       const data = {
@@ -29,7 +35,7 @@
   }
 
   async function sendLoginRequest(data) {
-    res = await http.post({url: '/login', data: JSON.stringify(data)});
+    const res = await http.post({url: '/login', data: JSON.stringify(data)});
     if (res.status === 200) {
       router.goProfile();
     } else if (res.status == 403) {
@@ -37,6 +43,10 @@
     }
   }
 
-  window.router.register(goLogin);
+  function goRegister() {
+    router.goRegister();
+  }
+
+  router.register(goLogin);
   window.submitLoginForm = submitLoginForm;
 })();

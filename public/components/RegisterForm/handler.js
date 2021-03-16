@@ -1,15 +1,17 @@
+import {router} from '../../modules/router.js';
+
 (function() {
   function goRegister() {
     console.log('Register');
     application.innerHTML = registerpageTemplate();
+    document.getElementById('submit-register-form').addEventListener('click', submitRegisterForm );
   }
-
   function submitRegisterForm() {
-    login = document.getElementsByName('login')[0];
-    password = document.getElementsByName('password')[0];
-    passwordRepeat = document.getElementsByName('password-repeat')[0];
-    firstName = document.getElementsByName('first-name')[0];
-    lastName = document.getElementsByName('last-name')[0];
+    let login = document.getElementsByName('login')[0];
+    let password = document.getElementsByName('password')[0];
+    let passwordRepeat = document.getElementsByName('password-repeat')[0];
+    let firstName = document.getElementsByName('first-name')[0];
+    let lastName = document.getElementsByName('last-name')[0];
 
     if (login.checkValidity() === true &&
             password.checkValidity() === true &&
@@ -40,7 +42,7 @@
   }
 
   async function sendRegisterRequest(data) {
-    res = await http.post({url: '/register', data: JSON.stringify(data)});
+    let res = await http.post({url: '/register', data: JSON.stringify(data)});
 
     if (res.status === 200) {
       router.goLogin();
@@ -49,7 +51,7 @@
     }
   }
 
-  window.router.register(goRegister);
+  router.register(goRegister);
   window.displayRegisterFormValidationError = displayRegisterFormValidationError;
   window.submitRegisterForm = submitRegisterForm;
 })();
