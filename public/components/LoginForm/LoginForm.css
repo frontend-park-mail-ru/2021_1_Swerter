@@ -49,6 +49,10 @@
     cursor: pointer;
 }
 
+.login-form__button-login:focus {
+    outline: none;
+}
+
 .login-form__span-forget-password {
     text-align: center;
     margin-bottom: 3%;
@@ -79,6 +83,10 @@
 .login-form__button-register:hover {
     opacity: 0.9;
     cursor: pointer;
+}
+
+.login-form__button-register:focus {
+    outline: none;
 }
 
 .login-form__input_login:focus:invalid {
