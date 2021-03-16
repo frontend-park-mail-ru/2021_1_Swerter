@@ -94,9 +94,27 @@
     }
   }
 
+  function editCreds() {
+    profileData.userData.editCreds = !profileData.userData.editCreds;
+    router.goProfile();
+  }
+
+  function changePassword() {
+    profileData.userData.changePassword = true;
+    router.goProfile();
+  }
+
+  function changeLogin() {
+    profileData.userData.changeLogin = true;
+    router.goProfile();
+  }
+
   window.router.register(goProfile);
   window.router.register(goNews);
   window.router.register(goFriends);
 
+  window.changeLogin = changeLogin;
+  window.changePassword = changePassword;
   window.logout = logout;
+  window.editCreds = editCreds;
 })();

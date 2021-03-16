@@ -18,11 +18,14 @@ div(class="header")
             div(class="menu-item news" onclick="router.goNews()")
                 i(class="fas fa-newspaper fa-2x")
     div(class="section-h-3")
-            //div(class="widget plus")
-            //    i(class="far fa-plus-square fa-2x")
-            //div(class="widget notify")
-            //    i(class="far fa-bell fa-2x")
-            div(class="widget account")
-                img(class="img-profile" src =srcAvatar)
-            div(class="widget logout" onclick='window.logout()')
-                i(class="fas fa-sign-in-alt fa-2x")
+        div(class="widget settings" onclick="editCreds()")
+            i(class="fas fa-cog fa-2x")
+            if data.editCreds
+                div.popup-wrapper
+                    div.popup-settings
+                        div.popup-field(onclick="changePassword()") Change password
+                        div.popup-field(onclick="changeLogin()") Change login
+        div(class="widget account")
+            img(class="img-profile" src =srcAvatar)
+        div(class="widget logout" onclick='window.logout()')
+            i(class="fas fa-sign-in-alt fa-2x")

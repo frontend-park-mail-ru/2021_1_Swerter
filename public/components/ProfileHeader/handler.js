@@ -14,8 +14,6 @@
   async function endEdit() {
     console.log('end edit');
     profileData.userData.modEdited = false;
-    profileData.userData.login = document.getElementById('input-login').value.replace(/<\/?[^>]+(>|$)/g, '');
-    profileData.userData.password = document.getElementById('input-password').value.replace(/<\/?[^>]+(>|$)/g, '');
     profileData.userData.firstName = document.getElementById('input-firstname').value.replace(/<\/?[^>]+(>|$)/g, '');
     profileData.userData.lastName = document.getElementById('input-lastname').value.replace(/<\/?[^>]+(>|$)/g, '');
 
@@ -23,8 +21,6 @@
 
     window.http.post({
       url: '/profile', data: JSON.stringify({
-        login: b.login,
-        password: b.password,
         firstName: b.firstName,
         lastName: b.lastName,
       }),
