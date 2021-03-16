@@ -97,5 +97,6 @@
     justify-content: center;
     align-items: center;
     border: 2px solid #e20808;
+    text-align: center;
     border-radius: 10px;
 }
