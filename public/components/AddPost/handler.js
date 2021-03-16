@@ -1,10 +1,14 @@
 import {router} from '../../modules/router.js';
+import {http} from '../../modules/http.js';
 
 let newPostPhoto = '';
 let postContentFile = '';
 let textPost;
 
-function
+function addCreatePostListeners() {
+  document.getElementById('add-post').addEventListener('click', addPost);
+  document.getElementById('upload-post-content').addEventListener('click', uploadPostContent);
+}
 
 function addPost() {
   textPost = document.getElementById('text-post').value.replace(/<\/?[^>]+(>|$)/g, '');
@@ -45,7 +49,6 @@ function addBackendPost() {
   postContentFile = '';
 }
 
-
 function uploadPostContent() {
   const input = document.createElement('input');
   input.type = 'file';
@@ -56,6 +59,5 @@ function uploadPostContent() {
   input.click();
 }
 
+export {addCreatePostListeners};
 
-window.addPost = addPost;
-window.uploadPostContent = uploadPostContent;

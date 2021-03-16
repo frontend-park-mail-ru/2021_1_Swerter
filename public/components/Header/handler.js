@@ -1,20 +1,36 @@
 import {router} from '../../modules/router.js';
+import {http} from '../../modules/http.js';
+import {addProfileHeaderListener} from '../ProfileHeader/handler.js';
+import {addCreatePostListeners} from '../AddPost/handler.js';
 
-
-function addListeners() {
+function addHeaderListeners() {
+  document.getElementById('news-block').addEventListener('click', goNews);
+  document.getElementById('friends-block').addEventListener('click', goFriends);
+  document.getElementById('logout-block').addEventListener('click', sendLogoutRequest);
   document.getElementById('profile-block').addEventListener('click', function() {
     goProfile();
   });
-  document.getElementById('friends-block').addEventListener('click', goFriends);
-  document.getElementById('news-block').addEventListener('click', goNews);
-  document.getElementById('logout-block').addEventListener('click', sendLogoutRequest);
+}
+
+function addProfileListeners() {
+  addHeaderListeners();
+  addCreatePostListeners();
+  addProfileHeaderListener();
+}
+
+function addNewsListeners() {
+  addHeaderListeners();
+}
+
+function addFriendsListeners() {
+  addHeaderListeners();
 }
 
 async function goProfile(arg = {needUpdate: true}) {
   if (!arg.needUpdate) {
     profileData.postsData = addMetaPosts(profileData.postsData);
     application.innerHTML = profileTemplate(profileData);
-    addListeners();
+    addProfileListeners();
     return;
   }
   const user = await http.get({url: '/profile'});
@@ -38,7 +54,7 @@ async function goProfile(arg = {needUpdate: true}) {
   }
   console.log(profileData.postsData);
   application.innerHTML = profileTemplate(profileData);
-  addListeners();
+  addProfileListeners();
 }
 
 async function goFriends() {
@@ -53,7 +69,7 @@ async function goFriends() {
   }
 
   application.innerHTML = profileTemplate(profileData);
-  addListeners();
+  addFriendsListeners();
 }
 
 async function goNews() {
@@ -67,7 +83,7 @@ async function goNews() {
   });
 
   application.innerHTML = newsfeedTemplate(postsData);
-  addListeners();
+  addNewsListeners();
 }
 
 function postsObjToList(posts) {

@@ -4,6 +4,5 @@ class Router {
   }
 }
 
-export let router = new Router()
-// window.router = new Router();
+export let router = new Router();
 

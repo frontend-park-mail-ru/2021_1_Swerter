@@ -2,7 +2,7 @@ div(class='register-form')
     div(class='register-form__content')
         div(class='register-form__header')
             div(class='register-form__title') Регистрация
-            div(class='register-form__div-close' onclick='router.goLogin()')
+            div(id="register-go-login" class='register-form__div-close')
                 img(src='assets/close.png' class='register-form__img-close')
         div(class='register-form__div-item')
             input(type='text' name='login' class='register-form__input' required pattern='^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$|^(\\+7|7|8)?[\\s\\-]?\\(?[489][0-9]{2}\\)?[\\s\\-]?[0-9]{3}[\\s\\-]?[0-9]{2}[\\s\\-]?[0-9]{2}$' autocomplete='on' placeholder='Электронный адрес или номер телефона')
