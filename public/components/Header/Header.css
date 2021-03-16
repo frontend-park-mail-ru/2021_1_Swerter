@@ -85,6 +85,7 @@
 }
 
 .widget {
+    position: relative;
     color: #2C2C2C;
     display: flex;
     justify-content: center;
@@ -115,4 +116,43 @@
     width: 55px;
     height: 55px;
     box-shadow: 0 0 7px #666;
+}
+
+.popup-wrapper {
+    border-radius: 15px;
+    position: fixed;
+    top: 70px;
+    right: 300px;
+    display: flex;
+    flex-direction: column;
+    z-index: 2;
+}
+
+.popup-settings {
+    border-radius: inherit;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    width: 200%;
+    box-shadow: 0 0 6px rgb(0 0 0 / 75%);
+}
+
+.popup-field {
+    padding: 15px;
+}
+
+.popup-field:first-child {
+    font-size: 25px;
+    border-radius: 15px 15px 0 0;
+}
+
+.popup-field:last-child {
+    font-size: 25px;
+    border-radius: 0 0 15px 15px;
+}
+
+.popup-field:hover {
+    font-size: 25px;
+    background-color: #F2F2F2;
+    color: #5EACF4;
 }

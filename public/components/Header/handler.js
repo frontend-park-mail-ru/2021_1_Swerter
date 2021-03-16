@@ -94,9 +94,18 @@
     }
   }
 
+  function editCreds() {
+    profileData.userData.editCreds = !profileData.userData.editCreds;
+    router.goProfile();
+  }
 
-  function showModal() {
-    profileData.userData.adminEdited = true;
+  function changePassword() {
+    profileData.userData.changePassword = true;
+    router.goProfile();
+  }
+
+  function changeLogin() {
+    profileData.userData.changeLogin = true;
     router.goProfile();
   }
 
@@ -104,6 +113,8 @@
   window.router.register(goNews);
   window.router.register(goFriends);
 
+  window.changeLogin = changeLogin;
+  window.changePassword = changePassword;
   window.logout = logout;
-  window.showModal = showModal;
+  window.editCreds = editCreds;
 })();

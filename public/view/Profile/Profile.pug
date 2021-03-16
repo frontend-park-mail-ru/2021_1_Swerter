@@ -35,5 +35,5 @@ div(class="profile-content")
                 div(class="no-post-content")
                     b No posts yet...
 
-if profileData.userData.adminEdited
+if profileData.userData.changePassword || profileData.userData.changeLogin
     +modalConf(profileData.userData)
