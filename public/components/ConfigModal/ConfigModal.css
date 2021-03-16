@@ -35,3 +35,12 @@
     width: 50px;
     height: 50px;
 }
+
+.div-error {
+    width: 100%;
+    margin-bottom: 5%;
+    color: #cd0e0e;
+    border: 2px solid #e20808;
+    text-align: center;
+    border-radius: 10px;
+}
