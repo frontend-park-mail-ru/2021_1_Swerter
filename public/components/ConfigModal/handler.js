@@ -20,13 +20,14 @@
   }
 
   async function submitChangePassword() {
-    // const oldPassword = document.getElementById('input-new-login').value.replace(/<\/?[^>]+(>|$)/g, '');
+    const oldPassword = document.getElementById('input-old-password').value.replace(/<\/?[^>]+(>|$)/g, '');
     const newPassword = document.getElementById('input-new-password').value.replace(/<\/?[^>]+(>|$)/g, '');
     // const repNewPassword = document.getElementById('input-new-login').value.replace(/<\/?[^>]+(>|$)/g, '');
     result = await window.http.post({
       url: '/profile',
       data: JSON.stringify({
         'password': newPassword,
+        oldPassword,
       }),
     });
     if (result.status === 200) {
