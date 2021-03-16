@@ -1,13 +1,3 @@
-.message-non-valid-form {
-    width: 100%;
-    margin-bottom: 5%;
-    color: #cd0e0e;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 2px solid #e20808; ;
-}
-
 .register-form {
     border-radius: 20px;
     background-color: white;
@@ -18,6 +8,7 @@
 
 .register-form__content {
     height: 100%;
+    width: 26em;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -30,7 +21,8 @@
 }
 
 .register-form__input {
-    width: 18em;
+    width: 100%;
+    margin-left: -1%;
     font-size: 22px;
     line-height: 2.5em;
     border-radius: 10px;
@@ -122,6 +114,7 @@
     justify-content: center;
     align-items: center;
     border: 2px solid #e20808;
+    text-align: center;
     border-radius: 10px;
 }
 
