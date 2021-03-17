@@ -1,4 +1,3 @@
--console.log(profileData.userData.imgAvatar)
 div(class="profile-header-content")
     div(class="header-content")
         img(id="bg" class="background-img" src=data.imgBg)
@@ -10,7 +9,7 @@ div(class="profile-header-content")
             div.ava-wrapper
                 img(id="ava" class="ava" src=data.imgAvatar)
                 if data.myPage
-                    div(class="upload-ava" onclick='profileHeader.uploadAva()')
+                    div(id="profile-header-upload-ava" class="upload-ava")
                         i(class="fas fa-camera fa-2x")
         div(class="profile-info")
             if !data.modEdited
@@ -19,7 +18,7 @@ div(class="profile-header-content")
                         | #{data.firstName}
                         | #{data.lastName}
                     if data.myPage
-                        div(class="btn-edit-profile" id="btn-edit-Profile" onclick='profileHeader.profileEdit()')
+                        div(id="btn-edit-Profile" class="btn-edit-profile" )
                             b Edit
             else
                 div(class="profile-editing")
@@ -35,4 +34,5 @@ div(class="profile-header-content")
                     div
                         label.profile-edit-lbl Lastname:
                             input(id="input-lastname" value=data.lastName class="edit-input")
-                    input(type="submit" class="btn-edit-submit-profile" onclick='profileHeader.profileEditSubmit()')
+                    input(id="profile-header-edit-submit" type="submit" class="btn-edit-submit-profile")
+
