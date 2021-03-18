@@ -2,11 +2,18 @@ import {router} from '../../modules/router.js';
 import {http} from '../../modules/http.js';
 import {addProfileHeaderListener} from '../ProfileHeader/handler.js';
 import {addCreatePostListeners} from '../AddPost/handler.js';
+import {addChangeLoginListeners} from '../ConfigModal/handler.js';
+import {addChangePassListeners} from '../ConfigModal/handler.js';
 
 function addHeaderListeners() {
   document.getElementById('news-block').addEventListener('click', goNews);
   document.getElementById('friends-block').addEventListener('click', goFriends);
   document.getElementById('logout-block').addEventListener('click', sendLogoutRequest);
+  document.getElementById('header__edit-creds').addEventListener('click', editCreds);
+  if (profileData.userData.editCreds) {
+    document.getElementById('header__change-login').addEventListener('click', changeLogin);
+    document.getElementById('header__change-password').addEventListener('click', changePassword);
+  }
   document.getElementById('profile-block').addEventListener('click', function() {
     goProfile();
   });
@@ -16,6 +23,12 @@ function addProfileListeners() {
   addHeaderListeners();
   addCreatePostListeners();
   addProfileHeaderListener();
+  if (profileData.userData.changePassword) {
+    addChangePassListeners();
+  }
+  if (profileData.userData.changeLogin) {
+    addChangeLoginListeners();
+  }
 }
 
 function addNewsListeners() {
@@ -125,11 +138,6 @@ function changeLogin() {
   profileData.userData.changeLogin = true;
   router.goProfile();
 }
-
-window.changeLogin = changeLogin;
-window.changePassword = changePassword;
-window.editCreds = editCreds;
-
 
 router.register(goProfile);
 router.register(goNews);

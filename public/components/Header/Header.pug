@@ -18,13 +18,13 @@ div(class="header")
             div(id="news-block" class="menu-item news")
                 i(class="fas fa-newspaper fa-2x")
     div(class="section-h-3")
-        div(class="widget settings" onclick="editCreds()")
+        div(id="header__edit-creds" class="widget settings")
             i(class="fas fa-cog fa-2x")
             if data.editCreds
                 div.popup-wrapper
                     div.popup-settings
-                        div.popup-field(onclick="changePassword()") Change password
-                        div.popup-field(onclick="changeLogin()") Change login
+                        div.popup-field(id="header__change-password") Change password
+                        div.popup-field(id="header__change-login") Change login
         div(class="widget account")
             img(class="img-profile" src =srcAvatar)
         div(id="logout-block" class="widget logout")

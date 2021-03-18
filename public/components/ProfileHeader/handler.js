@@ -2,7 +2,7 @@ import {router} from '../../modules/router.js';
 import {http} from '../../modules/http.js';
 
 function addProfileHeaderListener() {
-  document.getElementById('profile-header-upload-bg').addEventListener('click', uploadBg);
+  // document.getElementById('profile-header-upload-bg').addEventListener('click', uploadBg);
   document.getElementById('profile-header-upload-ava').addEventListener('click', uploadAva);
   if (profileData.userData.modEdited) {
     document.getElementById('profile-header-edit-submit').addEventListener('click', endEdit);
@@ -32,7 +32,7 @@ async function endEdit() {
 
   const body = profileData.userData;
 
-  window.http.post({
+  http.post({
     url: '/profile', data: JSON.stringify({
       firstName: body.firstName,
       lastName: body.lastName,
