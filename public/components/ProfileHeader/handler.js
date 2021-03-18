@@ -18,14 +18,12 @@ class ProfileHeader {
 }
 
 function edit() {
-  console.log('edit');
   profileData.userData.modEdited = true;
   router.goProfile();
 }
 
 
 async function endEdit() {
-  console.log('end edit');
   profileData.userData.modEdited = false;
   profileData.userData.firstName = document.getElementById('input-firstname').value.replace(/<\/?[^>]+(>|$)/g, '');
   profileData.userData.lastName = document.getElementById('input-lastname').value.replace(/<\/?[^>]+(>|$)/g, '');
@@ -38,10 +36,6 @@ async function endEdit() {
       lastName: body.lastName,
     }),
   })
-    .then((data) => {
-      console.log(data);
-    });
-
   application.innerHTML = profileTemplate(profileData);
 }
 
@@ -52,7 +46,6 @@ function uploadAva() {
     const avatarFile = input.files[0];
     const formData = new FormData();
     formData.append('avatar', avatarFile, avatarFile.name);
-    console.log(avatarFile);
 
     window.profileData.userData.imgAvatar = URL.createObjectURL(avatarFile);
     http.post({url: '/profile/loadImg', data: formData, headers: {}});

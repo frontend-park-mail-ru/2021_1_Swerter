@@ -53,7 +53,6 @@ function addBackendPost() {
   if (postContentFile) {
     formData.append('imgContent', postContentFile, postContentFile.name);
   }
-  console.log(textPost);
   formData.append('textPost', textPost);
   formData.append('date', datetime);
   http.post({url: '/posts/add', data: formData, headers: {}});
