@@ -22,16 +22,15 @@ function edit() {
   router.goProfile();
 }
 
-
 async function endEdit() {
-
   profileData.userData.modEdited = false;
   profileData.userData.firstName = document.getElementById('input-firstname').value.replace(/<\/?[^>]+(>|$)/g, '');
   profileData.userData.lastName = document.getElementById('input-lastname').value.replace(/<\/?[^>]+(>|$)/g, '');
   const body = profileData.userData;
 
   http.post({
-    url: '/profile', data: JSON.stringify({
+    url: '/profile',
+    data: JSON.stringify({
       firstName: body.firstName,
       lastName: body.lastName,
     }),
