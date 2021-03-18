@@ -31,7 +31,6 @@ class HttpRequest {
       mode: 'cors',
       credentials: 'include',
     });
-    console.log(response);
 
     let parsedResponse = {status: response.status};
     let parsedBody = null;
@@ -59,7 +58,6 @@ class HttpRequest {
       headers: headers,
       body: data,
     });
-    console.log(response);
 
     let parsedResponse = {status: response.status};
     let parsedBody = null;

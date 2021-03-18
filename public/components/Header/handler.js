@@ -47,7 +47,6 @@ async function goProfile(arg = {needUpdate: true}) {
     return;
   }
   const user = await http.get({url: '/profile'});
-  console.log(user);
   if (user.status === 200) {
     profileData.userData.login = user.body['login'];
     profileData.userData.firstName = user.body['firstName'];
@@ -58,14 +57,11 @@ async function goProfile(arg = {needUpdate: true}) {
     window.userAvatar = profileData.userData.imgAvatar;
 
     profileData.postsData = addMetaPosts(postsObjToList(user.body['postsData']));
-    console.log(profileData.postsData);
     profileData.userData.myPage = true;
   } else {
-    console.log(user.status);
     router.goLogin();
     return;
   }
-  console.log(profileData.postsData);
   application.innerHTML = profileTemplate(profileData);
   addProfileListeners();
 }
@@ -87,7 +83,6 @@ async function goFriends() {
 
 async function goNews() {
   const data = await http.get({url: '/posts'});
-  console.log(data);
   postsData = postsObjToList(data.body).map((item) => {
     let urlImg = http.getHost() + '/static/usersAvatar/';
     urlImg += item.imgAvatar ? item.imgAvatar : 'defaultUser.jpg';

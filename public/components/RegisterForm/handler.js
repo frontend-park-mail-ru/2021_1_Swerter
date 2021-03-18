@@ -2,7 +2,6 @@ import {router} from '../../modules/router.js';
 import {http} from '../../modules/http.js';
 
 function goRegister() {
-  console.log('Register');
   application.innerHTML = registerpageTemplate();
   document.getElementById('submit-register-form').addEventListener('click', submitRegisterForm);
   document.getElementById('register-go-login').addEventListener('click', router.goLogin);
