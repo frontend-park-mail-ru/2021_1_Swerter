@@ -6,7 +6,7 @@ function addChangeLoginListeners() {
   document.getElementById('change-login-form__button-change-login').addEventListener('click', submitChangeLogin);
 }
 
-function addChangePassListeners () {
+function addChangePassListeners() {
   document.getElementById('change-pass-form__div-close').addEventListener('click', closeModal);
   document.getElementById('change-pass-form__button-change-pass').addEventListener('click', submitChangePassword);
 }
@@ -66,8 +66,7 @@ async function submitChangePassword() {
   const newPassword = newPasswordEl.value.replace(/<\/?[^>]+(>|$)/g, '');
 
   const repNewPasswordEl = document.getElementById('input-new-password-repeat');
-  const repNewPassword = repNewPasswordEl.value.replace(/<\/?[^>]+(>|$)/g,
-    '');
+  const repNewPassword = repNewPasswordEl.value.replace(/<\/?[^>]+(>|$)/g, '');
 
   if (oldPasswordEl.checkValidity() !== true || newPasswordEl.checkValidity() !== true
     || repNewPasswordEl.checkValidity() !== true) {
@@ -89,6 +88,9 @@ async function submitChangePassword() {
     if (result.status === 200) {
       profileData.userData.changePassword = false;
       router.goProfile({needUpdate: false});
+    } else if (result.status === 403) {
+      displayValidationError('input-old-password',
+        'Wrong password entered');
     }
   }
 }
