@@ -34,6 +34,7 @@
 
 .ava {
     position: absolute;
+    object-fit: cover;
     border: #FFFFFF 6px solid;
     border-radius: 100%;
     height: 200px;
