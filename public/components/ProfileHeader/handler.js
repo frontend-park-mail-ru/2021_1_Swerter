@@ -24,10 +24,10 @@ function edit() {
 
 
 async function endEdit() {
+
   profileData.userData.modEdited = false;
   profileData.userData.firstName = document.getElementById('input-firstname').value.replace(/<\/?[^>]+(>|$)/g, '');
   profileData.userData.lastName = document.getElementById('input-lastname').value.replace(/<\/?[^>]+(>|$)/g, '');
-
   const body = profileData.userData;
 
   http.post({
@@ -35,8 +35,8 @@ async function endEdit() {
       firstName: body.firstName,
       lastName: body.lastName,
     }),
-  })
-  application.innerHTML = profileTemplate(profileData);
+  });
+  router.goProfile({needUpdate: false});
 }
 
 function uploadAva() {
