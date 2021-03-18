@@ -2,11 +2,13 @@ import {router} from '../../modules/router.js';
 import {http} from '../../modules/http.js';
 
 function addChangeLoginListeners() {
+  document.getElementById('modal-config').addEventListener('click', closeModal);
   document.getElementById('change-login-form__div-close').addEventListener('click', closeModal);
   document.getElementById('change-login-form__button-change-login').addEventListener('click', submitChangeLogin);
 }
 
 function addChangePassListeners() {
+  document.getElementById('modal-config').addEventListener('click', closeModal);
   document.getElementById('change-pass-form__div-close').addEventListener('click', closeModal);
   document.getElementById('change-pass-form__button-change-pass').addEventListener('click', submitChangePassword);
 }
