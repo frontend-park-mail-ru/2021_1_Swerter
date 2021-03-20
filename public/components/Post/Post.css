@@ -75,6 +75,7 @@
 }
 
 .content-img {
+    object-fit: contain;
     height: 300px;
 }
 
