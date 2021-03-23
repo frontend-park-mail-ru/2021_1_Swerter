@@ -24,7 +24,6 @@ function edit() {
 
 
 async function endEdit() {
-
   profileData.userData.modEdited = false;
   profileData.userData.firstName = document.getElementById('input-firstname').value.replace(/<\/?[^>]+(>|$)/g, '');
   profileData.userData.lastName = document.getElementById('input-lastname').value.replace(/<\/?[^>]+(>|$)/g, '');

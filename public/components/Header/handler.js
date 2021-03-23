@@ -56,7 +56,7 @@ async function goProfile(arg = {needUpdate: true}) {
     profileData.userData.imgAvatar += user.body['avatar'] ? user.body['avatar'] : 'defaultUser.jpg';
     window.userAvatar = profileData.userData.imgAvatar;
 
-    profileData.postsData = addMetaPosts(postsObjToList(user.body['postsData']));
+    // profileData.postsData = addMetaPosts(postsObjToList(user.body['postsData']));
     profileData.userData.myPage = true;
   } else {
     router.goLogin();
@@ -96,7 +96,7 @@ async function goNews() {
 
 function postsObjToList(posts) {
   const listPosts = [];
-  for (let key in posts) {
+  for (const key in posts) {
     posts[key].imgContent = posts[key].imgContent ? http.getHost() + posts[key].imgContent : '';
     listPosts.push(posts[key]);
   }
@@ -112,7 +112,7 @@ function addMetaPosts(posts) {
 }
 
 async function sendLogoutRequest() {
-  let res = await http.post({url: '/logout'});
+  const res = await http.post({url: '/logout'});
 
   if (res.status === 200) {
     router.goLogin();

@@ -1,13 +1,28 @@
 import {router} from '../../modules/router.js';
 import {http} from '../../modules/http.js';
+import Dispatcher from '../../dispatcher.js';
+import postStore from '../../Stores/PostStore.js';
 
 let newPostPhoto = '';
 let postContentFile = '';
 let textPost;
 
 function addCreatePostListeners() {
-  document.getElementById('add-post').addEventListener('click', addPost);
+  document.getElementById('add-post').addEventListener('click', addPostFlux);
+  postStore.bind( 'post-added', ()=>{
+    console.log('triggered');
+    router.goProfile();
+  });
   document.getElementById('upload-post-content').addEventListener('click', uploadPostContent);
+}
+
+function addPostFlux() {
+  textPost = document.getElementById('text-post').value.replace(/<\/?[^>]+(>|$)/g, '');
+  Dispatcher.dispatch('add-post', {
+    newPost: {
+      textPost,
+    },
+  });
 }
 
 function addPost() {
@@ -59,7 +74,6 @@ function addBackendPost() {
   postContentFile = '';
 }
 
-//Новая функция
 function addImgName(fileName) {
   const imgPostName = document.getElementById('uploaded-post-img');
   imgPostName.innerText = fileName.slice(0, 15) + '...';
