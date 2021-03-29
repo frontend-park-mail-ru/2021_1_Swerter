@@ -63,6 +63,7 @@ function uploadBg() {
   input.click();
 }
 
+// PIZDEZ
 window.profileData = {
   postsData: [],
   userData: {

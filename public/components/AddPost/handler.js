@@ -3,74 +3,49 @@ import {http} from '../../modules/http.js';
 import Dispatcher from '../../dispatcher.js';
 import postStore from '../../Stores/PostStore.js';
 
-let newPostPhoto = '';
-let postContentFile = '';
-let textPost;
-
 function addCreatePostListeners() {
   document.getElementById('add-post').addEventListener('click', addPostFlux);
-  document.getElementById('upload-post-content').addEventListener('click', uploadPostContent);
+  document.getElementById('upload-post-content').addEventListener('click', uploadPostContentFlux);
 
   postStore.bind( 'post-added', ()=>{
     router.goProfile();
   });
+
+  postStore.bind( 'content-post-added', (fileName)=>{
+    addImgName(fileName);
+  });
 }
 
 function addPostFlux() {
-  textPost = document.getElementById('text-post').value.replace(/<\/?[^>]+(>|$)/g, '');
+  const textPost = document.getElementById('text-post').value.replace(/<\/?[^>]+(>|$)/g, '');
+  const currentDate = new Date();
+  const date = currentDate.getDay() + '.' + currentDate.getMonth() + '.' + currentDate.getFullYear();
+  const u = profileData.userData;
+  const imgAvatar = u.imgAvatar;
+  const postCreator = u.firstName + ' ' + u.lastName;
+
   Dispatcher.dispatch('add-post', {
-    newPost: {
+    newPostInfo: {
       textPost,
+      date,
+      imgAvatar,
+      postCreator,
     },
   });
 }
 
-function addPost() {
-  addFrontendPost();
-  addBackendPost();
-}
-
-function uploadPostContent() {
-  const input = document.createElement('input');
-  input.type = 'file';
-  input.onchange = (e) => {
-    postContentFile = input.files[0];
-    addImgName(postContentFile.name);
-    newPostPhoto = URL.createObjectURL(postContentFile);
+function uploadPostContentFlux() {
+  const inputPostImg = document.createElement('input');
+  inputPostImg.type = 'file';
+  inputPostImg.onchange = (e) => {
+    const imgContentFile = inputPostImg.files[0];
+    Dispatcher.dispatch('add-content-post', {
+      imgInfo: {
+        imgContentFile,
+      },
+    });
   };
-  input.click();
-}
-
-function addFrontendPost() {
-  const u = profileData.userData;
-  const currentDate = new Date();
-  const datetime = currentDate.getDay() + '.' + currentDate.getMonth() + '.' + currentDate.getFullYear();
-  const newPost = {
-    needDownload: false,
-    imgAvatar: u.imgAvatar,
-    postCreator: u.firstName + ' ' + u.lastName,
-    date: datetime,
-    textPost,
-  };
-  if (newPostPhoto) {
-    newPost.imgContent = newPostPhoto;
-  }
-  profileData.postsData.unshift(newPost);
-  router.goProfile({needUpdate: false});
-  newPostPhoto = '';
-}
-
-function addBackendPost() {
-  const currentDate = new Date();
-  const datetime = currentDate.getDay() + '.' + currentDate.getMonth() + '.' + currentDate.getFullYear();
-  const formData = new FormData();
-  if (postContentFile) {
-    formData.append('imgContent', postContentFile, postContentFile.name);
-  }
-  formData.append('textPost', textPost);
-  formData.append('date', datetime);
-  http.post({url: '/posts/add', data: formData, headers: {}});
-  postContentFile = '';
+  inputPostImg.click();
 }
 
 function addImgName(fileName) {

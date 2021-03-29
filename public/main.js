@@ -7,7 +7,10 @@ import * as register from './components/RegisterForm/handler.js';
 import * as addPost from './components/AddPost/handler.js';
 import * as configModal from './components/ConfigModal/handler.js';
 
+import * as modelPost from './models/post.js';
+
 import * as profileHeader from './components/ProfileHeader/handler.js';
+
 window.application = document.getElementById('app');
 
 router.goProfile();
