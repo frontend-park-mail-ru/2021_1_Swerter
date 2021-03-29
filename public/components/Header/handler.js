@@ -57,8 +57,8 @@ async function goProfile(arg = {needUpdate: true}) {
     profileData.userData.imgAvatar += user.body['avatar'] ? user.body['avatar'] : 'defaultUser.jpg';
     window.userAvatar = profileData.userData.imgAvatar;
 
-    // profileData.postsData = addMetaPosts(postsObjToList(user.body['postsData']));
     profileData.userData.myPage = true;
+    // profileData.postsData = addMetaPosts(postsObjToList(user.body['postsData']));
   } else {
     router.goLogin();
     return;

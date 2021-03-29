@@ -4,6 +4,10 @@ import {http} from '../../modules/http.js';
 
 function goLogin() {
   application.innerHTML = loginpageTemplate();
+  addLoginFormListeners();
+}
+
+function addLoginFormListeners() {
   document.getElementById('submit-go-register').addEventListener('click', function() {
     router.goRegister();
   });
@@ -29,7 +33,6 @@ function submitLoginForm() {
   } else {
     displayLoginFormValidationError(errorMsg);
   }
-
 }
 
 function displayLoginFormValidationError(error) {

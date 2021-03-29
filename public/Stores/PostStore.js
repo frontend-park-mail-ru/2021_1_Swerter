@@ -1,16 +1,20 @@
 import Dispatcher from '../dispatcher.js';
 import Post from '../models/post.js';
-import {router} from '../modules/router.js';
 import {http} from '../modules/http.js';
+import {router} from '../modules/router.js';
+import makeObservable from '../observable.js';
+
 
 class PostStore {
   constructor() {
     this.contentPost = [];
-    this.listeners= {};
     this.posts= [];
   }
 
+  // async
   getAll() {
+    // const userData = await http.get({url: '/profile'});
+    // profileData.postsData = addMetaPosts(postsObjToList(userData.body['postsData']));
     return [...this.posts];
   }
 
@@ -52,32 +56,13 @@ class PostStore {
     formData.append('date', newPostInfo.date);
     http.post({url: '/posts/add', data: formData, headers: {}});
   }
-
-  bind(event, callback) {
-    console.log(this.listeners[event]);
-    if (!this.listeners[event]) {
-      this.listeners[event] = [callback];
-      return;
-    }
-    this.listeners[event].push(callback);
-  }
-
-  off(event, callback) {
-    this.listeners[event] = this.listeners[event]
-        .filter(function(listener) {
-          return listener !== callback;
-        });
-  }
-
-  emit(event, data) {
-    this.listeners[event].forEach((listener)=>{
-      listener(data);
-    });
-  }
 }
 
+console.log(PostStore.prototype);
+makeObservable(PostStore);
 const postStore = new PostStore();
 
+export default postStore;
 
 Dispatcher.register('add-post', (details) => {
   postStore.addPost(details.newPostInfo);
@@ -86,7 +71,23 @@ Dispatcher.register('add-post', (details) => {
 
 Dispatcher.register('add-content-post', (details) => {
   postStore.addContentPost(details.imgInfo);
+  // Не по флаксу передавать инфу с событием
   postStore.emit('content-post-added', details.imgInfo.imgContentFile.name);
 });
 
-export default postStore;
+function postsObjToList(posts) {
+  const listPosts = [];
+  for (const key in posts) {
+    posts[key].imgContent = posts[key].imgContent ? http.getHost() + posts[key].imgContent : '';
+    listPosts.push(posts[key]);
+  }
+  return listPosts.reverse();
+}
+
+function addMetaPosts(posts) {
+  return posts.map((item) => {
+    item.imgAvatar = profileData.userData.imgAvatar;
+    item.postCreator = profileData.userData.firstName + ' ' + profileData.userData.lastName;
+    return item;
+  });
+}
