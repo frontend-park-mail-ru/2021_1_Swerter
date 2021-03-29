@@ -10,9 +10,12 @@ class PostStore {
     return this.posts;
   }
 
-  // fix
   bind(event, callback) {
-    this.listeners[event] = callback;
+    if (this.listeners[event] === undefined) {
+      this.listeners[event] = [callback];
+      return;
+    }
+    this.listeners[event].append(callback);
   }
 
   off(event, callback) { // отписываемся от события
@@ -22,9 +25,10 @@ class PostStore {
         });
   }
 
-  // fix
   emit(event, data) {
-    this.listeners[event](data);
+    this.listeners[event].forEach((listener)=>{
+      listener(data);
+    });
   }
 }
 
@@ -32,11 +36,7 @@ const postStore = new PostStore();
 
 Dispatcher.register('add-post', (details) => {
   postStore.posts.push(details.newPost);
-  console.log(details.newPost);
-
   profileData.postsData = postStore.getAll();
-  console.log(postStore.getAll());
-  console.log(profileData);
   postStore.emit('post-added');
 });
 

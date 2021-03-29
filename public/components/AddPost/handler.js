@@ -9,11 +9,11 @@ let textPost;
 
 function addCreatePostListeners() {
   document.getElementById('add-post').addEventListener('click', addPostFlux);
+  document.getElementById('upload-post-content').addEventListener('click', uploadPostContent);
+
   postStore.bind( 'post-added', ()=>{
-    console.log('triggered');
     router.goProfile();
   });
-  document.getElementById('upload-post-content').addEventListener('click', uploadPostContent);
 }
 
 function addPostFlux() {
@@ -26,7 +26,6 @@ function addPostFlux() {
 }
 
 function addPost() {
-  textPost = document.getElementById('text-post').value.replace(/<\/?[^>]+(>|$)/g, '');
   addFrontendPost();
   addBackendPost();
 }

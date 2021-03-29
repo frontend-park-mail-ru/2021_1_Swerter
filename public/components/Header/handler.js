@@ -46,6 +46,7 @@ async function goProfile(arg = {needUpdate: true}) {
     addProfileListeners();
     return;
   }
+
   const user = await http.get({url: '/profile'});
   if (user.status === 200) {
     profileData.userData.login = user.body['login'];
