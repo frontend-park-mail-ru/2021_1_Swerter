@@ -1,15 +1,9 @@
 import {router} from '../../modules/router.js';
 import {http} from '../../modules/http.js';
 
-
-function goLogin() {
-  application.innerHTML = loginpageTemplate();
-  addLoginFormListeners();
-}
-
-function addLoginFormListeners() {
+export function addLoginFormListeners() {
   document.getElementById('submit-go-register').addEventListener('click', function() {
-    router.goRegister();
+    router.go('/register')
   });
   document.getElementById('submit-login-form').addEventListener('click', submitLoginForm);
 }
@@ -52,15 +46,8 @@ function displayLoginFormValidationError(error) {
 async function sendLoginRequest(data) {
   const res = await http.post({url: '/login', data: JSON.stringify(data)});
   if (res.status === 200) {
-    router.goProfile();
+    router.go('/profile', profileData)
   } else if (res.status == 403) {
     displayLoginFormValidationError('Wrong login or password');
   }
 }
-
-function goRegister() {
-  router.goRegister();
-}
-
-router.register(goLogin);
-

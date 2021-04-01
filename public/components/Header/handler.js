@@ -1,13 +1,7 @@
 import {router} from '../../modules/router.js';
 import {http} from '../../modules/http.js';
-import {addProfileHeaderListener} from '../ProfileHeader/handler.js';
-import {addCreatePostListeners} from '../AddPost/handler.js';
-import {addChangeLoginListeners} from '../ConfigModal/handler.js';
-import {addChangePassListeners} from '../ConfigModal/handler.js';
 
 export function addHeaderListeners() {
-    document.getElementById('news-block').addEventListener('click', goNews);
-    document.getElementById('friends-block').addEventListener('click', goFriends);
     document.getElementById('logout-block').addEventListener('click', sendLogoutRequest);
     document.getElementById('header__edit-creds').addEventListener('click', editCreds);
     if (profileData.userData.editCreds) {
@@ -15,24 +9,16 @@ export function addHeaderListeners() {
         document.getElementById('header__change-password').addEventListener('click', changePassword);
     }
     document.getElementById('profile-block').addEventListener('click', function () {
+        //отсавил от роутера только это
         goProfile();
     });
 }
 
 
-export function addNewsListeners() {
-    addHeaderListeners();
-}
-
-export function addFriendsListeners() {
-    addHeaderListeners();
-}
-
 async function goProfile(arg = {needUpdate: true}) {
+
     if (!arg.needUpdate) {
         profileData.postsData = addMetaPosts(profileData.postsData);
-        application.innerHTML = profileTemplate(profileData);
-        addProfileListeners();
         router.go('/profile', profileData)
         return;
     }
@@ -50,11 +36,11 @@ async function goProfile(arg = {needUpdate: true}) {
         profileData.userData.myPage = true;
         // profileData.postsData = addMetaPosts(postsObjToList(user.body['postsData']));
     } else {
-        router.go('/profile', profileData)
+        router.go('/login')
         return;
     }
-    application.innerHTML = profileTemplate(profileData);
-    addProfileListeners();
+
+    router.go('/profile', profileData)
 }
 
 async function goFriends() {
@@ -69,7 +55,6 @@ async function goFriends() {
         profileData.userData.modEdited = false;
     }
     application.innerHTML = profileTemplate(profileData);
-    addFriendsListeners();
 }
 
 async function goNews() {
@@ -82,7 +67,6 @@ async function goNews() {
     });
 
     application.innerHTML = newsfeedTemplate(postsData);
-    addNewsListeners();
 }
 
 function postsObjToList(posts) {
@@ -106,6 +90,7 @@ async function sendLogoutRequest() {
     const res = await http.post({url: '/logout'});
 
     if (res.status === 200) {
+        console.log('lo')
         router.go('/login')
     }
 }

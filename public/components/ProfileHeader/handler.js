@@ -11,18 +11,11 @@ function addProfileHeaderListener() {
   }
 }
 
-class ProfileHeader {
-  render(config) {
-    return profileHeader(config);
-  }
-}
-
 function edit() {
   profileData.userData.modEdited = true;
   router.go('/profile', profileData)
 
 }
-
 
 async function endEdit() {
   profileData.userData.modEdited = false;
@@ -49,42 +42,35 @@ function uploadAva() {
 
     window.profileData.userData.imgAvatar = URL.createObjectURL(avatarFile);
     http.post({url: '/profile/loadImg', data: formData, headers: {}});
-    router.goProfile({needUpdate: false});
+    router.go('/profile', profileData)
   };
   input.click();
 }
 
-function uploadBg() {
-  const input = document.createElement('input');
-  input.type = 'file';
-  input.onchange = (e) => {
-    profileData.userData.imgBg = URL.createObjectURL(input.files[0]);
-    router.goProfile();
-  };
-  input.click();
-}
+// function uploadBg() {
+//   const input = document.createElement('input');
+//   input.type = 'file';
+//   input.onchange = (e) => {
+//     profileData.userData.imgBg = URL.createObjectURL(input.files[0]);
+//     router.go('/profile', profileData)
+//   };
+//   input.click();
+// }
 
 // PIZDEZ
 window.profileData = {
   postsData: [],
   userData: {
-    myPage: true,
-    imgBg: './assets/imgContent.jpg',
-    imgAvatar: './assets/imgLogo.jpg',
-    modEdited: false,
     login: 'login',
     password: 'password',
     firstName: 'Dima',
     lastName: 'Akzhigitov',
+    imgBg: './assets/imgContent.jpg',
+    imgAvatar: './assets/imgLogo.jpg',
+    modEdited: false,
+    myPage: true,
     needUpdate: false,
   },
-};
-
-window.profileHeader = {
-  profileEdit: edit,
-  profileEditSubmit: endEdit,
-  uploadAva,
-  uploadBg,
 };
 
 export {addProfileHeaderListener};

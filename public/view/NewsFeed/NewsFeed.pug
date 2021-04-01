@@ -7,7 +7,6 @@ mixin post(data)
     div(class="wrap-post")
         include ../../components/Post/Post
 
-
 div(class="news-feed")
-    each postData in postsData
+    each postData in profileData.postsData
         +post(postData)

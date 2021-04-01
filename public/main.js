@@ -9,17 +9,37 @@ import * as configModal from './components/ConfigModal/handler.js';
 import * as modelPost from './models/post.js';
 import * as profileHeader from './components/ProfileHeader/handler.js';
 
-import {addProfileListeners} from "./view/Profile/listeners.js";
+import {addLoginPageListeners} from "./view/LoginPage/listeners.js";
+import {addNewsPageListeners} from "./view/NewsFeed/listeners.js";
+import {addRegisterPageListeners} from "./view/RegisterPage/listeners.js";
 
-
+import Profile from "./view/Profile/profile.js";
 
 window.application = document.getElementById('app');
 
-router.register('/login', loginpageTemplate,)
-router.register('/register', registerpageTemplate)
-router.register('/profile', profileTemplate, addProfileListeners)
-router.register('/profile/2', profileTemplate)
-router.register('/news', newsfeedTemplate)
+const p = new Profile()
+
+registerUrls()
+
+//TODO подумать что делать с состоянием компонента, где его хранить
+
+const user = await http.get({url: '/profile'});
+console.log(user.status)
+console.log('alal')
+switch (user.status) {
+    case 200:
+        router.go('/profile')
+        break
+    case 401:
+        router.go('/login')
+        break
+}
 
 
-router.go('/profile', profileData)
+function registerUrls() {
+    router.register('/login', loginpageTemplate, addLoginPageListeners)
+    router.register('/register', registerpageTemplate, addRegisterPageListeners)
+    router.register('/profile', p.render.bind(p))
+    router.register('/profile/2', profileTemplate)
+    router.register('/news', newsfeedTemplate, addNewsPageListeners)
+}

@@ -1,5 +1,4 @@
 import {router} from '../../modules/router.js';
-import {http} from '../../modules/http.js';
 import Dispatcher from '../../dispatcher.js';
 import postStore from '../../Stores/PostStore.js';
 
@@ -8,7 +7,8 @@ function addCreatePostListeners() {
   document.getElementById('upload-post-content').addEventListener('click', uploadPostContentFlux);
 
   postStore.bind( 'post-added', ()=>{
-    router.goProfile();
+    profileData.postsData = postStore.getAll()
+    router.go('/profile', profileData)
   });
 
   postStore.bind( 'content-post-added', (fileName)=>{

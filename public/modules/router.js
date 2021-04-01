@@ -9,9 +9,25 @@ class Router {
 
     }
 
+    //TODO: delete state
     go(url, state) {
-        window.application.innerHTML = this.routes[url].page(state)
-        this.routes[url].listeners()
+        this.routes[url].page()
+        this.addEventsForLinks()
+    }
+
+    addEventsForLinks() {
+        let links = document.getElementsByTagName("a");
+        [...links].forEach((a)=>{
+            a.addEventListener('click', (e)=>{
+                let indexDog = a.href.indexOf("@")
+                if (indexDog + 1) {
+                    e.preventDefault()
+                    this.go(a.href.split("@")[1])
+                }
+            })
+        })
+        // console.log(links)
+        // window.l = links
     }
 }
 
