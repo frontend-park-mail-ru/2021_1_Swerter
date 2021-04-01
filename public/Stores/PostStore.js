@@ -75,19 +75,19 @@ Dispatcher.register('add-content-post', (details) => {
   postStore.emit('content-post-added', details.imgInfo.imgContentFile.name);
 });
 
-function postsObjToList(posts) {
-  const listPosts = [];
-  for (const key in posts) {
-    posts[key].imgContent = posts[key].imgContent ? http.getHost() + posts[key].imgContent : '';
-    listPosts.push(posts[key]);
-  }
-  return listPosts.reverse();
-}
-
-function addMetaPosts(posts) {
-  return posts.map((item) => {
-    item.imgAvatar = profileData.userData.imgAvatar;
-    item.postCreator = profileData.userData.firstName + ' ' + profileData.userData.lastName;
-    return item;
-  });
-}
+// function postsObjToList(posts) {
+//   const listPosts = [];
+//   for (const key in posts) {
+//     posts[key].imgContent = posts[key].imgContent ? http.getHost() + posts[key].imgContent : '';
+//     listPosts.push(posts[key]);
+//   }
+//   return listPosts.reverse();
+// }
+//
+// function addMetaPosts(posts) {
+//   return posts.map((item) => {
+//     item.imgAvatar = profileData.userData.imgAvatar;
+//     item.postCreator = profileData.userData.firstName + ' ' + profileData.userData.lastName;
+//     return item;
+//   });
+// }

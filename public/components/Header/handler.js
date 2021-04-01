@@ -5,138 +5,123 @@ import {addCreatePostListeners} from '../AddPost/handler.js';
 import {addChangeLoginListeners} from '../ConfigModal/handler.js';
 import {addChangePassListeners} from '../ConfigModal/handler.js';
 
-function addHeaderListeners() {
-  document.getElementById('news-block').addEventListener('click', goNews);
-  document.getElementById('friends-block').addEventListener('click', goFriends);
-  document.getElementById('logout-block').addEventListener('click', sendLogoutRequest);
-  document.getElementById('header__edit-creds').addEventListener('click', editCreds);
-  if (profileData.userData.editCreds) {
-    document.getElementById('header__change-login').addEventListener('click', changeLogin);
-    document.getElementById('header__change-password').addEventListener('click', changePassword);
-  }
-  document.getElementById('profile-block').addEventListener('click', function() {
-    goProfile();
-  });
+export function addHeaderListeners() {
+    document.getElementById('news-block').addEventListener('click', goNews);
+    document.getElementById('friends-block').addEventListener('click', goFriends);
+    document.getElementById('logout-block').addEventListener('click', sendLogoutRequest);
+    document.getElementById('header__edit-creds').addEventListener('click', editCreds);
+    if (profileData.userData.editCreds) {
+        document.getElementById('header__change-login').addEventListener('click', changeLogin);
+        document.getElementById('header__change-password').addEventListener('click', changePassword);
+    }
+    document.getElementById('profile-block').addEventListener('click', function () {
+        goProfile();
+    });
 }
 
-function addProfileListeners() {
-  addHeaderListeners();
-  addCreatePostListeners();
-  addProfileHeaderListener();
-  if (profileData.userData.changePassword) {
-    addChangePassListeners();
-  }
-  if (profileData.userData.changeLogin) {
-    addChangeLoginListeners();
-  }
+
+export function addNewsListeners() {
+    addHeaderListeners();
 }
 
-function addNewsListeners() {
-  addHeaderListeners();
-}
-
-function addFriendsListeners() {
-  addHeaderListeners();
+export function addFriendsListeners() {
+    addHeaderListeners();
 }
 
 async function goProfile(arg = {needUpdate: true}) {
-  if (!arg.needUpdate) {
-    profileData.postsData = addMetaPosts(profileData.postsData);
+    if (!arg.needUpdate) {
+        profileData.postsData = addMetaPosts(profileData.postsData);
+        application.innerHTML = profileTemplate(profileData);
+        addProfileListeners();
+        router.go('/profile', profileData)
+        return;
+    }
+
+    const user = await http.get({url: '/profile'});
+    if (user.status === 200) {
+        profileData.userData.login = user.body['login'];
+        profileData.userData.firstName = user.body['firstName'];
+        profileData.userData.lastName = user.body['lastName'];
+
+        profileData.userData.imgAvatar = http.getHost() + '/static/usersAvatar/';
+        profileData.userData.imgAvatar += user.body['avatar'] ? user.body['avatar'] : 'defaultUser.jpg';
+        window.userAvatar = profileData.userData.imgAvatar;
+
+        profileData.userData.myPage = true;
+        // profileData.postsData = addMetaPosts(postsObjToList(user.body['postsData']));
+    } else {
+        router.go('/profile', profileData)
+        return;
+    }
     application.innerHTML = profileTemplate(profileData);
     addProfileListeners();
-    return;
-  }
-
-  const user = await http.get({url: '/profile'});
-  if (user.status === 200) {
-    profileData.userData.login = user.body['login'];
-    profileData.userData.firstName = user.body['firstName'];
-    profileData.userData.lastName = user.body['lastName'];
-
-    profileData.userData.imgAvatar = http.getHost() + '/static/usersAvatar/';
-    profileData.userData.imgAvatar += user.body['avatar'] ? user.body['avatar'] : 'defaultUser.jpg';
-    window.userAvatar = profileData.userData.imgAvatar;
-
-    profileData.userData.myPage = true;
-    // profileData.postsData = addMetaPosts(postsObjToList(user.body['postsData']));
-  } else {
-    router.goLogin();
-    return;
-  }
-  application.innerHTML = profileTemplate(profileData);
-  addProfileListeners();
 }
 
 async function goFriends() {
-  const user = await http.get({url: '/profile/id2'});
-  if (user.status === 200) {
-    profileData.userData.firstName = user.body['firstName'];
-    profileData.userData.lastName = user.body['lastName'];
-    profileData.postsData = addMetaPosts(postsObjToList(user.body['postsData']));
-    profileData.userData.imgAvatar = http.getHost() + '/static/usersAvatar/';
-    profileData.userData.imgAvatar += user.body['avatar'] ? user.body['avatar'] : 'defaultUser.jpg';
-    profileData.userData.myPage = false;
-    profileData.userData.modEdited = false;
-  }
-  application.innerHTML = profileTemplate(profileData);
-  addFriendsListeners();
+    const user = await http.get({url: '/profile/id2'});
+    if (user.status === 200) {
+        profileData.userData.firstName = user.body['firstName'];
+        profileData.userData.lastName = user.body['lastName'];
+        profileData.postsData = addMetaPosts(postsObjToList(user.body['postsData']));
+        profileData.userData.imgAvatar = http.getHost() + '/static/usersAvatar/';
+        profileData.userData.imgAvatar += user.body['avatar'] ? user.body['avatar'] : 'defaultUser.jpg';
+        profileData.userData.myPage = false;
+        profileData.userData.modEdited = false;
+    }
+    application.innerHTML = profileTemplate(profileData);
+    addFriendsListeners();
 }
 
 async function goNews() {
-  const data = await http.get({url: '/posts'});
-  postsData = postsObjToList(data.body).map((item) => {
-    let urlImg = http.getHost() + '/static/usersAvatar/';
-    urlImg += item.imgAvatar ? item.imgAvatar : 'defaultUser.jpg';
-    item.imgAvatar = urlImg;
-    return item;
-  });
+    const data = await http.get({url: '/posts'});
+    postsData = postsObjToList(data.body).map((item) => {
+        let urlImg = http.getHost() + '/static/usersAvatar/';
+        urlImg += item.imgAvatar ? item.imgAvatar : 'defaultUser.jpg';
+        item.imgAvatar = urlImg;
+        return item;
+    });
 
-  application.innerHTML = newsfeedTemplate(postsData);
-  addNewsListeners();
+    application.innerHTML = newsfeedTemplate(postsData);
+    addNewsListeners();
 }
 
 function postsObjToList(posts) {
-  const listPosts = [];
-  for (const key in posts) {
-    posts[key].imgContent = posts[key].imgContent ? http.getHost() + posts[key].imgContent : '';
-    listPosts.push(posts[key]);
-  }
-  return listPosts.reverse();
+    const listPosts = [];
+    for (const key in posts) {
+        posts[key].imgContent = posts[key].imgContent ? http.getHost() + posts[key].imgContent : '';
+        listPosts.push(posts[key]);
+    }
+    return listPosts.reverse();
 }
 
 function addMetaPosts(posts) {
-  return posts.map((item) => {
-    item.imgAvatar = profileData.userData.imgAvatar;
-    item.postCreator = profileData.userData.firstName + ' ' + profileData.userData.lastName;
-    return item;
-  });
+    return posts.map((item) => {
+        item.imgAvatar = profileData.userData.imgAvatar;
+        item.postCreator = profileData.userData.firstName + ' ' + profileData.userData.lastName;
+        return item;
+    });
 }
 
 async function sendLogoutRequest() {
-  const res = await http.post({url: '/logout'});
+    const res = await http.post({url: '/logout'});
 
-  if (res.status === 200) {
-    router.goLogin();
-  }
+    if (res.status === 200) {
+        router.go('/login')
+    }
 }
 
 function editCreds() {
-  profileData.userData.editCreds = !profileData.userData.editCreds;
-  router.goProfile();
+    profileData.userData.editCreds = !profileData.userData.editCreds;
+    router.go('/profile', profileData)
 }
 
 function changePassword() {
-  profileData.userData.changePassword = true;
-  router.goProfile();
+    profileData.userData.changePassword = true;
+    router.go('/profile', profileData)
 }
 
 function changeLogin() {
-  profileData.userData.changeLogin = true;
-  router.goProfile();
+    profileData.userData.changeLogin = true;
+    router.go('/profile', profileData)
 }
-
-router.register(goProfile);
-router.register(goNews);
-router.register(goFriends);
-
 

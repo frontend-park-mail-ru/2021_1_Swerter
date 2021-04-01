@@ -19,7 +19,8 @@ class ProfileHeader {
 
 function edit() {
   profileData.userData.modEdited = true;
-  router.goProfile();
+  router.go('/profile', profileData)
+
 }
 
 
@@ -35,7 +36,7 @@ async function endEdit() {
       lastName: body.lastName,
     }),
   });
-  router.goProfile({needUpdate: false});
+  router.go('/profile', profileData)
 }
 
 function uploadAva() {
