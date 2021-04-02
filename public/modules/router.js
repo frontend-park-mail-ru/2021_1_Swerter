@@ -9,8 +9,7 @@ class Router {
 
     }
 
-    //TODO: delete state
-    go(url, state) {
+    go(url) {
         this.routes[url].page()
         this.addEventsForLinks()
     }
@@ -26,8 +25,6 @@ class Router {
                 }
             })
         })
-        // console.log(links)
-        // window.l = links
     }
 }
 

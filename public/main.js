@@ -9,19 +9,19 @@ import * as configModal from './components/ConfigModal/handler.js';
 import * as modelPost from './models/post.js';
 import * as profileHeader from './components/ProfileHeader/handler.js';
 
-import {addLoginPageListeners} from "./view/LoginPage/listeners.js";
-import {addNewsPageListeners} from "./view/NewsFeed/listeners.js";
-import {addRegisterPageListeners} from "./view/RegisterPage/listeners.js";
-
-import Profile from "./view/Profile/profile.js";
+import ProfilePage from "./view/Profile/ProfilePage.js";
+import LoginPage from "./view/LoginPage/LoginPage.js";
+import RegisterPage from "./view/RegisterPage/RegisterPage.js";
+import NewsFeedPage from "./view/NewsFeed/NewsFeedPage.js";
 
 window.application = document.getElementById('app');
 
-const p = new Profile()
+const loginPage = new LoginPage();
+const registerPage = new RegisterPage();
+const profilePage = new ProfilePage();
+const newsFeedPage = new NewsFeedPage();
 
 registerUrls()
-
-//TODO подумать что делать с состоянием компонента, где его хранить
 
 const user = await http.get({url: '/profile'});
 console.log(user.status)
@@ -37,9 +37,9 @@ switch (user.status) {
 
 
 function registerUrls() {
-    router.register('/login', loginpageTemplate, addLoginPageListeners)
-    router.register('/register', registerpageTemplate, addRegisterPageListeners)
-    router.register('/profile', p.render.bind(p))
-    router.register('/profile/2', profileTemplate)
-    router.register('/news', newsfeedTemplate, addNewsPageListeners)
+    router.register('/login', loginPage.render.bind(loginPage))
+    router.register('/register', registerPage.render.bind(registerPage))
+    router.register('/profile', profilePage.render.bind(profilePage))
+    router.register('/profile/2', profilePage.render.bind(profilePage))
+    router.register('/news', newsFeedPage.render.bind(newsFeedPage))
 }

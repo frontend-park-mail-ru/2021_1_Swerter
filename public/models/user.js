@@ -1,7 +1,7 @@
 class User {
-  constructor() {
+    constructor() {
 
-  }
+    }
 }
 
 // userData: {

@@ -4,7 +4,7 @@ import {addChangeLoginListeners, addChangePassListeners} from "../../components/
 import {addHeaderListeners} from "../../components/Header/handler.js";
 
 
-export default class Profile {
+export default class ProfilePage {
     state = {
         postsData: [],
         userData: {
