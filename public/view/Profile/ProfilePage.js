@@ -18,6 +18,7 @@ export default class ProfilePage {
             myPage: true,
             needUpdate: false,
         },
+        test:'EBANYI PUG',
     };
 
     render() {

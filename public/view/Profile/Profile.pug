@@ -1,7 +1,7 @@
 mixin header(data)
     include ../../components/Header/Header
 
-+header(profileData.userData)
++header(userData)
 
 mixin profileHeader(data)
     include ../../components/ProfileHeader/ProfileHeader
@@ -24,15 +24,15 @@ div(class="profile-content")
 
     div(class="right-content")
         div(class="lenta")
-            if profileData.userData.myPage
-                +addPost(profileData.userData)
-            if (profileData.postsData.length !== 0)
-                each postData in profileData.postsData
+            if userData.myPage
+                +addPost(userData)
+            if (postsData.length !== 0)
+                each postData in postsData
                     div(class="post-profile-wrapper")
                         +post(postData)
             else
                 div(class="no-post-content")
-                    b No posts yet...
+                    b No posts yet... #{test}
 
-if profileData.userData.changePassword || profileData.userData.changeLogin
-    +modalConf(profileData.userData)
+if userData.changePassword || userData.changeLogin
+    +modalConf(userData)
