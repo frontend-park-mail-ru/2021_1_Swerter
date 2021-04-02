@@ -48,7 +48,7 @@ async function goFriends() {
     if (user.status === 200) {
         profileData.userData.firstName = user.body['firstName'];
         profileData.userData.lastName = user.body['lastName'];
-        profileData.postsData = addMetaPosts(postsObjToList(user.body['postsData']));
+        profileData.postsData =
         profileData.userData.imgAvatar = http.getHost() + '/static/usersAvatar/';
         profileData.userData.imgAvatar += user.body['avatar'] ? user.body['avatar'] : 'defaultUser.jpg';
         profileData.userData.myPage = false;
@@ -67,23 +67,6 @@ async function goNews() {
     });
 
     application.innerHTML = newsfeedTemplate(postsData);
-}
-
-function postsObjToList(posts) {
-    const listPosts = [];
-    for (const key in posts) {
-        posts[key].imgContent = posts[key].imgContent ? http.getHost() + posts[key].imgContent : '';
-        listPosts.push(posts[key]);
-    }
-    return listPosts.reverse();
-}
-
-function addMetaPosts(posts) {
-    return posts.map((item) => {
-        item.imgAvatar = profileData.userData.imgAvatar;
-        item.postCreator = profileData.userData.firstName + ' ' + profileData.userData.lastName;
-        return item;
-    });
 }
 
 async function sendLogoutRequest() {

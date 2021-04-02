@@ -1,44 +1,29 @@
 import Dispatcher from '../dispatcher.js';
-import Post from '../models/post.js';
 import {http} from '../modules/http.js';
 import makeObservable from '../observable.js';
-
 
 class PostStore {
     constructor() {
         this.contentPost = [];
-        this.posts = [];
     }
 
-    // async
-    getAll() {
-        // const userData = await http.get({url: '/profile'});
-        // profileData.postsData = addMetaPosts(postsObjToList(userData.body['postsData']));
-        return [...this.posts].reverse();
+    async getAll() {
+        const userData = await http.get({url: '/profile'});
+        const posts = userData.body['postsData'];
+        return posts;
     }
 
     addContentPost(imgInfo) {
         this.contentPost.push(imgInfo.imgContentFile);
-        this.contentUrl = URL.createObjectURL(imgInfo.imgContentFile);
     }
 
     delContent() {
-        this.contentUrl = '';
         this.contentPost = [];
     }
 
     addPost(newPostInfo) {
-        this.addFrontendPost(newPostInfo);
         this.addBackendPost(newPostInfo);
         this.delContent();
-    }
-
-    addFrontendPost(newPostInfo) {
-        const newPost = new Post(newPostInfo);
-        if (this.contentUrl) {
-            newPost.addContent(this.contentUrl);
-        }
-        postStore.posts.push(newPost);
     }
 
     addBackendPost(newPostInfo) {
@@ -69,20 +54,3 @@ Dispatcher.register('add-content-post', (details) => {
     // Не по флаксу передавать инфу с событием
     postStore.emit('content-post-added', details.imgInfo.imgContentFile.name);
 });
-
-// function postsObjToList(posts) {
-//   const listPosts = [];
-//   for (const key in posts) {
-//     posts[key].imgContent = posts[key].imgContent ? http.getHost() + posts[key].imgContent : '';
-//     listPosts.push(posts[key]);
-//   }
-//   return listPosts.reverse();
-// }
-//
-// function addMetaPosts(posts) {
-//   return posts.map((item) => {
-//     item.imgAvatar = profileData.userData.imgAvatar;
-//     item.postCreator = profileData.userData.firstName + ' ' + profileData.userData.lastName;
-//     return item;
-//   });
-// }

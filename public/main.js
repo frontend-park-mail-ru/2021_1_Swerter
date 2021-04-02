@@ -9,7 +9,7 @@ import * as configModal from './components/ConfigModal/handler.js';
 import * as modelPost from './models/post.js';
 import * as profileHeader from './components/ProfileHeader/handler.js';
 
-import ProfilePage from "./view/Profile/ProfilePage.js";
+import profilePage from "./view/Profile/ProfilePage.js";
 import LoginPage from "./view/LoginPage/LoginPage.js";
 import RegisterPage from "./view/RegisterPage/RegisterPage.js";
 import NewsFeedPage from "./view/NewsFeed/NewsFeedPage.js";
@@ -18,7 +18,6 @@ window.application = document.getElementById('app');
 
 const loginPage = new LoginPage();
 const registerPage = new RegisterPage();
-const profilePage = new ProfilePage();
 const newsFeedPage = new NewsFeedPage();
 
 registerUrls()
