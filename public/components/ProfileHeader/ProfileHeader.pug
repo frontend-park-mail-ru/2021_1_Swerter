@@ -1,0 +1,38 @@
+div(class="profile-header-content")
+    div(class="header-content")
+        img(id="bg" class="background-img" src=data.imgBg)
+        div(class="upload-bg-wr")
+            //if data.myPage
+            //    div(class="upload-bg" onclick='profileHeader.uploadBg()')
+            //        i(class="fas fa-camera fa-2x")
+        div(class="ava-img")
+            div.ava-wrapper
+                img(id="ava" class="ava" src=data.imgAvatar)
+                if data.myPage
+                    div(id="profile-header-upload-ava" class="upload-ava")
+                        i(class="fas fa-camera fa-2x")
+        div(class="profile-info")
+            if !data.modEdited
+                div(class="profile-info-content")
+                    h1
+                        | #{data.firstName}
+                        | #{data.lastName}
+                    if data.myPage
+                        div(id="btn-edit-Profile" class="btn-edit-profile" )
+                            b Edit
+            else
+                div(class="profile-editing")
+                    //div
+                    //    label.profile-edit-lbl Login:
+                    //        input(id="input-login" class="edit-input" pattern="^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$|^(\\+7|7|8)?[\\s\\-]?\\(?[489][0-9]{2}\\)?[\\s\\-]?[0-9]{3}[\\s\\-]?[0-9]{2}[\\s\\-]?[0-9]{2}$")
+                    //div
+                    //    label.profile-edit-lbl Password:
+                    //        input(id="input-password" class="edit-input" pattern="^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$")
+                    div
+                        label.profile-edit-lbl Firstname:
+                            input(id="input-firstname" value=data.firstName class="edit-input")
+                    div
+                        label.profile-edit-lbl Lastname:
+                            input(id="input-lastname" value=data.lastName class="edit-input")
+                    input(id="profile-header-edit-submit" type="submit" class="btn-edit-submit-profile")
+

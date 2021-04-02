@@ -1,0 +1,19 @@
+div(class="post")
+    div(class="post-header")
+        img(class="avatar-in-post" src=data.imgAvatar)
+        div(class="post-info")
+            span(class="post-creator") #{data.postCreator}
+            span(clss="date") #{data.date}
+    div(class="post-content")
+        if data.imgContent
+            img(class="content-img" src=data.imgContent)
+        if data.textPost
+            p(class="content-text") #{data.textPost}
+    div(class="post-footer")
+        div(class="post-action")
+            a(class="single-action")
+                img(src="./assets/like.png")
+            a(class="single-action")
+                img(src="./assets/comment.png")
+            a(class="single-action")
+                img(src="./assets/reposticon.png")

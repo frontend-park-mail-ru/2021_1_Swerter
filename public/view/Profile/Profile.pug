@@ -1,0 +1,38 @@
+mixin header(data)
+    include ../../components/Header/Header
+
++header(profileData.userData)
+
+mixin profileHeader(data)
+    include ../../components/ProfileHeader/ProfileHeader
+
++profileHeader(profileData.userData)
+
+mixin post(data)
+    include ../../components/Post/Post
+
+mixin addPost(data)
+    include ../../components/AddPost/AddPost
+
+mixin modalConf(data)
+    include ../../components/ConfigModal/ConfigModal
+
+div(class="profile-content")
+    div(class="left-content-column")
+        div(class="left-content-1")
+        div(class="left-content-2")
+
+    div(class="right-content")
+        div(class="lenta")
+            if profileData.userData.myPage
+                +addPost(profileData.userData)
+            if (profileData.postsData.length !== 0)
+                each postData in profileData.postsData
+                    div(class="post-profile-wrapper")
+                        +post(postData)
+            else
+                div(class="no-post-content")
+                    b No posts yet...
+
+if profileData.userData.changePassword || profileData.userData.changeLogin
+    +modalConf(profileData.userData)
