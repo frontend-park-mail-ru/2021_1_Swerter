@@ -2,12 +2,22 @@ class User {
     constructor() {
 
     }
+
+    setAva(url) {
+        this.imgAvatar = url
+    }
+
+    getAva() {
+        return this.imgAvatar
+    }
 }
+
+let user = new User();
+export default user;
 
 // userData: {
 //     myPage: true,
 //         imgBg: './assets/imgContent.jpg',
-//         imgAvatar: './assets/imgLogo.jpg',
 //         modEdited: false,
 //         login: 'login',
 //         password: 'password',

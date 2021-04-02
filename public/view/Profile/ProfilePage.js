@@ -6,6 +6,7 @@ import makeObservable from "../../observable.js";
 import {http} from "../../modules/http.js";
 import {router} from "../../modules/router.js";
 import postStore from "../../Stores/PostStore.js";
+import userStore from "../../Stores/UserStore.js";
 
 
 class ProfilePage {
@@ -53,6 +54,14 @@ class ProfilePage {
             postStore.getUserPosts().then((posts) => {
                 this.state.postsData = this.addMetaInfoPosts(posts);
                 console.log(this.state)
+                this.render();
+                router.addEventsForLinks();
+            })
+        })
+
+        this.bind('ava-uploaded', () => {
+            userStore.getAva().then((urlAva)=>{
+                this.state.userData.imgAvatar = urlAva
                 this.render();
                 router.addEventsForLinks();
             })
