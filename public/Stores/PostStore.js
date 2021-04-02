@@ -7,10 +7,15 @@ class PostStore {
         this.contentPost = [];
     }
 
-    async getAll() {
+    async getUserPosts() {
         const userData = await http.get({url: '/profile'});
         const posts = userData.body['postsData'];
         return posts;
+    }
+
+    async getNewsPosts() {
+        const news = await http.get({url: '/posts'});
+        return news.body;
     }
 
     addContentPost(imgInfo) {

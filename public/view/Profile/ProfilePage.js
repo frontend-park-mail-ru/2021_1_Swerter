@@ -25,7 +25,7 @@ class ProfilePage {
     };
 
     constructor() {
-        postStore.getAll().then((posts) => {
+        postStore.getUserPosts().then((posts) => {
             this.state.postsData = this.addMetaInfoPosts(posts)
         })
         this.registerEvents();
@@ -50,7 +50,7 @@ class ProfilePage {
 
     registerEvents() {
         this.bind('post-added', () => {
-            postStore.getAll().then((posts) => {
+            postStore.getUserPosts().then((posts) => {
                 this.state.postsData = this.addMetaInfoPosts(posts);
                 console.log(this.state)
                 this.render();

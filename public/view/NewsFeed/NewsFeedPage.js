@@ -1,24 +1,45 @@
 import {addHeaderListeners} from "../../components/Header/handler.js";
+import postStore from "../../Stores/PostStore.js";
+import {http} from "../../modules/http.js";
 
 
 export default class NewsFeedPage {
     state = {
         postsData: [],
         userData: {
-            login: 'login',
-            password: 'password',
-            firstName: 'Dima',
-            lastName: 'Akzhigitov',
-            imgBg: './assets/imgContent.jpg',
             imgAvatar: './assets/imgLogo.jpg',
-            modEdited: false,
-            myPage: true,
-            needUpdate: false,
         },
     }
 
+    getNews() {
+        postStore.getNewsPosts().then((posts) => {
+            posts = this.postsObjToList(posts).map((item) => {
+                let urlImg = http.getHost() + '/static/usersAvatar/';
+                urlImg += item.imgAvatar ? item.imgAvatar : 'defaultUser.jpg';
+                item.imgAvatar = urlImg;
+                return item;
+            });
+
+            this.state.postsData = posts
+        });
+    }
+
+
+    postsObjToList (posts) {
+        const listPosts = [];
+        for (const key in posts) {
+            posts[key].imgContent = posts[key].imgContent ? http.getHost() + posts[key].imgContent : '';
+            listPosts.push(posts[key]);
+        }
+        return listPosts.reverse();
+    }
+
+
     render() {
+        //Достать из рендера
+        this.getNews();
         application.innerHTML = newsfeedTemplate(this.state);
+
         this.addListeners()
     }
 
