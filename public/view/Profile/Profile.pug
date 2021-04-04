@@ -1,12 +1,12 @@
 mixin header(data)
     include ../../components/Header/Header
 
-+header(userData)
++header({userData, viewState})
 
 mixin profileHeader(data)
     include ../../components/ProfileHeader/ProfileHeader
 
-+profileHeader(userData)
++profileHeader({userData, viewState})
 
 mixin post(data)
     include ../../components/Post/Post
@@ -24,7 +24,7 @@ div(class="profile-content")
 
     div(class="right-content")
         div(class="lenta")
-            if userData.myPage
+            if viewState.myPage
                 +addPost(userData)
             if (postsData.length !== 0)
                 each postData in postsData

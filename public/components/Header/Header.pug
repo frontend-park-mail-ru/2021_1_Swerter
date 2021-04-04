@@ -1,8 +1,3 @@
-- var srcAvatar
-if data.myPage
-    -srcAvatar = data.imgAvatar
-else
-    -srcAvatar = window.userAvatar
 div(class="header")
     div(class="section-h-1")
         div(class="logo-container")
@@ -23,12 +18,12 @@ div(class="header")
     div(class="section-h-3")
         div(id="header__edit-creds" class="widget settings")
             i(class="fas fa-cog fa-2x")
-            if data.editCreds
+            if data.viewState.editCreds
                 div.popup-wrapper
                     div.popup-settings
                         div.popup-field(id="header__change-password") Change password
                         div.popup-field(id="header__change-login") Change login
         div(class="widget account")
-            img(class="img-profile" src =srcAvatar)
+            img(class="img-profile" src =data.userData.imgAvatar)
         div(id="logout-block" class="widget logout")
             i(class="fas fa-sign-in-alt fa-2x")

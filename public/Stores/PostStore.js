@@ -5,6 +5,9 @@ import makeObservable from '../observable.js';
 class PostStore {
     constructor() {
         this.contentPost = [];
+        this.getUserPosts().then((posts) => {
+            this.userPosts = posts;
+        });
     }
 
     async getUserPosts() {
@@ -27,11 +30,6 @@ class PostStore {
     }
 
     addPost(newPostInfo) {
-        this.addBackendPost(newPostInfo);
-        this.delContent();
-    }
-
-    addBackendPost(newPostInfo) {
         const formData = new FormData();
         const imgContent = this.contentPost[0];
         if (imgContent) {
@@ -39,8 +37,11 @@ class PostStore {
         }
         formData.append('textPost', newPostInfo.textPost);
         formData.append('date', newPostInfo.date);
-        http.post({url: '/posts/add', data: formData, headers: {}});
+        const response = http.post({url: '/posts/add', data: formData, headers: {}});
+        this.delContent();
+        return response;
     }
+
 }
 
 console.log(PostStore.prototype);
@@ -50,8 +51,12 @@ const postStore = new PostStore();
 export default postStore;
 
 Dispatcher.register('add-post', (details) => {
-    postStore.addPost(details.newPostInfo);
-    postStore.emit('post-added');
+    postStore.addPost(details.newPostInfo).then(()=> {
+        postStore.getUserPosts().then((posts)=>{
+            postStore.userPosts = posts
+            postStore.emit('post-added');
+        })
+    })
 });
 
 Dispatcher.register('add-content-post', (details) => {

@@ -53,17 +53,6 @@ function uploadAvaFlux() {
     inputAvaImg.click();
 }
 
-
-// function uploadBg() {
-//   const input = document.createElement('input');
-//   input.type = 'file';
-//   input.onchange = (e) => {
-//     profileData.userData.imgBg = URL.createObjectURL(input.files[0]);
-//     router.go('/profile', profileData)
-//   };
-//   input.click();
-// }
-
 // PIZDEZ
 window.profileData = {
     postsData: [],

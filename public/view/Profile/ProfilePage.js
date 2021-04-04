@@ -13,28 +13,36 @@ class ProfilePage {
     state = {
         postsData: [],
         userData: {
-            login: 'login',
-            password: 'password',
-            firstName: 'Dima',
-            lastName: 'Akzhigitov',
+            firstName: '',
+            lastName: '',
             imgBg: './assets/imgContent.jpg',
-            imgAvatar: './assets/imgLogo.jpg',
+            imgAvatar: '',
+        },
+        viewState: {
             modEdited: false,
             myPage: true,
             needUpdate: false,
-        },
+        }
     };
 
     constructor() {
-        postStore.getUserPosts().then((posts) => {
-            this.state.postsData = this.addMetaInfoPosts(posts)
+        userStore.bind('init-user',()=> {
+            this.setUserInfo();
+            this.registerEvents();
         })
-        this.registerEvents();
     }
 
     render() {
+        console.log(this.state.userData.imgAvatar);
         window.application.innerHTML = profileTemplate(this.state);
         this.addListeners();
+    }
+
+    setUserInfo() {
+        this.state.userData.imgAvatar = userStore.user.imgAvatar;
+        this.state.userData.firstName = userStore.user.firstName;
+        this.state.userData.lastName = userStore.user.lastName
+        this.state.postsData = this.addMetaInfoPosts(postStore.userPosts);
     }
 
     addListeners() {
@@ -51,21 +59,23 @@ class ProfilePage {
 
     registerEvents() {
         this.bind('post-added', () => {
-            postStore.getUserPosts().then((posts) => {
-                this.state.postsData = this.addMetaInfoPosts(posts);
-                console.log(this.state)
-                this.render();
-                router.addEventsForLinks();
-            })
+            this.state.postsData = this.addMetaInfoPosts(postStore.userPosts);
+            this.render();
+            router.addEventsForLinks();
         })
 
         this.bind('ava-uploaded', () => {
-            userStore.getAva().then((urlAva)=>{
-                this.state.userData.imgAvatar = urlAva
-                this.render();
-                router.addEventsForLinks();
-            })
+            this.state.userData.imgAvatar = userStore.user.imgAvatar;
+            this.state.postsData = this.addMetaInfoPosts(this.state.postsData);
+            this.render();
+            router.addEventsForLinks();
         })
+
+        // this.bind('friend-profile', () => {
+        //     this.state.userData.imgAvatar = userStore.;
+        //     this.render();
+        //     router.addEventsForLinks();
+        // })
     }
 
     addMetaInfoPosts(posts) {
