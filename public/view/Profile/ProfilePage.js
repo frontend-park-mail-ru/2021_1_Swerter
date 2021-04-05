@@ -65,10 +65,10 @@ class ProfilePage {
         addHeaderListeners();
         addCreatePostListeners();
         addProfileHeaderListener();
-        if (profileData.userData.changePassword) {
+        if (this.state.viewState.changePassword) {
             addChangePassListeners();
         }
-        if (profileData.userData.changeLogin) {
+        if (this.state.viewState.changeLogin) {
             addChangeLoginListeners();
         }
     }
@@ -108,6 +108,7 @@ class ProfilePage {
         })
 
         this.bind('modal-closed',()=> {
+            console.log('close ')
             this.state.viewState.editCreds = false;
             this.state.viewState.changeLogin = false;
             this.state.viewState.changePassword = false;
@@ -122,16 +123,18 @@ class ProfilePage {
         })
 
         this.bind('password-changed-opened',()=> {
-            this.state.viewState.changeLogin = true;
+            this.state.viewState.changePassword = true;
             this.render();
             router.addEventsForLinks();
         })
 
         this.bind('login-changed-opened',()=> {
-            this.state.viewState.changePassword = true;
+            this.state.viewState.changeLogin = true;
             this.render();
             router.addEventsForLinks();
         })
+
+
 
         // this.bind('friend-profile', () => {
         //     this.state.userData.imgAvatar = userStore.;

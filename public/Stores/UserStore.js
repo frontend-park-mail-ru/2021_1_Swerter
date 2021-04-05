@@ -51,15 +51,34 @@ class UserStore {
         });
         return response
     }
+
+    async uploadLogin(newLogin) {
+        const response = await http.post({
+            url: '/profile',
+            data: JSON.stringify({login: newLogin.login}),
+        });
+        return response
+    }
+
+    async uploadPassword(newPassword) {
+        const response = await http.post({
+            url: '/profile',
+            data: JSON.stringify({
+                'password': newPassword.password,
+                'oldPassword': newPassword.oldPassword,
+            }),
+        });
+        return  response
+    }
 }
 
 // async getProfile(imgInfo) {
-    //     const formData = new FormData();
-    //     const imgContent = imgInfo.imgAvaFile;
-    //     formData.append('avatar', imgContent);
-    //     const response = http.post({url: '/profile/loadImg', data: formData, headers: {}});
-    //     return response;
-    // }
+//     const formData = new FormData();
+//     const imgContent = imgInfo.imgAvaFile;
+//     formData.append('avatar', imgContent);
+//     const response = http.post({url: '/profile/loadImg', data: formData, headers: {}});
+//     return response;
+// }
 
 makeObservable(UserStore);
 const userStore = new UserStore();
@@ -74,11 +93,33 @@ Dispatcher.register('upload-ava', (details) => {
     );
 });
 
-Dispatcher.register('new-name', (details) =>{
-    userStore.uploadName(details).then(()=> {
+Dispatcher.register('new-name', (details) => {
+    userStore.uploadName(details).then(() => {
             userStore.user.firstName = details.firstName;
             userStore.user.lastName = details.lastName;
             userStore.emit('new-name-setted')
+        }
+    );
+});
+
+Dispatcher.register('new-login', (details) => {
+    userStore.uploadLogin(details).then((response) => {
+            if (response.status === 200) {
+                userStore.emit('new-login-setted')
+            } else {
+                userStore.emit('new-login-failed')
+            }
+        }
+    );
+});
+
+Dispatcher.register('new-password', (details) => {
+    userStore.uploadPassword(details).then((response) => {
+            if (response.status === 200) {
+                userStore.emit('new-password-setted')
+            } else if (response.status === 403) {
+                userStore.emit('new-password-failed')
+            }
         }
     );
 });

@@ -11,8 +11,8 @@ export function addHeaderListeners() {
         Dispatcher.dispatch('go-friend-profile', {});
     });
     if (profilePage.state.viewState.editCreds) {
-        document.getElementById('header__change-login').addEventListener('click', changePassword);
-        document.getElementById('header__change-password').addEventListener('click', changeLogin);
+        document.getElementById('header__change-login').addEventListener('click', changeLogin);
+        document.getElementById('header__change-password').addEventListener('click', changePassword);
     }
     userStore.bind('friend-page-getted', ()=> {
         profilePage.emit('friend-profile')
