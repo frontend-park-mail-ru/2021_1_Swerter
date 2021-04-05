@@ -131,6 +131,14 @@ class ProfilePage {
             router.addEventsForLinks();
         })
 
+        this.bind('logouted',()=> {
+            this.state.userData.imgAvatar = '';
+            this.state.userData.firstName = '';
+            this.state.userData.lastName = '';
+            this.state.postsData = [];
+            router.go('/login');
+        })
+
         // this.bind('friend-profile', () => {
         //     this.state.userData.imgAvatar = userStore.;
         //     this.render();

@@ -6,17 +6,20 @@ class PostStore {
     constructor() {
         //Для картинок
         this.contentPost = [];
-        //Первый раз подгружаем всё без таймаута
-        this.getNewsPosts().then((posts) => {
-            this.newsPosts = posts;
-            this.emit('new-news');
-        });
-        setInterval(()=>{
+
+        this.bind('authorized', () => {
             this.getNewsPosts().then((posts) => {
                 this.newsPosts = posts;
                 this.emit('new-news');
             });
-        }, 10000);
+            this.getNewsInterval = setInterval(() => {
+                this.getNewsPosts().then((posts) => {
+                    this.newsPosts = posts;
+                    this.emit('new-news');
+                });
+            }, 10000);
+        })
+        //Первый раз подгружаем всё без таймаута
     }
 
     async getUserPosts() {
@@ -73,8 +76,8 @@ const postStore = new PostStore();
 export default postStore;
 
 Dispatcher.register('add-post', (details) => {
-    postStore.addPost(details.newPostInfo).then(()=> {
-        postStore.getUserPosts().then((posts)=>{
+    postStore.addPost(details.newPostInfo).then(() => {
+        postStore.getUserPosts().then((posts) => {
             postStore.userPosts = posts
             postStore.emit('post-added');
         })
@@ -87,4 +90,6 @@ Dispatcher.register('add-content-post', (details) => {
     postStore.emit('content-post-added', details.imgInfo.imgContentFile.name);
 });
 
-
+Dispatcher.register('logout', (details) => {
+    clearInterval(postStore.getNewsInterval);
+});

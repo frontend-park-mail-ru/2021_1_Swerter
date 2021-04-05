@@ -6,16 +6,6 @@ import postStore from "./PostStore.js";
 class UserStore {
     constructor() {
         this.user = {}
-        this.getProfile().then((userData) => {
-            this.user.firstName = userData['firstName'];
-            this.user.lastName = userData['lastName'];
-            let imgAvatar = http.getHost() + '/static/usersAvatar/';
-            imgAvatar += userData['avatar'] ? userData['avatar'] : 'defaultUser.jpg';
-            this.user.imgAvatar = imgAvatar;
-            //Думаю что Store можно между собой связывать - это сделано чтоб посты пользователя хранились всё таки в postStore
-            postStore.userPosts = userData['postsData'];
-            this.emit('authorized');
-        });
     }
 
     async getProfile() {
@@ -77,11 +67,16 @@ class UserStore {
         return response
     }
 
-
     async sendLoginRequest(creds) {
         const response = await http.post({url: '/login', data: JSON.stringify(creds)});
         return response;
     }
+
+    async sendLogoutRequest(creds) {
+        const response = await http.post({url: '/logout'});
+        return response;
+    }
+
 }
 
 // async getProfile(imgInfo) {
@@ -145,8 +140,11 @@ Dispatcher.register('send-login-request', (details) => {
                         let imgAvatar = http.getHost() + '/static/usersAvatar/';
                         imgAvatar += userData['avatar'] ? userData['avatar'] : 'defaultUser.jpg';
                         userStore.user.imgAvatar = imgAvatar;
-                        userStore.user.posts = userData['postsData'];
+
+                        //Считаю что store ьогут знать друг о друге
+                        postStore.userPosts = userData['postsData'];
                         userStore.emit('authorized')
+                        postStore.emit('authorized')
                     }
                 )
             } else if (response.status === 403) {
@@ -154,6 +152,18 @@ Dispatcher.register('send-login-request', (details) => {
             }
         }
     );
+});
+
+
+Dispatcher.register('logout', (details) => {
+    userStore.sendLogoutRequest().then(response=>{
+        if (response.status === 200) {
+            userStore.user.firstName = '';
+            userStore.user.lastName = '';
+            userStore.user.imgAvatar = '';
+            userStore.emit('logouted');
+        }
+    })
 });
 
 // Dispatcher.register('go-friend-profile', (details) => {

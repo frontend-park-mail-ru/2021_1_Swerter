@@ -1,12 +1,11 @@
-'use strict';
 import {router} from './modules/router.js';
 import {http} from './modules/http.js';
 
 import profilePage from "./view/Profile/ProfilePage.js";
 import loginPage from "./view/LoginPage/LoginPage.js";
 import newsFeedPage from "./view/NewsFeed/NewsFeedPage.js";
-
 import RegisterPage from "./view/RegisterPage/RegisterPage.js";
+import Dispatcher from "./dispatcher.js"
 
 window.application = document.getElementById('app');
 
@@ -19,6 +18,7 @@ console.log(user.status)
 console.log('alal')
 switch (user.status) {
     case 200:
+        Dispatcher.dispatch('send-login-request');
         router.go('/profile')
         break
     case 401:

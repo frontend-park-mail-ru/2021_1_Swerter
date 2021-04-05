@@ -1,11 +1,13 @@
-import {router} from '../../modules/router.js';
-import {http} from '../../modules/http.js';
 import profilePage from "../../view/Profile/ProfilePage.js";
 import Dispatcher from "../../dispatcher.js";
 import userStore from "../../Stores/UserStore.js";
 
 userStore.bind('friend-page-getted', ()=> {
     profilePage.emit('friend-profile')
+})
+
+userStore.bind('logouted', ()=> {
+    profilePage.emit('logouted');
 })
 
 export function addHeaderListeners() {
@@ -21,12 +23,7 @@ export function addHeaderListeners() {
 }
 
 async function sendLogoutRequest() {
-    const res = await http.post({url: '/logout'});
-
-    if (res.status === 200) {
-        console.log('lo')
-        router.go('/login')
-    }
+    Dispatcher.dispatch('logout',{});
 }
 
 function editCreds() {

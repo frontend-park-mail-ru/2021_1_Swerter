@@ -39,10 +39,7 @@ class NewsFeedPage {
 
     registerEvents() {
         this.bind('new-news-getted', () => {
-            console.log('post added')
             this.state.postsData = postStore.newsPosts;
-            this.render();
-            router.addEventsForLinks();
         });
     }
 }
