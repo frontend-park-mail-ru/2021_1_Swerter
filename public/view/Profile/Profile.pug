@@ -34,5 +34,5 @@ div(class="profile-content")
                 div(class="no-post-content")
                     b No posts yet... #{test}
 
-if userData.changePassword || userData.changeLogin
-    +modalConf(userData)
+if viewState.changePassword || viewState.changeLogin
+    +modalConf(viewState)

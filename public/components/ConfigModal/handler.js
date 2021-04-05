@@ -1,5 +1,6 @@
 import {router} from '../../modules/router.js';
 import {http} from '../../modules/http.js';
+import profilePage from "../../view/Profile/ProfilePage.js";
 
 function addChangeLoginListeners() {
     document.getElementById('modal-config').addEventListener('click', closeModal);
@@ -14,10 +15,7 @@ function addChangePassListeners() {
 }
 
 function closeModal() {
-    profileData.userData.editCreds = false;
-    profileData.userData.changeLogin = false;
-    profileData.userData.changePassword = false;
-    router.go('/profile', profileData);
+    profilePage.emit('modal-closed');
 }
 
 function displayValidationError(prev, error) {

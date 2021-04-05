@@ -10,9 +10,9 @@ export function addHeaderListeners() {
     document.getElementById('friends-block').addEventListener('click', ()=>{
         Dispatcher.dispatch('go-friend-profile', {});
     });
-    if (profileData.userData.editCreds) {
-        document.getElementById('header__change-login').addEventListener('click', changeLogin);
-        document.getElementById('header__change-password').addEventListener('click', changePassword);
+    if (profilePage.state.viewState.editCreds) {
+        document.getElementById('header__change-login').addEventListener('click', changePassword);
+        document.getElementById('header__change-password').addEventListener('click', changeLogin);
     }
     userStore.bind('friend-page-getted', ()=> {
         profilePage.emit('friend-profile')
@@ -29,17 +29,14 @@ async function sendLogoutRequest() {
 }
 
 function editCreds() {
-    profileData.userData.editCreds = !profileData.userData.editCreds;
-    router.go('/profile', profileData)
+    profilePage.emit('modal-creds-opened');
 }
 
 function changePassword() {
-    profileData.userData.changePassword = true;
-    router.go('/profile', profileData)
+    profilePage.emit('password-changed-opened');
 }
 
 function changeLogin() {
-    profileData.userData.changeLogin = true;
-    router.go('/profile', profileData)
+    profilePage.emit('login-changed-opened');
 }
 

@@ -22,6 +22,9 @@ class ProfilePage {
             modEdited: false,
             myPage: true,
             needUpdate: false,
+            editCreds: false,
+            changeLogin: false,
+            changePassword: false,
         }
     };
 
@@ -104,6 +107,31 @@ class ProfilePage {
             router.addEventsForLinks();
         })
 
+        this.bind('modal-closed',()=> {
+            this.state.viewState.editCreds = false;
+            this.state.viewState.changeLogin = false;
+            this.state.viewState.changePassword = false;
+            this.render();
+            router.addEventsForLinks();
+        })
+
+        this.bind('modal-creds-opened',()=> {
+            this.state.viewState.editCreds = !this.state.viewState.editCreds;
+            this.render();
+            router.addEventsForLinks();
+        })
+
+        this.bind('password-changed-opened',()=> {
+            this.state.viewState.changeLogin = true;
+            this.render();
+            router.addEventsForLinks();
+        })
+
+        this.bind('login-changed-opened',()=> {
+            this.state.viewState.changePassword = true;
+            this.render();
+            router.addEventsForLinks();
+        })
 
         // this.bind('friend-profile', () => {
         //     this.state.userData.imgAvatar = userStore.;
