@@ -4,11 +4,8 @@ import makeObservable from '../observable.js';
 
 class PostStore {
     constructor() {
+        //Для картинок
         this.contentPost = [];
-        this.getUserPosts().then((posts) => {
-            this.userPosts = posts;
-            this.emit('init-user-posts');
-        });
 
         this.getNewsPosts().then((posts) => {
             this.newsPosts = posts;
@@ -50,7 +47,6 @@ class PostStore {
 
 }
 
-console.log(PostStore.prototype);
 makeObservable(PostStore);
 const postStore = new PostStore();
 

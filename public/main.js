@@ -2,13 +2,13 @@
 import {router} from './modules/router.js';
 import {http} from './modules/http.js';
 import profilePage from "./view/Profile/ProfilePage.js";
-import LoginPage from "./view/LoginPage/LoginPage.js";
+import loginPage from "./view/LoginPage/LoginPage.js";
+
 import RegisterPage from "./view/RegisterPage/RegisterPage.js";
 import NewsFeedPage from "./view/NewsFeed/NewsFeedPage.js";
 
 window.application = document.getElementById('app');
 
-const loginPage = new LoginPage();
 const registerPage = new RegisterPage();
 const newsFeedPage = new NewsFeedPage();
 

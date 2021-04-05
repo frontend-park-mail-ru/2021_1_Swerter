@@ -4,6 +4,10 @@ import profilePage from "../../view/Profile/ProfilePage.js";
 import Dispatcher from "../../dispatcher.js";
 import userStore from "../../Stores/UserStore.js";
 
+userStore.bind('friend-page-getted', ()=> {
+    profilePage.emit('friend-profile')
+})
+
 export function addHeaderListeners() {
     document.getElementById('logout-block').addEventListener('click', sendLogoutRequest);
     document.getElementById('header__edit-creds').addEventListener('click', editCreds);
@@ -14,9 +18,6 @@ export function addHeaderListeners() {
         document.getElementById('header__change-login').addEventListener('click', changeLogin);
         document.getElementById('header__change-password').addEventListener('click', changePassword);
     }
-    userStore.bind('friend-page-getted', ()=> {
-        profilePage.emit('friend-profile')
-    })
 }
 
 async function sendLogoutRequest() {

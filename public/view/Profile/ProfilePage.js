@@ -8,6 +8,9 @@ import {router} from "../../modules/router.js";
 import postStore from "../../Stores/PostStore.js";
 import userStore from "../../Stores/UserStore.js";
 
+userStore.bind('authorized',()=> {
+    profilePage.emit('authorized');
+});
 
 class ProfilePage {
     state = {
@@ -30,20 +33,7 @@ class ProfilePage {
 
     constructor() {
         this.registerEvents();
-        let initInfo = false
-        userStore.bind('init-user',()=> {
-            this.setUserInfo();
-            initInfo = true;
-        });
-        postStore.bind('init-user-posts', ()=> {
-            if (!initInfo) {
-                setTimeout(()=>{
-                    this.setUserPosts();
-                    this.render()
-                    router.addEventsForLinks();
-                }, 200)
-            }
-        });
+
     }
 
     render() {
@@ -75,6 +65,7 @@ class ProfilePage {
 
     registerEvents() {
         this.bind('post-added', () => {
+            console.log('post added')
             this.state.postsData = this.addMetaInfoPosts(postStore.userPosts);
             this.render();
             router.addEventsForLinks();
@@ -134,7 +125,12 @@ class ProfilePage {
             router.addEventsForLinks();
         })
 
-
+        this.bind('authorized',()=> {
+            this.setUserInfo();
+            this.setUserPosts();
+            this.render();
+            router.addEventsForLinks();
+        })
 
         // this.bind('friend-profile', () => {
         //     this.state.userData.imgAvatar = userStore.;

@@ -1,32 +1,38 @@
-import {router} from '../../modules/router.js';
-import {http} from '../../modules/http.js';
+import Dispatcher from "../../dispatcher.js";
+import userStore from "../../Stores/UserStore.js";
+import loginPage from "../../view/LoginPage/LoginPage.js";
+
+userStore.bind('send-login-request-failed', ()=>{
+    displayLoginFormValidationError('Wrong login or password');
+});
+
+userStore.bind('authorized', ()=>{
+    loginPage.emit('authorized');
+});
 
 export function addLoginFormListeners() {
-    document.getElementById('submit-go-register').addEventListener('click', function () {
-        router.go('/register')
-    });
     document.getElementById('submit-login-form').addEventListener('click', submitLoginForm);
 }
 
 function submitLoginForm() {
     const login = document.getElementsByName('login')[0];
     const password = document.getElementsByName('password')[0];
+
     let errorMsg = null;
     if (login.checkValidity() !== true) {
         errorMsg = 'Wrong login format';
     } else if (password.checkValidity() !== true) {
         errorMsg = 'Wrong password format';
     }
-
-    if (errorMsg === null) {
-        const data = {
-            login: login.value,
-            password: password.value,
-        };
-        sendLoginRequest(data);
-    } else {
+    if (errorMsg) {
         displayLoginFormValidationError(errorMsg);
+        return
     }
+
+    Dispatcher.dispatch('send-login-request',{
+        login: login.value,
+        password: password.value,
+    })
 }
 
 function displayLoginFormValidationError(error) {
@@ -40,14 +46,5 @@ function displayLoginFormValidationError(error) {
     } else {
         const errorBox = document.getElementsByClassName('login-form__div-error').item(0);
         errorBox.innerHTML = `<h2>${error}</h2>`;
-    }
-}
-
-async function sendLoginRequest(data) {
-    const res = await http.post({url: '/login', data: JSON.stringify(data)});
-    if (res.status === 200) {
-        router.go('/profile', profileData)
-    } else if (res.status == 403) {
-        displayLoginFormValidationError('Wrong login or password');
     }
 }

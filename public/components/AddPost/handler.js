@@ -2,17 +2,17 @@ import Dispatcher from '../../dispatcher.js';
 import postStore from '../../Stores/PostStore.js';
 import profilePage from "../../view/Profile/ProfilePage.js";
 
+postStore.bind('post-added', () => {
+    profilePage.emit('post-added')
+});
+
+postStore.bind('content-post-added', (fileName) => {
+    addImgName(fileName);
+});
+
 function addCreatePostListeners() {
     document.getElementById('add-post').addEventListener('click', addPostFlux);
     document.getElementById('upload-post-content').addEventListener('click', uploadPostContentFlux);
-
-    postStore.bind('post-added', () => {
-        profilePage.emit('post-added')
-    });
-
-    postStore.bind('content-post-added', (fileName) => {
-        addImgName(fileName);
-    });
 }
 
 function addPostFlux() {

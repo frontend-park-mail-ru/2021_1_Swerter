@@ -1,8 +1,19 @@
-import {router} from '../../modules/router.js';
-import {http} from '../../modules/http.js';
 import profilePage from "../../view/Profile/ProfilePage.js";
 import Dispatcher from "../../dispatcher.js";
 import userStore from "../../Stores/UserStore.js";
+
+userStore.bind('new-password-setted', ()=>{
+    profilePage.emit('modal-closed')
+});
+userStore.bind('new-login-failed', ()=>{
+    displayValidationError('input-new-login',
+        'Server error, try again' +
+        ' later');
+});
+userStore.bind('new-password-failed', ()=>{
+    displayValidationError('input-old-password',
+        'Wrong password entered');
+});
 
 function addChangeLoginListeners() {
     document.getElementById('modal-config').addEventListener('click', closeModal);
@@ -10,18 +21,6 @@ function addChangeLoginListeners() {
     document.getElementById('change-login-form__button-change-login').addEventListener('click', submitChangeLogin);
     userStore.bind('new-login-setted', ()=>{
         profilePage.emit('modal-closed')
-    });
-    userStore.bind('new-password-setted', ()=>{
-        profilePage.emit('modal-closed')
-    });
-    userStore.bind('new-login-failed', ()=>{
-        displayValidationError('input-new-login',
-            'Server error, try again' +
-            ' later');
-    });
-    userStore.bind('new-password-failed', ()=>{
-        displayValidationError('input-old-password',
-            'Wrong password entered');
     });
 }
 

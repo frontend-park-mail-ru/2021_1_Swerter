@@ -1,21 +1,27 @@
 import Dispatcher from '../dispatcher.js';
 import {http} from '../modules/http.js';
 import makeObservable from '../observable.js';
+import postStore from "./PostStore.js";
 
 class UserStore {
     constructor() {
-        this.user = {};
+        this.user = {}
+        this.getProfile().then((userData) => {
+            this.user.firstName = userData['firstName'];
+            this.user.lastName = userData['lastName'];
+            let imgAvatar = http.getHost() + '/static/usersAvatar/';
+            imgAvatar += userData['avatar'] ? userData['avatar'] : 'defaultUser.jpg';
+            this.user.imgAvatar = imgAvatar;
+            //Думаю что Store можно между собой связывать - это сделано чтоб посты пользователя хранились всё таки в postStore
+            postStore.userPosts = userData['postsData'];
+            this.emit('authorized');
+        });
+    }
 
-        const responseAva = this.getAva().then((url) => {
-            this.user.imgAvatar = url;
-        });
-        const responseName = this.getName().then((userInfo) => {
-            this.user.firstName = userInfo.firstName;
-            this.user.lastName = userInfo.lastName
-        });
-        Promise.all([responseAva, responseName]).then(() => {
-            this.emit('init-user');
-        });
+    async getProfile() {
+        const response = await http.get({url: '/profile'});
+        const userData = response.body;
+        return userData;
     }
 
     async getAva() {
@@ -68,7 +74,13 @@ class UserStore {
                 'oldPassword': newPassword.oldPassword,
             }),
         });
-        return  response
+        return response
+    }
+
+
+    async sendLoginRequest(creds) {
+        const response = await http.post({url: '/login', data: JSON.stringify(creds)});
+        return response;
     }
 }
 
@@ -119,6 +131,26 @@ Dispatcher.register('new-password', (details) => {
                 userStore.emit('new-password-setted')
             } else if (response.status === 403) {
                 userStore.emit('new-password-failed')
+            }
+        }
+    );
+});
+
+Dispatcher.register('send-login-request', (details) => {
+    userStore.sendLoginRequest(details).then((response) => {
+            if (response.status === 200) {
+                userStore.getProfile().then((userData) => {
+                        userStore.user.firstName = userData['firstName'];
+                        userStore.user.lastName = userData['lastName'];
+                        let imgAvatar = http.getHost() + '/static/usersAvatar/';
+                        imgAvatar += userData['avatar'] ? userData['avatar'] : 'defaultUser.jpg';
+                        userStore.user.imgAvatar = imgAvatar;
+                        userStore.user.posts = userData['postsData'];
+                        userStore.emit('authorized')
+                    }
+                )
+            } else if (response.status === 403) {
+                userStore.emit('send-login-request-failed')
             }
         }
     );

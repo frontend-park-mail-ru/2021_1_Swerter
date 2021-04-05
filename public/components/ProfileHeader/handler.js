@@ -1,8 +1,14 @@
-import {router} from '../../modules/router.js';
-import {http} from '../../modules/http.js';
 import Dispatcher from "../../dispatcher.js";
 import userStore from "../../Stores/UserStore.js";
 import profilePage from "../../view/Profile/ProfilePage.js";
+
+userStore.bind('ava-uploaded',()=>{
+    profilePage.emit('ava-uploaded')
+})
+
+userStore.bind('new-name-setted',()=>{
+    profilePage.emit('new-name-setted')
+})
 
 function addProfileHeaderListener() {
     // document.getElementById('profile-header-upload-bg').addEventListener('click', uploadBg);
@@ -17,15 +23,6 @@ function addProfileHeaderListener() {
             profilePage.emit('edit-name')
         });
     }
-
-    userStore.bind('ava-uploaded',()=>{
-        profilePage.emit('ava-uploaded')
-    })
-
-    userStore.bind('new-name-setted',()=>{
-        profilePage.emit('new-name-setted')
-    })
-
 }
 
 
