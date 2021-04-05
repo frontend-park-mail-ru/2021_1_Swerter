@@ -6,11 +6,17 @@ class PostStore {
     constructor() {
         //Для картинок
         this.contentPost = [];
-
+        //Первый раз подгружаем всё без таймаута
         this.getNewsPosts().then((posts) => {
             this.newsPosts = posts;
-            this.emit('init-news');
+            this.emit('new-news');
         });
+        setInterval(()=>{
+            this.getNewsPosts().then((posts) => {
+                this.newsPosts = posts;
+                this.emit('new-news');
+            });
+        }, 10000);
     }
 
     async getUserPosts() {
@@ -20,8 +26,14 @@ class PostStore {
     }
 
     async getNewsPosts() {
-        const news = await http.get({url: '/posts'});
-        return news.body;
+        let news = await http.get({url: '/posts'});
+        news = this.postsObjToList(news.body).map((item) => {
+            let urlImg = http.getHost() + '/static/usersAvatar/';
+            urlImg += item.imgAvatar ? item.imgAvatar : 'defaultUser.jpg';
+            item.imgAvatar = urlImg;
+            return item;
+        });
+        return news;
     }
 
     addContentPost(imgInfo) {
@@ -45,6 +57,14 @@ class PostStore {
         return response;
     }
 
+    postsObjToList(posts) {
+        const listPosts = [];
+        for (const key in posts) {
+            posts[key].imgContent = posts[key].imgContent ? http.getHost() + posts[key].imgContent : '';
+            listPosts.push(posts[key]);
+        }
+        return listPosts.reverse();
+    }
 }
 
 makeObservable(PostStore);

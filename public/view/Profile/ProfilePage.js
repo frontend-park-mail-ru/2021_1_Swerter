@@ -33,7 +33,6 @@ class ProfilePage {
 
     constructor() {
         this.registerEvents();
-
     }
 
     render() {
