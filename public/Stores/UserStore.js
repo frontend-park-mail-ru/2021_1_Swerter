@@ -42,14 +42,24 @@ class UserStore {
         return response;
     }
 
-    // async getProfile(imgInfo) {
+    async uploadName(newUserInfo) {
+        const response = http.post({
+            url: '/profile', data: JSON.stringify({
+                firstName: newUserInfo.firstName,
+                lastName: newUserInfo.lastName,
+            }),
+        });
+        return response
+    }
+}
+
+// async getProfile(imgInfo) {
     //     const formData = new FormData();
     //     const imgContent = imgInfo.imgAvaFile;
     //     formData.append('avatar', imgContent);
     //     const response = http.post({url: '/profile/loadImg', data: formData, headers: {}});
     //     return response;
     // }
-}
 
 makeObservable(UserStore);
 const userStore = new UserStore();
@@ -60,6 +70,15 @@ Dispatcher.register('upload-ava', (details) => {
                 userStore.user.imgAvatar = avaUrl;
                 userStore.emit('ava-uploaded');
             })
+        }
+    );
+});
+
+Dispatcher.register('new-name', (details) =>{
+    userStore.uploadName(details).then(()=> {
+            userStore.user.firstName = details.firstName;
+            userStore.user.lastName = details.lastName;
+            userStore.emit('new-name-setted')
         }
     );
 });

@@ -7,6 +7,12 @@ class PostStore {
         this.contentPost = [];
         this.getUserPosts().then((posts) => {
             this.userPosts = posts;
+            this.emit('init-user-posts');
+        });
+
+        this.getNewsPosts().then((posts) => {
+            this.newsPosts = posts;
+            this.emit('init-news');
         });
     }
 
@@ -64,3 +70,5 @@ Dispatcher.register('add-content-post', (details) => {
     // Не по флаксу передавать инфу с событием
     postStore.emit('content-post-added', details.imgInfo.imgContentFile.name);
 });
+
+

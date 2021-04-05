@@ -7,36 +7,36 @@ import profilePage from "../../view/Profile/ProfilePage.js";
 function addProfileHeaderListener() {
     // document.getElementById('profile-header-upload-bg').addEventListener('click', uploadBg);
     document.getElementById('profile-header-upload-ava').addEventListener('click', uploadAvaFlux);
-    if (profileData.userData.modEdited) {
-        document.getElementById('profile-header-edit-submit').addEventListener('click', endEdit);
+    if (profilePage.state.viewState.modEdited) {
+        document.getElementById('profile-header-edit-submit').addEventListener('click', ()=>{
+            endEdit();
+            profilePage.emit('end-edit-name')
+        });
     } else {
-        document.getElementById('btn-edit-Profile').addEventListener('click', edit);
+        document.getElementById('btn-edit-Profile').addEventListener('click', ()=>{
+            profilePage.emit('edit-name')
+        });
     }
 
     userStore.bind('ava-uploaded',()=>{
         profilePage.emit('ava-uploaded')
     })
+
+    userStore.bind('new-name-setted',()=>{
+        profilePage.emit('new-name-setted')
+    })
+
 }
 
-function edit() {
-    profileData.userData.modEdited = true;
-    router.go('/profile', profileData)
 
-}
+function endEdit() {
+    const firstName = document.getElementById('input-firstname').value.replace(/<\/?[^>]+(>|$)/g, '');
+    const lastName = document.getElementById('input-lastname').value.replace(/<\/?[^>]+(>|$)/g, '');
 
-async function endEdit() {
-    profileData.userData.modEdited = false;
-    profileData.userData.firstName = document.getElementById('input-firstname').value.replace(/<\/?[^>]+(>|$)/g, '');
-    profileData.userData.lastName = document.getElementById('input-lastname').value.replace(/<\/?[^>]+(>|$)/g, '');
-    const body = profileData.userData;
-
-    http.post({
-        url: '/profile', data: JSON.stringify({
-            firstName: body.firstName,
-            lastName: body.lastName,
-        }),
-    });
-    router.go('/profile', profileData)
+    Dispatcher.dispatch('new-name',{
+        firstName,
+        lastName
+    })
 }
 
 function uploadAvaFlux() {

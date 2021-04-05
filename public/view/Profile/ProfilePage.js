@@ -26,14 +26,24 @@ class ProfilePage {
     };
 
     constructor() {
+        this.registerEvents();
+        let initInfo = false
         userStore.bind('init-user',()=> {
             this.setUserInfo();
-            this.registerEvents();
-        })
+            initInfo = true;
+        });
+        postStore.bind('init-user-posts', ()=> {
+            if (!initInfo) {
+                setTimeout(()=>{
+                    this.setUserPosts();
+                    this.render()
+                    router.addEventsForLinks();
+                }, 200)
+            }
+        });
     }
 
     render() {
-        console.log(this.state.userData.imgAvatar);
         window.application.innerHTML = profileTemplate(this.state);
         this.addListeners();
     }
@@ -42,6 +52,9 @@ class ProfilePage {
         this.state.userData.imgAvatar = userStore.user.imgAvatar;
         this.state.userData.firstName = userStore.user.firstName;
         this.state.userData.lastName = userStore.user.lastName
+    }
+
+    setUserPosts() {
         this.state.postsData = this.addMetaInfoPosts(postStore.userPosts);
     }
 
@@ -70,6 +83,27 @@ class ProfilePage {
             this.render();
             router.addEventsForLinks();
         })
+
+        this.bind('edit-name',()=> {
+            this.state.viewState.modEdited = true;
+            this.render();
+            router.addEventsForLinks();
+        })
+
+        this.bind('end-edit-name',()=> {
+            this.state.viewState.modEdited = false;
+            this.render();
+            router.addEventsForLinks();
+        })
+
+        this.bind('new-name-setted',()=> {
+            this.state.userData.firstName = userStore.user.firstName;
+            this.state.userData.lastName = userStore.user.lastName;
+            this.state.postsData = this.addMetaInfoPosts(this.state.postsData);
+            this.render();
+            router.addEventsForLinks();
+        })
+
 
         // this.bind('friend-profile', () => {
         //     this.state.userData.imgAvatar = userStore.;
