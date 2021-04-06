@@ -1,6 +1,7 @@
 import Dispatcher from "../../dispatcher.js";
 import userStore from "../../Stores/UserStore.js";
 import loginPage from "../../view/LoginPage/LoginPage.js";
+import profilePage from '../../view/Profile/ProfilePage.js';
 
 userStore.bind('send-login-request-failed', ()=>{
     displayLoginFormValidationError('Wrong login or password');
@@ -8,6 +9,7 @@ userStore.bind('send-login-request-failed', ()=>{
 
 userStore.bind('authorized', ()=>{
     loginPage.emit('authorized');
+    profilePage.emit('authorized');
 });
 
 export function addLoginFormListeners() {

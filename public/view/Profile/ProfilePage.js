@@ -8,10 +8,6 @@ import {router} from "../../modules/router.js";
 import postStore from "../../Stores/PostStore.js";
 import userStore from "../../Stores/UserStore.js";
 
-userStore.bind('authorized',()=> {
-    profilePage.emit('authorized');
-});
-
 class ProfilePage {
     state = {
         postsData: [],
