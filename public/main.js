@@ -7,7 +7,7 @@ import newsFeedPage from "./view/NewsFeed/NewsFeedPage.js";
 import registerPage from "./view/RegisterPage/RegisterPage.js";
 import Dispatcher from "./dispatcher.js"
 import postStore from "./Stores/PostStore.js";
-import userStore from "./Stores/UserStore";
+import userStore from "./Stores/UserStore.js";
 
 window.application = document.getElementById('app');
 
