@@ -7,6 +7,7 @@ class PostStore {
         //Для картинок
         this.contentPost = [];
 
+        //Первый раз подгружаем всё без таймаута
         this.bind('authorized', () => {
             this.getNewsPosts().then((posts) => {
                 this.newsPosts = posts;
@@ -19,7 +20,6 @@ class PostStore {
                 });
             }, 10000);
         })
-        //Первый раз подгружаем всё без таймаута
     }
 
     async getUserPosts() {

@@ -1,9 +1,16 @@
-import {router} from '../../modules/router.js';
-import {http} from '../../modules/http.js';
+import Dispatcher from "../../dispatcher.js";
+import userStore from "../../Stores/UserStore.js";
+
+userStore.bind('registered',(creds)=>{
+    Dispatcher.dispatch('send-login-request', creds);
+})
+
+userStore.bind('registration-failed',()=>{
+    displayRegisterFormValidationError('User with such login already exists');
+})
 
 export function addRegisterFormListeners() {
     document.getElementById('submit-register-form').addEventListener('click', submitRegisterForm);
-    document.getElementById('register-go-login').addEventListener('click', () => {router.go('/login')});
 }
 
 function submitRegisterForm() {
@@ -12,7 +19,7 @@ function submitRegisterForm() {
     const passwordRepeat = document.getElementsByName('password-repeat')[0];
     const firstName = document.getElementsByName('first-name')[0];
     const lastName = document.getElementsByName('last-name')[0];
-
+    console.log(login.value)
     let errorMsg = null;
 
     if (login.checkValidity() !== true) {
@@ -28,17 +35,17 @@ function submitRegisterForm() {
         errorMsg = `Lastname can't be empty`;
     }
 
-    if (errorMsg === null) {
-        const data = {
-            login: login.value,
-            password: password.value,
-            firstName: firstName.value,
-            lastName: lastName.value,
-        };
-        sendRegisterRequest(data);
-    } else {
+    if (errorMsg) {
         displayRegisterFormValidationError(errorMsg);
+        return
     }
+
+    Dispatcher.dispatch('send-register-request', {
+        login: login.value,
+        password: password.value,
+        firstName: firstName.value,
+        lastName: lastName.value,
+    })
 }
 
 function displayRegisterFormValidationError(error) {
@@ -54,20 +61,5 @@ function displayRegisterFormValidationError(error) {
     } else {
         const errorBox = document.getElementsByClassName('register-form__div-error').item(0);
         errorBox.innerHTML = `<h2>${error}</h2>`;
-    }
-}
-
-async function sendRegisterRequest(data) {
-    const resReg = await http.post(
-        {url: '/register', data: JSON.stringify(data)});
-    if (resReg.status === 200) {
-        const resLogin = await http.post(
-            {url: '/login', data: JSON.stringify(data)});
-        if (resLogin.status == 200) {
-            router.go('/profile', profileData)
-        }
-    } else if (resReg.status === 403) {
-        displayRegisterFormValidationError(
-            'User with such login already exists');
     }
 }

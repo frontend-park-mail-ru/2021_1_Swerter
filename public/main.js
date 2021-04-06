@@ -4,12 +4,11 @@ import {http} from './modules/http.js';
 import profilePage from "./view/Profile/ProfilePage.js";
 import loginPage from "./view/LoginPage/LoginPage.js";
 import newsFeedPage from "./view/NewsFeed/NewsFeedPage.js";
-import RegisterPage from "./view/RegisterPage/RegisterPage.js";
+import registerPage from "./view/RegisterPage/RegisterPage.js";
 import Dispatcher from "./dispatcher.js"
 
 window.application = document.getElementById('app');
 
-const registerPage = new RegisterPage();
 
 registerUrls()
 

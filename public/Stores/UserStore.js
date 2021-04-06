@@ -72,8 +72,14 @@ class UserStore {
         return response;
     }
 
-    async sendLogoutRequest(creds) {
+    async sendLogoutRequest() {
         const response = await http.post({url: '/logout'});
+        return response;
+    }
+
+    async sendRegisterRequest(creds) {
+        console.log(JSON.stringify(creds));
+        const response = await http.post({url: '/register', data: JSON.stringify(creds)});
         return response;
     }
 
@@ -156,7 +162,7 @@ Dispatcher.register('send-login-request', (details) => {
 
 
 Dispatcher.register('logout', (details) => {
-    userStore.sendLogoutRequest().then(response=>{
+    userStore.sendLogoutRequest().then(response => {
         if (response.status === 200) {
             userStore.user.firstName = '';
             userStore.user.lastName = '';
@@ -165,6 +171,18 @@ Dispatcher.register('logout', (details) => {
         }
     })
 });
+
+Dispatcher.register('send-register-request', (details) => {
+    userStore.sendRegisterRequest(details).then(response => {
+        if (response.status === 200) {
+            //Не по флаксу отправлять инфу о событии
+            userStore.emit('registered', details);
+        } else if (response.status === 403) {
+            userStore.emit('registration-failed');
+        }
+    })
+});
+
 
 // Dispatcher.register('go-friend-profile', (details) => {
 //     userStore.getProfile().then((response) => {
