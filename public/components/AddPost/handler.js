@@ -1,68 +1,55 @@
-import {router} from '../../modules/router.js';
-import {http} from '../../modules/http.js';
+import Dispatcher from '../../dispatcher.js';
+import postStore from '../../Stores/PostStore.js';
+import profilePage from "../../view/Profile/ProfilePage.js";
 
-let newPostPhoto = '';
-let postContentFile = '';
-let textPost;
+postStore.bind('post-added', () => {
+    profilePage.emit('post-added')
+});
+
+postStore.bind('content-post-added', (fileName) => {
+    addImgName(fileName);
+});
 
 function addCreatePostListeners() {
-  document.getElementById('add-post').addEventListener('click', addPost);
-  document.getElementById('upload-post-content').addEventListener('click', uploadPostContent);
+    document.getElementById('add-post').addEventListener('click', addPostFlux);
+    document.getElementById('upload-post-content').addEventListener('click', uploadPostContentFlux);
 }
 
-function addPost() {
-  textPost = document.getElementById('text-post').value.replace(/<\/?[^>]+(>|$)/g, '');
-  addFrontendPost();
-  addBackendPost();
+function addPostFlux() {
+    const textPost = document.getElementById('text-post').value.replace(/<\/?[^>]+(>|$)/g, '');
+    const currentDate = new Date();
+    const date = currentDate.getDay() + '.' + currentDate.getMonth() + '.' + currentDate.getFullYear();
+    const u = profileData.userData;
+    const imgAvatar = u.imgAvatar;
+    const postCreator = u.firstName + ' ' + u.lastName;
+
+    Dispatcher.dispatch('add-post', {
+        newPostInfo: {
+            textPost,
+            date,
+            imgAvatar,
+            postCreator,
+        },
+    });
 }
 
-function uploadPostContent() {
-  const input = document.createElement('input');
-  input.type = 'file';
-  input.onchange = (e) => {
-    postContentFile = input.files[0];
-    addImgName(postContentFile.name);
-    newPostPhoto = URL.createObjectURL(postContentFile);
-  };
-  input.click();
+function uploadPostContentFlux() {
+    const inputPostImg = document.createElement('input');
+    inputPostImg.type = 'file';
+    inputPostImg.onchange = (e) => {
+        const imgContentFile = inputPostImg.files[0];
+        Dispatcher.dispatch('add-content-post', {
+            imgInfo: {
+                imgContentFile,
+            },
+        });
+    };
+    inputPostImg.click();
 }
 
-function addFrontendPost() {
-  const u = profileData.userData;
-  const currentDate = new Date();
-  const datetime = currentDate.getDay() + '.' + currentDate.getMonth() + '.' + currentDate.getFullYear();
-  const newPost = {
-    needDownload: false,
-    imgAvatar: u.imgAvatar,
-    postCreator: u.firstName + ' ' + u.lastName,
-    date: datetime,
-    textPost,
-  };
-  if (newPostPhoto) {
-    newPost.imgContent = newPostPhoto;
-  }
-  profileData.postsData.unshift(newPost);
-  router.goProfile({needUpdate: false});
-  newPostPhoto = '';
-}
-
-function addBackendPost() {
-  const currentDate = new Date();
-  const datetime = currentDate.getDay() + '.' + currentDate.getMonth() + '.' + currentDate.getFullYear();
-  const formData = new FormData();
-  if (postContentFile) {
-    formData.append('imgContent', postContentFile, postContentFile.name);
-  }
-  formData.append('textPost', textPost);
-  formData.append('date', datetime);
-  http.post({url: '/posts/add', data: formData, headers: {}});
-  postContentFile = '';
-}
-
-//Новая функция
 function addImgName(fileName) {
-  const imgPostName = document.getElementById('uploaded-post-img');
-  imgPostName.innerText = fileName.slice(0, 15) + '...';
+    const imgPostName = document.getElementById('uploaded-post-img');
+    imgPostName.innerText = fileName.slice(0, 15) + '...';
 }
 
 export {addCreatePostListeners};
