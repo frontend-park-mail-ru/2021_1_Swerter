@@ -50,6 +50,14 @@ class ProfilePage {
         this.state.postsData = this.addMetaInfoPosts(postStore.userPosts);
     }
 
+    setDefaultViewFlags() {
+        this.state.viewState.myPage = true;
+        this.state.viewState.editCreds = false;
+        this.state.viewState.changePassword = false;
+        this.state.viewState.changeLogin = false;
+        this.state.viewState.modEdited = false;
+    }
+
     addListeners() {
         addHeaderListeners();
         if (this.state.viewState.myPage) {
@@ -127,6 +135,7 @@ class ProfilePage {
         })
 
         this.bind('authorized',()=> {
+            this.setDefaultViewFlags();
             this.setUserInfo();
             this.setUserPosts();
             this.render();
@@ -135,6 +144,7 @@ class ProfilePage {
 
 
         this.bind('logouted',()=> {
+            this.setDefaultViewFlags();
             this.state.userData.imgAvatar = '';
             this.state.userData.firstName = '';
             this.state.userData.lastName = '';

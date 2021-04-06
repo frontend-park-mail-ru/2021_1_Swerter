@@ -7,6 +7,7 @@ import newsFeedPage from "./view/NewsFeed/NewsFeedPage.js";
 import registerPage from "./view/RegisterPage/RegisterPage.js";
 import Dispatcher from "./dispatcher.js"
 import postStore from "./Stores/PostStore.js";
+import userStore from "./Stores/UserStore";
 
 window.application = document.getElementById('app');
 
@@ -20,6 +21,7 @@ switch (user.status) {
     case 200:
         Dispatcher.dispatch('get-user-profile', {});
         postStore.emit('authorized')
+        userStore.emit('authorized')
         router.go('/profile')
         break
     case 401:
