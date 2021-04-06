@@ -52,8 +52,10 @@ class ProfilePage {
 
     addListeners() {
         addHeaderListeners();
-        addCreatePostListeners();
-        addProfileHeaderListener();
+        if (this.state.viewState.myPage) {
+            addCreatePostListeners();
+            addProfileHeaderListener();
+        }
         if (this.state.viewState.changePassword) {
             addChangePassListeners();
         }
@@ -131,6 +133,7 @@ class ProfilePage {
             router.addEventsForLinks();
         })
 
+
         this.bind('logouted',()=> {
             this.state.userData.imgAvatar = '';
             this.state.userData.firstName = '';
@@ -139,11 +142,21 @@ class ProfilePage {
             router.go('/login');
         })
 
-        // this.bind('friend-profile', () => {
-        //     this.state.userData.imgAvatar = userStore.;
-        //     this.render();
-        //     router.addEventsForLinks();
-        // })
+        this.bind('profile-getted',()=> {
+            this.state.viewState.myPage = true;
+            this.setUserInfo();
+            this.setUserPosts();
+            this.render();
+            router.addEventsForLinks();
+        })
+
+        this.bind('friend-page-getted', () => {
+            this.state.viewState.myPage = false;
+            this.setUserInfo();
+            this.setUserPosts();
+            this.render();
+            router.addEventsForLinks();
+        })
     }
 
     addMetaInfoPosts(posts) {

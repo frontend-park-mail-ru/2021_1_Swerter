@@ -4,6 +4,7 @@ import makeObservable from '../observable.js';
 import postStore from "./PostStore.js";
 
 class UserStore {
+
     constructor() {
         this.user = {}
     }
@@ -14,20 +15,19 @@ class UserStore {
         return userData;
     }
 
+    async getProfileFriend(id) {
+        const response = await http.get({url: `/profile/id${id}`});
+        console.log(`/profile/${id}`)
+        const userData = response.body;
+        return userData;
+    }
+
     async getAva() {
         const userData = await http.get({url: '/profile'});
         let imgAvatar = http.getHost() + '/static/usersAvatar/';
         imgAvatar += userData.body['avatar'] ? userData.body['avatar'] : 'defaultUser.jpg';
         console.log(imgAvatar)
         return imgAvatar;
-    }
-
-    async getName() {
-        const userData = await http.get({url: '/profile'});
-        const firstName = userData.body['firstName'];
-        const lastName = userData.body['firstName'];
-        const user = {firstName, lastName};
-        return user;
     }
 
     async uploadAva(imgInfo) {
@@ -83,15 +83,16 @@ class UserStore {
         return response;
     }
 
-}
+    setUserData(userData) {
+        this.user.firstName = userData['firstName'];
+        this.user.lastName = userData['lastName'];
+        let imgAvatar = http.getHost() + '/static/usersAvatar/';
+        imgAvatar += userData['avatar'] ? userData['avatar'] : 'defaultUser.jpg';
+        this.user.imgAvatar = imgAvatar;
+        postStore.userPosts = userData['postsData'];
+    }
 
-// async getProfile(imgInfo) {
-//     const formData = new FormData();
-//     const imgContent = imgInfo.imgAvaFile;
-//     formData.append('avatar', imgContent);
-//     const response = http.post({url: '/profile/loadImg', data: formData, headers: {}});
-//     return response;
-// }
+}
 
 makeObservable(UserStore);
 const userStore = new UserStore();
@@ -141,14 +142,7 @@ Dispatcher.register('send-login-request', (details) => {
     userStore.sendLoginRequest(details).then((response) => {
             if (response.status === 200) {
                 userStore.getProfile().then((userData) => {
-                        userStore.user.firstName = userData['firstName'];
-                        userStore.user.lastName = userData['lastName'];
-                        let imgAvatar = http.getHost() + '/static/usersAvatar/';
-                        imgAvatar += userData['avatar'] ? userData['avatar'] : 'defaultUser.jpg';
-                        userStore.user.imgAvatar = imgAvatar;
-
-                        //Считаю что store ьогут знать друг о друге
-                        postStore.userPosts = userData['postsData'];
+                        userStore.setUserData(userData);
                         userStore.emit('authorized')
                         postStore.emit('authorized')
                     }
@@ -184,12 +178,20 @@ Dispatcher.register('send-register-request', (details) => {
 });
 
 
-// Dispatcher.register('go-friend-profile', (details) => {
-//     userStore.getProfile().then((response) => {
-//             userStore.emit('friend-page-getted');
-//         }
-//     );
-// });
+Dispatcher.register('go-friend-profile', () => {
+    //Хардкодим айди второго пользователя
+    userStore.getProfileFriend(1).then((userData) => {
+        userStore.setUserData(userData);
+        console.log(userData)
+        userStore.emit('friend-page-getted');
+    });
+});
 
+Dispatcher.register('get-user-profile', () => {
+    userStore.getProfile().then((userData) => {
+        userStore.setUserData(userData);
+        userStore.emit('profile-getted')
+    });
+});
 
 export default userStore;

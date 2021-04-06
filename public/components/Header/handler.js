@@ -3,7 +3,12 @@ import Dispatcher from "../../dispatcher.js";
 import userStore from "../../Stores/UserStore.js";
 
 userStore.bind('friend-page-getted', ()=> {
-    profilePage.emit('friend-profile')
+    console.log('friend prifile')
+    profilePage.emit('friend-page-getted');
+})
+
+userStore.bind('profile-getted', ()=> {
+    profilePage.emit('profile-getted')
 })
 
 userStore.bind('logouted', ()=> {
@@ -13,7 +18,11 @@ userStore.bind('logouted', ()=> {
 export function addHeaderListeners() {
     document.getElementById('logout-block').addEventListener('click', sendLogoutRequest);
     document.getElementById('header__edit-creds').addEventListener('click', editCreds);
+    document.getElementById('profile-block').addEventListener('click', ()=>{
+        Dispatcher.dispatch('get-user-profile', {});
+    });
     document.getElementById('friends-block').addEventListener('click', ()=>{
+        //Переход на страницу человека
         Dispatcher.dispatch('go-friend-profile', {});
     });
     if (profilePage.state.viewState.editCreds) {

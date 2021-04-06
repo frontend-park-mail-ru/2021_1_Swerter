@@ -6,6 +6,7 @@ import loginPage from "./view/LoginPage/LoginPage.js";
 import newsFeedPage from "./view/NewsFeed/NewsFeedPage.js";
 import registerPage from "./view/RegisterPage/RegisterPage.js";
 import Dispatcher from "./dispatcher.js"
+import postStore from "./Stores/PostStore.js";
 
 window.application = document.getElementById('app');
 
@@ -17,7 +18,8 @@ console.log(user.status)
 console.log('alal')
 switch (user.status) {
     case 200:
-        Dispatcher.dispatch('send-login-request');
+        Dispatcher.dispatch('get-user-profile', {});
+        postStore.emit('authorized')
         router.go('/profile')
         break
     case 401:
