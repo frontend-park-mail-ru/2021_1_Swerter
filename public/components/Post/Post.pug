@@ -10,15 +10,24 @@ div(class="post")
         if data.imgContent
             img(class="post__content__img" src=data.imgContent)
     div(class="post__footer")
+        div(class="post__footer__row__metric")
+            if data.liked
+                div(class="metric metric__like")
+                    i(class="fas fa-heart")   #{data.likeCounter}
+            else
+                div(class="metric metric__like")
+                    i(class="far fa-heart")   #{data.likeCounter}
+            div(class="metric metric__comment")
+            div(class="metric metric__repost")
+
         div(class="post__footer__row")
-            div(id="like"+data.ID class="post__footer__column post__footer__column_like")
-                i(class="post-action post-action_like far fa-thumbs-up fa-lg") Like
+            if data.liked
+                div(id="like"+data.ID class="post__footer__column post__footer__column__like post__footer__column__like_active")
+                    i(class="post-action post-action_like far fa-thumbs-up fa-lg") Like
+            else
+                div(id="like" + data.ID class="post__footer__column post__footer__column__like post__footer__column__like_deactive")
+                    i(class="post-action post-action_like far fa-thumbs-up fa-lg") Like
             div(class="post__footer__column")
                 i(class="post-action far fa-comment fa-lg") Comment
             div(class="post__footer__column")
                 i(class="post-action post-action_repost far fa-share-square fa-lg") Share
-
-    //a(class="single-action")
-            //    img(src="./assets/comment.png")
-            //a(class="single-action")
-            //    img(src="./assets/reposticon.png")

@@ -60,8 +60,8 @@
     background-color: #D8DADF;
     bottom: -15px;
     height: 2px;
-    width: 80%;
-    left: 10%;
+    width: 94%;
+    left: 3%;
 }
 
 .post__content__text {
@@ -74,7 +74,6 @@
 }
 
 .post__footer__row {
-    position: relative;
     display: flex;
     margin-top: 15px;
     align-items: center;
@@ -115,4 +114,48 @@
 
 .post-action:hover {
     background-color: #F2F2F2;
+}
+
+.post__footer__row__metric {
+    position: relative;
+    display: flex;
+    margin-top: 25px;
+    align-items: center;
+    justify-content: center;
+}
+.post__footer__row__metric::after {
+    content: "";
+    position: absolute;
+    background-color: #D8DADF;
+    bottom: -15px;
+    height: 2px;
+    width: 94%;
+    left: 3%;
+}
+
+.metric {
+    flex: 0 0 33.333%;
+    display: flex;
+    justify-content: center;
+}
+
+.metric__like {
+    display: flex;
+    justify-content: center;
+}
+
+.post__footer__column__like_active{
+    color: #cd0e0e;
+}
+
+.post__footer__column__like_deactive{
+    color: #2C2C2C;
+}
+
+.metric:first-child {
+    margin-left: 15px;
+}
+
+.metric:last-child {
+    margin-left: 15px;
 }
