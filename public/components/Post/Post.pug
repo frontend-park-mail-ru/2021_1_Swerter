@@ -4,16 +4,21 @@ div(class="post")
         div(class="post-info")
             span(class="post-creator") #{data.postCreator}
             span(clss="date") #{data.date}
-    div(class="post-content")
-        if data.imgContent
-            img(class="content-img" src=data.imgContent)
+    div(class="post__content")
         if data.textPost
-            p(class="content-text") #{data.textPost}
-    div(class="post-footer")
-        div(class="post-action")
-            a(class="single-action")
-                img(src="./assets/like.png")
-            a(class="single-action")
-                img(src="./assets/comment.png")
-            a(class="single-action")
-                img(src="./assets/reposticon.png")
+            p(class="post__content__text") #{data.textPost}
+        if data.imgContent
+            img(class="post__content__img" src=data.imgContent)
+    div(class="post__footer")
+        div(class="post__footer__row")
+            div(id="like"+data.ID class="post__footer__column post__footer__column_like")
+                i(class="post-action post-action_like far fa-thumbs-up fa-lg") Like
+            div(class="post__footer__column")
+                i(class="post-action far fa-comment fa-lg") Comment
+            div(class="post__footer__column")
+                i(class="post-action post-action_repost far fa-share-square fa-lg") Share
+
+    //a(class="single-action")
+            //    img(src="./assets/comment.png")
+            //a(class="single-action")
+            //    img(src="./assets/reposticon.png")

@@ -2,6 +2,7 @@ import {addCreatePostListeners} from "../../components/AddPost/handler.js";
 import {addProfileHeaderListener} from "../../components/ProfileHeader/handler.js";
 import {addChangeLoginListeners, addChangePassListeners} from "../../components/ConfigModal/handler.js";
 import {addHeaderListeners} from "../../components/Header/handler.js";
+import {addPostListeners} from "../../components/Post/handler.js";
 import makeObservable from "../../observable.js";
 import {http} from "../../modules/http.js";
 import {router} from "../../modules/router.js";
@@ -56,6 +57,7 @@ class ProfilePage {
 
     addListeners() {
         addHeaderListeners();
+        addPostListeners();
         if (this.state.viewState.myPage) {
             addCreatePostListeners();
             addProfileHeaderListener();
