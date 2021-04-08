@@ -68,6 +68,11 @@ class PostStore {
         }
         return listPosts.reverse();
     }
+
+    async changeLikePost(postId) {
+        const response = await http.get({url: `/post/like/${postId}`});
+        return response
+    }
 }
 
 makeObservable(PostStore);
@@ -92,4 +97,18 @@ Dispatcher.register('add-content-post', (details) => {
 
 Dispatcher.register('logout', (details) => {
     clearInterval(postStore.getNewsInterval);
+});
+
+Dispatcher.register('like-change', (details) => {
+    postStore.changeLikePost(details.postId).then((response) => {
+        if (response.status === 200) {
+            postStore.getUserPosts().then((posts) => {
+                postStore.userPosts = posts
+            })
+            postStore.getNewsPosts().then((posts) => {
+                postStore.newsPosts = posts
+            })
+            postStore.emit('like-changed');
+        }
+    })
 });

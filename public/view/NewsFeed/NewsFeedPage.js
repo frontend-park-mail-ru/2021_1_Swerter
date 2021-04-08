@@ -23,10 +23,10 @@ class NewsFeedPage {
         //Котысль хедера
         this.state.userData = profilePage.state.userData
         this.state.viewState = profilePage.state.viewState
-
-        postStore.bind('init-news', () => {
-            this.state.postsData = postStore.newsPosts;
-        });
+        //
+        // postStore.bind('init-news', () => {
+        //     this.state.postsData = postStore.newsPosts;
+        // });
         application.innerHTML = newsfeedTemplate(this.state);
 
         this.addListeners()

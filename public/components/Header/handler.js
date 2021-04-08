@@ -3,7 +3,6 @@ import Dispatcher from "../../dispatcher.js";
 import userStore from "../../Stores/UserStore.js";
 
 userStore.bind('friend-page-getted', ()=> {
-    console.log('friend prifile')
     profilePage.emit('friend-page-getted');
 })
 

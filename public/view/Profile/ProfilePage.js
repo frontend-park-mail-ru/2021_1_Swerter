@@ -72,7 +72,6 @@ class ProfilePage {
 
     registerEvents() {
         this.bind('post-added', () => {
-            console.log('post added')
             this.state.postsData = this.addMetaInfoPosts(postStore.userPosts);
             this.render();
             router.addEventsForLinks();
@@ -162,6 +161,12 @@ class ProfilePage {
             this.state.viewState.myPage = false;
             this.setUserInfo();
             this.setUserPosts();
+            this.render();
+            router.addEventsForLinks();
+        })
+
+        this.bind('like-changed', () => {
+            this.state.postsData = this.addMetaInfoPosts(postStore.userPosts);
             this.render();
             router.addEventsForLinks();
         })
