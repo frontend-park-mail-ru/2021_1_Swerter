@@ -1,10 +1,12 @@
 import profilePage from "../../view/Profile/ProfilePage.js";
 import Dispatcher from "../../dispatcher.js";
 import userStore from "../../Stores/UserStore.js";
+import friendsStore from "../../Stores/FriendStore.js";
+import friendsPage from "../../view/FriendsPage/FriendsPage.js"
 
-userStore.bind('friend-page-getted', ()=> {
+friendsStore.bind('friends-page-getted', ()=> {
     console.log('friend prifile')
-    profilePage.emit('friend-page-getted');
+    friendsPage.emit('friends-page-getted');
 })
 
 userStore.bind('profile-getted', ()=> {

@@ -130,14 +130,15 @@ class ProfilePage {
             router.addEventsForLinks();
         })
 
+        //8
         this.bind('authorized',()=> {
             this.setDefaultViewFlags();
             this.setUserInfo();
             this.setUserPosts();
+            //9
             this.render();
             router.addEventsForLinks();
         })
-
 
         this.bind('logouted',()=> {
             this.setDefaultViewFlags();
