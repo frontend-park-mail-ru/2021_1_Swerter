@@ -173,13 +173,13 @@ class ProfilePage {
     }
 
     addMetaInfoPosts(posts) {
-        let listPosts = [];
-        for (const key in posts) {
-            posts[key].imgContent = posts[key].imgContent ? http.getHost() + posts[key].imgContent : '';
-            listPosts.push(posts[key]);
-        }
-        listPosts.reverse();
-        return listPosts.map((item) => {
+        // let listPosts = [];
+        // for (const key in posts) {
+        //     posts[key].imgContent = posts[key].imgContent ? http.getHost() + posts[key].imgContent : '';
+        //     listPosts.push(posts[key]);
+        // }
+        console.log(posts)
+        return posts.map((item) => {
             item.imgAvatar = this.state.userData.imgAvatar;
             item.postCreator = this.state.userData.firstName + ' ' + this.state.userData.lastName;
             return item;

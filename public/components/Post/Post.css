@@ -54,16 +54,6 @@
     background-color: #FFFFFF ;
 }
 
-.post__content::after {
-    content: "";
-    position: absolute;
-    background-color: #D8DADF;
-    bottom: -15px;
-    height: 2px;
-    width: 94%;
-    left: 3%;
-}
-
 .post__content__text {
     display: block;
     margin: 15px;

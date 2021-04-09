@@ -25,7 +25,12 @@ class PostStore {
     async getUserPosts() {
         const userData = await http.get({url: '/profile'});
         const posts = userData.body['postsData'];
-        return posts;
+        let listPosts = [];
+        for (const key in posts) {
+            posts[key].imgContent = posts[key].imgContent ? http.getHost() + posts[key].imgContent : '';
+            listPosts.push(posts[key]);
+        }
+        return listPosts.reverse();
     }
 
     async getNewsPosts() {
@@ -70,7 +75,7 @@ class PostStore {
     }
 
     async changeLikePost(postId) {
-        const response = await http.get({url: `/post/like/${postId}`});
+        const response = await http.post({url: `/like/post/${postId}`});
         return response
     }
 }
@@ -84,6 +89,7 @@ Dispatcher.register('add-post', (details) => {
     postStore.addPost(details.newPostInfo).then(() => {
         postStore.getUserPosts().then((posts) => {
             postStore.userPosts = posts
+            console.log(posts)
             postStore.emit('post-added');
         })
     })
@@ -104,11 +110,12 @@ Dispatcher.register('like-change', (details) => {
         if (response.status === 200) {
             postStore.getUserPosts().then((posts) => {
                 postStore.userPosts = posts
+                postStore.emit('like-changed');
             })
             postStore.getNewsPosts().then((posts) => {
                 postStore.newsPosts = posts
+                postStore.emit('like-changed');
             })
-            postStore.emit('like-changed');
         }
     })
 });

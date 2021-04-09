@@ -1,7 +1,7 @@
 import Dispatcher from "../../dispatcher.js";
-import postStore from "../../Stores/PostStore";
+import postStore from "../../Stores/PostStore.js";
 import profilePage from "../../view/Profile/ProfilePage.js";
-import newsFeedPage from "../../view/NewsFeed/NewsFeedPage";
+import newsFeedPage from "../../view/NewsFeed/NewsFeedPage.js";
 
 postStore.bind('like-changed', () => {
     profilePage.emit('like-changed')
@@ -18,7 +18,7 @@ export function addPostListeners() {
 }
 
 function changeLike(like) {
-    const postId = like.id.split("id")[0]
+    const postId = like.id.split("like")[1]
     console.log(like.classList)
     Dispatcher.dispatch("like-change", {
         postId,
