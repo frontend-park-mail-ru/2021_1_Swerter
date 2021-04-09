@@ -1,19 +1,19 @@
-.friend-request-block {
+.friend-block {
     display: flex;
     align-items: center;
-    border-radius: 38px;
-    margin-top: 20px;
-    height: 120px;
+    border-radius: 20px;
+    margin-top: 15px;
+    height: 70px;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
     background-color: #FFFFFF;
     position: relative;
 }
 
-.friend-request-block:hover {
+.friend-block:hover {
     background-color: #f2f2f2;
 }
 
-.friend-request-block__content {
+.friend--block__content {
     padding-top: 5px;
     padding-right: 15px;
     width: 100%;
@@ -24,86 +24,38 @@
     align-items: flex-start;
 }
 
-.friend-request-block__avatar {
+.friend-block__avatar {
     margin: 15px;
-    width: 70px;
-    height: 70px;
+    width: 50px;
+    height: 50px;
     border-radius: 100%;
     object-fit: cover;
     box-shadow: 0 0 7px #666;
     float: left;
 }
 
-.friend-request-block__avatar {
+.friend-block__avatar:hover {
     cursor: pointer;
 }
 
-.request-friend-info {
+.friend-info {
     display: flex;
     /*height: px;*/
+    width: 100%;
+    height: 100%;
     padding-right: 65px;
     justify-content: center;
     align-items: center;
 }
 
-.request-friend-info__user-name {
+.friend-info__user-name {
     font-family: Helvetica, Arial, sans-serif;
     font-size: 22px;
     font-weight: 600;
 }
 
-.request-friend-info__user-surname {
+.friend-info__user-surname {
     font-family: Helvetica, Arial, sans-serif;
     font-size: 22px;
     font-weight: 600;
-}
-
-.btn-add-friend {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #3777f1;
-    color: #FFFFFF;
-    height: 15px;
-    width: 110px;
-    font-size: 22px;
-    padding: 8px;
-    margin-right: 8px;
-    border-radius: 4px;
-}
-
-.friend-request-block__btns {
-    display: flex;
-    width: 100%;
-    justify-content: flex-start;
-}
-
-.btn-remove-friend {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color:darkgrey;
-    color: #FFFFFF;
-    height: 15px;
-    width: 110px;
-    padding: 8px;
-    margin-left: 8px;
-    font-size: 22px;
-    border-radius: 4px;
-}
-
-.btn-add-friend:hover {
-    cursor: pointer;
-}
-
-.btn-add-friend:active {
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
-}
-
-.btn-remove-friend:active {
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
-}
-
-.btn-remove-friend:hover {
-    cursor: pointer;
 }
