@@ -132,10 +132,11 @@
 .metric__like {
     display: flex;
     justify-content: center;
+    color: #E61B43;
 }
 
 .post__footer__column__like_active{
-    color: #cd0e0e;
+    color: #0571ED;
 }
 
 .post__footer__column__like_deactive{

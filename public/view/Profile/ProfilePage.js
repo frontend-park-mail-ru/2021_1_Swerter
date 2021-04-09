@@ -4,7 +4,6 @@ import {addChangeLoginListeners, addChangePassListeners} from "../../components/
 import {addHeaderListeners} from "../../components/Header/handler.js";
 import {addPostListeners} from "../../components/Post/handler.js";
 import makeObservable from "../../observable.js";
-import {http} from "../../modules/http.js";
 import {router} from "../../modules/router.js";
 import postStore from "../../Stores/PostStore.js";
 import userStore from "../../Stores/UserStore.js";
@@ -173,12 +172,6 @@ class ProfilePage {
     }
 
     addMetaInfoPosts(posts) {
-        // let listPosts = [];
-        // for (const key in posts) {
-        //     posts[key].imgContent = posts[key].imgContent ? http.getHost() + posts[key].imgContent : '';
-        //     listPosts.push(posts[key]);
-        // }
-        console.log(posts)
         return posts.map((item) => {
             item.imgAvatar = this.state.userData.imgAvatar;
             item.postCreator = this.state.userData.firstName + ' ' + this.state.userData.lastName;

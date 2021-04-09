@@ -13,7 +13,7 @@ div(class="post")
         div(class="post__footer__row__metric")
             if data.liked
                 div(class="metric metric__like")
-                    i(class="fas fa-heart")  #{data.likeCounter}
+                    i(class="fab fa-gratipay")  #{data.likeCounter}
             else
                 div(class="metric metric__like")
                     i(class="far fa-heart")  #{data.likeCounter}
@@ -23,7 +23,7 @@ div(class="post")
         div(class="post__footer__row")
             if data.liked
                 div(id="like"+data.ID class="post__footer__column post__footer__column__like post__footer__column__like_active")
-                    i(class="post-action post-action_like far fa-thumbs-up fa-lg") Like
+                    i(class="post-action post-action_like fas fa-thumbs-up fa-lg") Like
             else
                 div(id="like" + data.ID class="post__footer__column post__footer__column__like post__footer__column__like_deactive")
                     i(class="post-action post-action_like far fa-thumbs-up fa-lg") Like
