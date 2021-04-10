@@ -1,6 +1,7 @@
 import {addHeaderListeners} from "../../components/Header/handler.js";
 import makeObservable from "../../observable.js";
 import {addFriendsRequestListeners} from "../../components/FriendRequestBlock/handler.js"
+import {addFriendsListeners} from "../../components/FriendBlock/handler.js"
 import {http} from "../../modules/http.js";
 import {router} from "../../modules/router.js";
 import postStore from "../../Stores/PostStore.js";
@@ -9,8 +10,9 @@ import profilePage from '../Profile/ProfilePage.js'
 
 
 export function addFriendsPageListeners() {
-    // addHeaderListeners();
-    // addFriendsRequestListeners();
+    addHeaderListeners();
+    addFriendsRequestListeners();
+    addFriendsListeners();
 }
 
 class FriendPage {
@@ -38,33 +40,20 @@ class FriendPage {
         this.state.followers = friendStore.state.followers;
     }
 
-
     addListeners() {
         addHeaderListeners();
         addFriendsRequestListeners();
-        // if (this.state.viewState.myPage) {
-        //     addCreatePostListeners();
-        //     addProfileHeaderListener();
-        // }
-        // if (this.state.viewState.changePassword) {
-        //     addChangePassListeners();
-        // }
-        // if (this.state.viewState.changeLogin) {
-        //     addChangeLoginListeners();
-        // }
+        addFriendsListeners();
     }
 
     registerEvents() {
         this.bind('friends-page-received', () => {
-            console.log("huyak2")
             this.setFriendsInfo()
             this.setFollowersInfo()
-            console.log(this.state)
             this.render();
             router.addEventsForLinks();
         })
     }
-
 }
 
 makeObservable(FriendPage)

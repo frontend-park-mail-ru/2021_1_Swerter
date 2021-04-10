@@ -157,7 +157,7 @@ class ProfilePage {
             router.addEventsForLinks();
         })
 
-        this.bind('friend-page-getted', () => {
+        this.bind('friend-page-received', () => {
             this.state.viewState.myPage = false;
             this.setUserInfo();
             this.setUserPosts();

@@ -1,5 +1,5 @@
 div.friend-request-block
-    img.friend-request-block__avatar(src=data.avatar)
+    img.friend-request-block__avatar(src=data.avatar id=`frb-friend-` + data.id)
     div.friend-request-block__content
         div.request-friend-info
             span.request-friend-info__user-name #{data.firstName} &nbsp;

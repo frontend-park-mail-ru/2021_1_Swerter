@@ -17,7 +17,8 @@ div.friends-page-content
                 span.friends-request-header Friend requests
                 hr.friends-page__line
                 each follower in followers
-                    +friend-request-block(follower)
+                    if !follower.isNotified
+                        +friend-request-block(follower)
             div.friends-content
                 span.friends-header Friends
                 hr.friends-page__line

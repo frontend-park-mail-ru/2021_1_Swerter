@@ -25,7 +25,16 @@ class FriendStore {
         headers: {}
       });
       return response;
-    }
+  }
+
+  async removeFriend(details) {
+      const response = await http.post({
+        url: '/user/friend/remove',
+        data: JSON.stringify(details),
+        headers: {}
+      });
+      return response;
+  }
 
   async getProfileFollowers() {
     const response = await http.get({url: '/user/followers'});
@@ -74,6 +83,7 @@ class FriendStore {
         'defaultUser.jpg';
       saveFollower.firstName = follower['firstName'];
       saveFollower.lastName = follower['lastName'];
+      saveFollower.isNotified = follower['isNotified'];
       this.state.followers.push(saveFollower);
     });
   }
@@ -89,6 +99,12 @@ Dispatcher.register('access-friend-request', (details) => {
   })
 });
 
+Dispatcher.register('cancel-friend-request', (details) => {
+  friendStore.removeFriend(details).then((response) => {
+    friendStore.emit('canceled-friend-request');
+  })
+});
+
 Dispatcher.register('go-friends-page', () => {
   (async function () {
     const friendsData = await friendStore.getProfileFriends();
@@ -101,16 +117,6 @@ Dispatcher.register('go-friends-page', () => {
     friendStore.emit('friends-page-received');
   });
 });
-
-// Dispatcher.register('go-friend-profile', () => {
-//   //Хардкодим айди второго пользователя
-//   friendStore.getProfileFriend(1).then((userData) => {
-//     friendStore.setUserData(userData);
-//     console.log(userData);
-//     friendStore.emit('friend-page-getted');
-//   });
-//
-// });
 
 
 export default friendStore;

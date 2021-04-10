@@ -178,15 +178,13 @@ Dispatcher.register('send-register-request', (details) => {
     })
 });
 
-
-// Dispatcher.register('go-friend-profile', () => {
-//     //Хардкодим айди второго пользователя
-//     userStore.getProfileFriend(1).then((userData) => {
-//         userStore.setUserData(userData);
-//         console.log(userData)
-//         userStore.emit('friend-page-getted');
-//     });
-// });
+Dispatcher.register('go-friend-profile', (datails) => {
+    userStore.getProfileFriend(datails.id).then((userData) => {
+        userStore.setUserData(userData);
+        console.log(userData)
+        userStore.emit('friend-page-received');
+    });
+});
 
 Dispatcher.register('get-user-profile', () => {
     userStore.getProfile().then((userData) => {
