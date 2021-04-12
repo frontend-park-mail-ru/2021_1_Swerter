@@ -6,7 +6,7 @@ div.modal-wrapper
             div.btn__close(id="close-post-modal-btn")
                 i(class="far fa-times-circle fa-3x")
         div.new-post-form__content
-            textarea.new-post-form__content__text(contenteditable placeholder="What's on your mind")
+            textarea.new-post-form__content__text(placeholder="What's on your mind")
             div.new-post-form__content__images
                 if data.contentUrls.length === 1
                     img(class="new-post-form__content__image new-post-form__content__image_first" src=data.contentUrls[0])
@@ -20,9 +20,14 @@ div.modal-wrapper
                             img(class="new-post-form__content__image" src=data.contentUrls[1])
                         div.new-post-form__content__image_third
                             img(class="new-post-form__content__image" src=data.contentUrls[2])
-                        if data.contentUrls.length >= 4
+                        if data.contentUrls.length === 4
                             div.new-post-form__content__image_fourth
                                 img(class="new-post-form__content__image" src=data.contentUrls[3])
+                        if data.contentUrls.length > 4
+                            div.new-post-form__content__image__more
+                                div.new-post-form__content__image__more-counter + #{data.contentUrls.length - 4}
+                                div.new-post-form__content__image_fourth
+                                    img(class="new-post-form__content__image" src=data.contentUrls[3])
         div.new-post-form__attach
             div.new-post-form__attach__text Add to Your Post
             div.new-post-form__attach__photo(id="attach__photo")
