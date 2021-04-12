@@ -38,6 +38,17 @@
     cursor: pointer;
 }
 
+.action-friend-btn {
+    margin-left: auto;
+    margin-right: 20px;
+    width: 35px;
+    height: 35px;
+}
+
+.action-friend-btn:hover {
+    cursor: pointer;
+}
+
 .friend-info {
     display: flex;
     /*height: px;*/

@@ -7,18 +7,26 @@ import {router} from "../../modules/router.js";
 import postStore from "../../Stores/PostStore.js";
 import friendStore from '../../Stores/FriendStore.js';
 import profilePage from '../Profile/ProfilePage.js'
+import {addFriendsSearchListeners} from '../../components/SearchFriend/handler.js'
 
 
 export function addFriendsPageListeners() {
     addHeaderListeners();
     addFriendsRequestListeners();
     addFriendsListeners();
+    addFriendsSearchListeners();
 }
 
 class FriendPage {
     state = {
         friends : [],
         followers : [],
+        foundUsers: [],
+        isSearched : false,
+        lastRequest: {
+            firstName: "",
+            lastName: ""
+        }
     }
 
     constructor() {
@@ -36,20 +44,32 @@ class FriendPage {
         this.state.userData = profilePage.state.userData
         this.state.viewState = profilePage.state.viewState
     }
+
     setFollowersInfo() {
         this.state.followers = friendStore.state.followers;
+    }
+
+    setFoundUsersInfo() {
+        this.state.lastRequest = friendStore.state.lastRequest
+        this.state.foundUsers = friendStore.state.foundUsers
+        this.state.foundUsers.forEach((user) => {
+            user.isSearched = true
+        })
+        this.state.isSearched = true
     }
 
     addListeners() {
         addHeaderListeners();
         addFriendsRequestListeners();
         addFriendsListeners();
+        addFriendsSearchListeners();
     }
 
     registerEvents() {
         this.bind('friends-page-received', () => {
             this.setFriendsInfo()
             this.setFollowersInfo()
+            this.setFoundUsersInfo();
             this.render();
             router.addEventsForLinks();
         })

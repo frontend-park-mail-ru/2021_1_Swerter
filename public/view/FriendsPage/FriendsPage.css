@@ -11,6 +11,10 @@
     width: 450px;
 }
 
+.found-friend-block {
+    margin-bottom: 20px;
+}
+
 .left-block {
     display: flex;
     flex-basis: 450px;

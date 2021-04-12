@@ -9,7 +9,12 @@ class FriendStore {
     this.state = {
       friends: [],
       followers: [],
-    };
+      foundUsers: [],
+      lastRequest: {
+        firstName: "",
+        lastName: ""
+      }
+    }
   }
 
   async getProfileFriends() {
@@ -42,9 +47,16 @@ class FriendStore {
     return followersData;
   }
 
+  async searchFriend(details) {
+    const response = await http.get({
+        url: `/user/friend/search?first_name=${details.firstName}&last_name=${details.lastName}`
+    });
+    const users = response.body;
+    return users;
+  }
+
   async getProfileFriend(id) {
     const response = await http.get({url: `/profile/id${id}`});
-    console.log(`/profile/${id}`);
     const userData = response.body;
     return userData;
   }
@@ -52,9 +64,20 @@ class FriendStore {
   clearFriendsData() {
     this.state.friends = []
   }
+  clearLastRequest() {
+    this.state.lastRequest = {
+        firstName: "",
+        lastName: ""
+      }
+  }
+
 
   clearFollowersData() {
     this.state.followers = []
+  }
+
+  clearFoundUsers() {
+    this.state.foundUsers = []
   }
 
   setFriendsData(friendsData) {
@@ -70,6 +93,25 @@ class FriendStore {
       saveFriend.lastName = friend['lastName'];
       this.state.friends.push(saveFriend);
     });
+  }
+
+  setFoundUsers(users, lastRequest) {
+    this.clearFoundUsers();
+    if (lastRequest.firstName !== "") {
+      this.state.lastRequest = lastRequest;
+    }
+    users.forEach((user) => {
+      let saveUser = {};
+      saveUser.id = user['id'];
+      saveUser.avatar = http.getHost() + '/static/usersAvatar/';
+      saveUser.avatar += user['avatar'] ?
+        friend['avatar'] :
+        'defaultUser.jpg';
+      saveUser.firstName = user['firstName'];
+      saveUser.lastName = user['lastName'];
+      saveUser.isFriend = user['isFriend']
+      this.state.foundUsers.push(saveUser);
+    })
   }
 
   setFollowersData(followersData) {
@@ -99,10 +141,28 @@ Dispatcher.register('access-friend-request', (details) => {
   })
 });
 
+Dispatcher.register('send-friend-request', (details) => {
+  friendStore.addFriend(details).then((response) => {
+    friendStore.emit('searched-friend-add');
+  })
+});
+
 Dispatcher.register('cancel-friend-request', (details) => {
   friendStore.removeFriend(details).then((response) => {
     friendStore.emit('canceled-friend-request');
   })
+});
+
+Dispatcher.register('search-friend', (details) => {
+  if (details === null)
+    details = friendStore.state.lastRequest
+  if (details.firstName === "" && details.lastName === "")
+    return;
+
+  friendStore.searchFriend(details).then((users) => {
+    friendStore.setFoundUsers(users, details);
+    friendStore.emit("users-found");
+  });
 });
 
 Dispatcher.register('go-friends-page', () => {
@@ -113,7 +173,8 @@ Dispatcher.register('go-friends-page', () => {
     const followersData = await friendStore.getProfileFollowers()
     friendStore.setFollowersData(followersData);
   })().then(()=>{
-    console.log(friendStore.state)
+    friendStore.clearLastRequest();
+    friendStore.clearFoundUsers();
     friendStore.emit('friends-page-received');
   });
 });
