@@ -24,6 +24,7 @@ class ProfilePage {
             editCreds: false,
             changeLogin: false,
             changePassword: false,
+            postAdding: false,
         }
     };
 
@@ -52,6 +53,7 @@ class ProfilePage {
         this.state.viewState.changePassword = false;
         this.state.viewState.changeLogin = false;
         this.state.viewState.modEdited = false;
+        this.state.viewState.postAdding = false;
     }
 
     addListeners() {
@@ -166,6 +168,12 @@ class ProfilePage {
 
         this.bind('like-changed', () => {
             this.state.postsData = this.addMetaInfoPosts(postStore.userPosts);
+            this.render();
+            router.addEventsForLinks();
+        })
+
+        this.bind('post-adding', () => {
+            this.state.viewState.postAdding = true;
             this.render();
             router.addEventsForLinks();
         })
