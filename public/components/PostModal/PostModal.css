@@ -71,6 +71,9 @@
     display: flex;
     justify-content: start;
     flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height:auto;
 }
 
 .new-post-form__content__text {
@@ -81,6 +84,7 @@
     font-size: x-large;
     color: #8C676B;
     outline:none;
+    min-height: 200px;
 }
 
 .new-post-form__attach {
@@ -108,4 +112,51 @@
     background-color: #3B70E6;
     color: #FFFFFF;
     border-radius: 10px;
+}
+
+.new-post-form__attach__photo:hover {
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.new-post-form__post-btn:hover {
+    cursor: pointer;
+    background-color:#1771E6;
+    opacity: 0.8;
+}
+
+.new-post-form__content__images {
+    display: flex;
+    flex-direction: column;
+}
+
+.new-post-form__content__image {
+    object-fit: cover;
+    max-width:100%
+}
+
+.new-post-form__content__image_first {
+    object-fit: contain;
+    width: 600px;
+}
+
+.new-post-form__content__images_bottom {
+    display: flex;
+    justify-content: start;
+    width: 600px;
+}
+
+.new-post-form__content__image_second {
+    object-fit: cover;
+    flex: 1;
+}
+
+.new-post-form__content__image_third {
+    object-fit: cover;
+    flex: 1;
+}
+
+.new-post-form__content__image_fourth {
+    object-fit: cover;
+    flex: 1;
 }

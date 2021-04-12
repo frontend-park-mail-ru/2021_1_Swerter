@@ -3,6 +3,7 @@ import {addProfileHeaderListener} from "../../components/ProfileHeader/handler.j
 import {addChangeLoginListeners, addChangePassListeners} from "../../components/ConfigModal/handler.js";
 import {addHeaderListeners} from "../../components/Header/handler.js";
 import {addPostListeners} from "../../components/Post/handler.js";
+import {addPostModalListeners} from "../../components/PostModal/handler.js";
 import makeObservable from "../../observable.js";
 import {router} from "../../modules/router.js";
 import postStore from "../../Stores/PostStore.js";
@@ -25,6 +26,7 @@ class ProfilePage {
             changeLogin: false,
             changePassword: false,
             postAdding: false,
+            contentUrls:[],
         }
     };
 
@@ -69,6 +71,9 @@ class ProfilePage {
         if (this.state.viewState.changeLogin) {
             addChangeLoginListeners();
         }
+        if (this.state.viewState.postAdding) {
+            addPostModalListeners();
+        }
     }
 
     registerEvents() {
@@ -106,10 +111,7 @@ class ProfilePage {
         })
 
         this.bind('modal-closed',()=> {
-            console.log('close ')
-            this.state.viewState.editCreds = false;
-            this.state.viewState.changeLogin = false;
-            this.state.viewState.changePassword = false;
+            this.setDefaultViewFlags()
             this.render();
             router.addEventsForLinks();
         })
@@ -177,6 +179,14 @@ class ProfilePage {
             this.render();
             router.addEventsForLinks();
         })
+
+        this.bind('content-post-added', () => {
+            this.state.viewState.contentUrls = postStore.getUrlsContent();
+            console.log(this.state.viewState.contentUrls)
+            this.render();
+            router.addEventsForLinks();
+        })
+
     }
 
     addMetaInfoPosts(posts) {

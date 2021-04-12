@@ -22,6 +22,10 @@ class PostStore {
         })
     }
 
+    getUrlsContent() {
+        return this.contentPost.map(img => URL.createObjectURL(img))
+    }
+
     async getUserPosts() {
         const userData = await http.get({url: '/profile'});
         const posts = userData.body['postsData'];
@@ -97,8 +101,7 @@ Dispatcher.register('add-post', (details) => {
 
 Dispatcher.register('add-content-post', (details) => {
     postStore.addContentPost(details.imgInfo);
-    // Не по флаксу передавать инфу с событием
-    postStore.emit('content-post-added', details.imgInfo.imgContentFile.name);
+    postStore.emit('content-added')
 });
 
 Dispatcher.register('logout', (details) => {
