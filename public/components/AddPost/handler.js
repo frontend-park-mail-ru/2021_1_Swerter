@@ -11,8 +11,8 @@ postStore.bind('content-post-added', (fileName) => {
 });
 
 function addCreatePostListeners() {
-    document.getElementById('add-post').addEventListener('click', addPostFlux);
-    document.getElementById('upload-post-content').addEventListener('click', uploadPostContentFlux);
+    // document.getElementById('add-post').addEventListener('click', addPostFlux);
+    // document.getElementById('upload-post-content').addEventListener('click', uploadPostContentFlux);
 }
 
 function addPostFlux() {
