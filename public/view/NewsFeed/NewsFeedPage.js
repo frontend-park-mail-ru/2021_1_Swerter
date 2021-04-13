@@ -1,9 +1,10 @@
 import {addHeaderListeners} from "../../components/Header/handler.js";
-import {addPostListeners} from "../../components/Post/handler.js";
 import postStore from "../../Stores/PostStore.js";
+import {http} from "../../modules/http.js";
 //Котсыль пока не знаю как хедер вынести
 import profilePage from "../Profile/ProfilePage.js";
 import makeObservable from "../../observable.js";
+import {router} from "../../modules/router.js";
 
 postStore.bind('new-news', () => {
     newsFeedPage.emit('new-news-getted');
@@ -23,10 +24,10 @@ class NewsFeedPage {
         //Котысль хедера
         this.state.userData = profilePage.state.userData
         this.state.viewState = profilePage.state.viewState
-        //
-        // postStore.bind('init-news', () => {
-        //     this.state.postsData = postStore.newsPosts;
-        // });
+
+        postStore.bind('init-news', () => {
+            this.state.postsData = postStore.newsPosts;
+        });
         application.innerHTML = newsfeedTemplate(this.state);
 
         this.addListeners()
@@ -34,7 +35,6 @@ class NewsFeedPage {
 
     addListeners() {
         addHeaderListeners();
-        addPostListeners();
     }
 
     registerEvents() {

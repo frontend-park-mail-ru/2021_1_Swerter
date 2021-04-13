@@ -4,45 +4,16 @@ div(class="post")
         div(class="post-info")
             span(class="post-creator") #{data.postCreator}
             span(clss="date") #{data.date}
-    div(class="post__content")
-        if data.textPost
-            p(class="post__content__text") #{data.textPost}
+    div(class="post-content")
         if data.imgContent
-            if data.imgContent.length === 1
-                img(class="new-post-form__content__image new-post-form__content__image_first" src=data.imgContent[0])
-            if data.imgContent.length === 2
-                img(class="new-post-form__content__image new-post-form__content__image_first" src=data.imgContent[0])
-                img(class="new-post-form__content__image new-post-form__content__image_second" src=data.imgContent[1])
-            if data.imgContent.length >= 3
-                img(class="new-post-form__content__image new-post-form__content__image_first" src=data.imgContent[0])
-                div.new-post-form__content__images_bottom
-                    img(class="new-post-form__content__image_third new-post-form__content__image" src=data.imgContent[1])
-                    img(class="new-post-form__content__image_fourth new-post-form__content__image" src=data.imgContent[2])
-                    if data.imgContent.length === 4
-                        img(class="new-post-form__content__image_fifth new-post-form__content__image" src=data.imgContent[3])
-                    if data.imgContent.length > 4
-                        div.new-post-form__content__image__more(class="new-post-form__content__image")
-                            div.new-post-form__content__image__more-counter + #{data.imgContent.length - 4}
-                            img(class="new-post-form__content__image_fifth new-post-form__content__image" src=data.imgContent[3])
-    div(class="post__footer")
-        div(class="post__footer__row__metric")
-            if data.liked
-                div(class="metric metric__like")
-                    i(class="fab fa-gratipay")  #{data.likeCounter}
-            else
-                div(class="metric metric__like")
-                    i(class="far fa-heart")  #{data.likeCounter}
-            div(class="metric metric__comment")
-            div(class="metric metric__repost")
-
-        div(class="post__footer__row")
-            if data.liked
-                div(id="like"+data.ID class="post__footer__column post__footer__column__like post__footer__column__like_active")
-                    i(class="post-action post-action_like fas fa-thumbs-up fa-lg") Like
-            else
-                div(id="like" + data.ID class="post__footer__column post__footer__column__like post__footer__column__like_deactive")
-                    i(class="post-action post-action_like far fa-thumbs-up fa-lg") Like
-            div(class="post__footer__column")
-                i(class="post-action far fa-comment fa-lg") Comment
-            div(class="post__footer__column")
-                i(class="post-action post-action_repost far fa-share-square fa-lg") Share
+            img(class="content-img" src=data.imgContent)
+        if data.textPost
+            p(class="content-text") #{data.textPost}
+    div(class="post-footer")
+        div(class="post-action")
+            a(class="single-action")
+                img(src="./assets/like.png")
+            a(class="single-action")
+                img(src="./assets/comment.png")
+            a(class="single-action")
+                img(src="./assets/reposticon.png")
