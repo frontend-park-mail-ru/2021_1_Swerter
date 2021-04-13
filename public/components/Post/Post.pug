@@ -8,7 +8,22 @@ div(class="post")
         if data.textPost
             p(class="post__content__text") #{data.textPost}
         if data.imgContent
-            img(class="post__content__img" src=data.imgContent)
+            if data.imgContent.length === 1
+                img(class="new-post-form__content__image new-post-form__content__image_first" src=data.imgContent[0])
+            if data.imgContent.length === 2
+                img(class="new-post-form__content__image new-post-form__content__image_first" src=data.imgContent[0])
+                img(class="new-post-form__content__image new-post-form__content__image_second" src=data.imgContent[1])
+            if data.imgContent.length >= 3
+                img(class="new-post-form__content__image new-post-form__content__image_first" src=data.imgContent[0])
+                div.new-post-form__content__images_bottom
+                    img(class="new-post-form__content__image_third new-post-form__content__image" src=data.imgContent[1])
+                    img(class="new-post-form__content__image_fourth new-post-form__content__image" src=data.imgContent[2])
+                    if data.imgContent.length === 4
+                        img(class="new-post-form__content__image_fifth new-post-form__content__image" src=data.imgContent[3])
+                    if data.imgContent.length > 4
+                        div.new-post-form__content__image__more(class="new-post-form__content__image")
+                            div.new-post-form__content__image__more-counter + #{data.imgContent.length - 4}
+                            img(class="new-post-form__content__image_fifth new-post-form__content__image" src=data.imgContent[3])
     div(class="post__footer")
         div(class="post__footer__row__metric")
             if data.liked

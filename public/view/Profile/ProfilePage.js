@@ -3,7 +3,8 @@ import {addProfileHeaderListener} from "../../components/ProfileHeader/handler.j
 import {addChangeLoginListeners, addChangePassListeners} from "../../components/ConfigModal/handler.js";
 import {addHeaderListeners} from "../../components/Header/handler.js";
 import {addPostListeners} from "../../components/Post/handler.js";
-import {addPostModalListeners} from "../../components/PostModal/handler.js";
+import {addPostModalAddListeners} from "../../components/PostModal/handler.js";
+import {addPostModalEditListeners} from "../../components/PostModal/handler.js";
 import makeObservable from "../../observable.js";
 import {router} from "../../modules/router.js";
 import newAlbumPage from "../NewAlbumPage/NewAlbumPage.js"
@@ -27,8 +28,10 @@ class ProfilePage {
             changeLogin: false,
             changePassword: false,
             postAdding: false,
+            postEditing : false,
             contentUrls:[],
-            switchContent : "POSTS"
+            switchContent : "POSTS",
+            newsPostText:"",
         }
     };
 
@@ -59,6 +62,8 @@ class ProfilePage {
         this.state.viewState.modEdited = false;
         this.state.viewState.postAdding = false;
         this.state.viewState.switchContent = "POSTS"
+        this.state.viewState.postEditing = false;
+
     }
 
     addListeners() {
@@ -81,12 +86,18 @@ class ProfilePage {
             addChangeLoginListeners();
         }
         if (this.state.viewState.postAdding) {
-            addPostModalListeners();
+            addPostModalAddListeners();
+        }
+        if (this.state.viewState.postEditing) {
+            addPostModalEditListeners();
         }
     }
 
     registerEvents() {
         this.bind('post-added', () => {
+            this.setDefaultViewFlags()
+            this.state.viewState.newsPostText = ''
+            this.state.viewState.contentUrls = postStore.contentPost
             this.state.postsData = this.addMetaInfoPosts(postStore.userPosts);
             this.render();
             router.addEventsForLinks();
@@ -190,24 +201,46 @@ class ProfilePage {
             router.addEventsForLinks();
         })
 
-        this.bind('content-post-added', () => {
+        this.bind('content-post-changed', () => {
             this.state.viewState.contentUrls = postStore.getUrlsContent();
-            console.log(this.state.viewState.contentUrls)
             this.render();
             router.addEventsForLinks();
         })
 
+
         this.bind('albums-switch', () => {
-            this.state.viewState.switchContent = "ALBUMS"
+            this.state.viewState.switchContent = "ALBUMS";
             this.render();
             router.addEventsForLinks();
         })
+
+        this.bind('edit-all-images-btn', () => {
+            this.state.viewState.postEditing = true;
+            this.state.viewState.postAdding = false;
+
+            this.render();
+            router.addEventsForLinks();
+        })
+
 
         this.bind('posts-switch', () => {
             this.state.viewState.switchContent = "POSTS"
             this.render();
             router.addEventsForLinks();
         })
+
+        this.bind('post-edited-ended', () => {
+            this.state.viewState.postEditing = false;
+            this.state.viewState.postAdding = true;
+            this.state.viewState.contentUrls = postStore.getUrlsContent();
+            this.render();
+            router.addEventsForLinks();
+        })
+
+        this.bind('text-post-changed', (text) => {
+            this.state.viewState.newsPostText = text;
+        })
+
     }
 
     addMetaInfoPosts(posts) {
@@ -217,7 +250,6 @@ class ProfilePage {
             return item;
         });
     }
-
 }
 
 makeObservable(ProfilePage)

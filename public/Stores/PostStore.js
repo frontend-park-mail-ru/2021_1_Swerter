@@ -31,7 +31,12 @@ class PostStore {
         const posts = userData.body['postsData'];
         let listPosts = [];
         for (const key in posts) {
-            posts[key].imgContent = posts[key].imgContent ? http.getHost() + posts[key].imgContent : '';
+            let imgUrls = [];
+            posts[key].imgContent.forEach((img)=>{
+                img.Url = http.getHost() + img.Url
+                imgUrls.push(img.Url)
+            })
+            posts[key].imgContent = imgUrls
             listPosts.push(posts[key]);
         }
         return listPosts.reverse();
@@ -39,13 +44,14 @@ class PostStore {
 
     async getNewsPosts() {
         let news = await http.get({url: '/posts'});
-        news = this.postsObjToList(news.body).map((item) => {
+
+        const posts = this.postsObjToList(news.body).map((item) => {
             let urlImg = http.getHost() + '/static/usersAvatar/';
             urlImg += item.imgAvatar ? item.imgAvatar : 'defaultUser.jpg';
             item.imgAvatar = urlImg;
             return item;
         });
-        return news;
+        return posts;
     }
 
     addContentPost(imgInfo) {
@@ -59,9 +65,9 @@ class PostStore {
     addPost(newPostInfo) {
         const formData = new FormData();
         const imgContent = this.contentPost[0];
-        if (imgContent) {
-            formData.append('imgContent', imgContent, imgContent.name);
-        }
+        this.contentPost.forEach((content, i)=>{
+            formData.append(`imgContent${i}`, content, imgContent.name);
+        });
         formData.append('textPost', newPostInfo.textPost);
         formData.append('date', newPostInfo.date);
         const response = http.post({url: '/posts/add', data: formData, headers: {}});
@@ -70,12 +76,25 @@ class PostStore {
     }
 
     postsObjToList(posts) {
-        const listPosts = [];
+        let listPosts = []
         for (const key in posts) {
-            posts[key].imgContent = posts[key].imgContent ? http.getHost() + posts[key].imgContent : '';
+            let imgUrls = [];
+            posts[key].imgContent.forEach((img)=>{
+                img.Url = http.getHost() + img.Url
+                imgUrls.push(img.Url)
+            })
+            posts[key].imgContent = imgUrls
             listPosts.push(posts[key]);
         }
         return listPosts.reverse();
+    }
+
+    ClearContent() {
+        this.contentPost = []
+    }
+
+    DelImgFromNewPost(index) {
+        this.contentPost.splice(index, 1);
     }
 
     async changeLikePost(postId) {
@@ -89,19 +108,31 @@ const postStore = new PostStore();
 
 export default postStore;
 
+
+Dispatcher.register('clear-all-content', (details) => {
+    postStore.ClearContent();
+    postStore.emit('content-changed')
+});
+
+
+Dispatcher.register('del-img-from-post', (details) => {
+    postStore.DelImgFromNewPost(details.imgId);
+    postStore.emit('deleted-img-from-new-post')
+});
+
 Dispatcher.register('add-post', (details) => {
     postStore.addPost(details.newPostInfo).then(() => {
         postStore.getUserPosts().then((posts) => {
             postStore.userPosts = posts
-            console.log(posts)
             postStore.emit('post-added');
+            postStore.ClearContent();
         })
     })
 });
 
 Dispatcher.register('add-content-post', (details) => {
     postStore.addContentPost(details.imgInfo);
-    postStore.emit('content-added')
+    postStore.emit('content-changed')
 });
 
 Dispatcher.register('logout', (details) => {

@@ -49,5 +49,5 @@ div(class="profile-content")
 if viewState.changePassword || viewState.changeLogin
     +modalConf(viewState)
 
-if viewState.postAdding
+if viewState.postAdding || viewState.postEditing
     +modalPost(viewState)
