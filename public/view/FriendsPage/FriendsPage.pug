@@ -1,4 +1,30 @@
 mixin header(data)
     include ../../components/Header/Header
 
-+header(userData)
++header({userData, viewState})
+
+mixin friend-request-block(data)
+    include ../../components/FriendRequestBlock/FriendRequestBlock
+
+mixin friend-block(data)
+    include ../../components/FriendBlock/FriendBlock
+
+div.friends-page-content
+    div.left-block
+        div.left-block__background
+        div.left-block__content
+            div.friends-request-content
+                span.friends-request-header Friend requests
+                hr.friends-page__line
+                each follower in followers
+                    if !follower.isNotified
+                        +friend-request-block(follower)
+            div.friends-content
+                span.friends-header Friends
+                hr.friends-page__line
+                each friend in friends
+                    +friend-block(friend)
+    div.right-block
+        img(src="./assets/friendDefault.png")
+
+

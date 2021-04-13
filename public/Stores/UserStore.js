@@ -149,12 +149,13 @@ Dispatcher.register('new-password', (details) => {
         }
     );
 });
-
+//4
 Dispatcher.register('send-login-request', (details) => {
     userStore.sendLoginRequest(details).then((response) => {
             if (response.status === 200) {
                 userStore.getProfile().then((userData) => {
                         userStore.setUserData(userData);
+                        //5
                         userStore.emit('authorized')
                         postStore.emit('authorized')
                     }
@@ -189,13 +190,11 @@ Dispatcher.register('send-register-request', (details) => {
     })
 });
 
-
-Dispatcher.register('go-friend-profile', () => {
-    //Хардкодим айди второго пользователя
-    userStore.getProfileFriend(1).then((userData) => {
+Dispatcher.register('go-friend-profile', (datails) => {
+    userStore.getProfileFriend(datails.id).then((userData) => {
         userStore.setUserData(userData);
         console.log(userData)
-        userStore.emit('friend-page-getted');
+        userStore.emit('friend-page-received');
     });
 });
 

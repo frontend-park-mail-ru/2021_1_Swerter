@@ -1,9 +1,11 @@
 import profilePage from "../../view/Profile/ProfilePage.js";
 import Dispatcher from "../../dispatcher.js";
 import userStore from "../../Stores/UserStore.js";
+import friendsStore from "../../Stores/FriendStore.js";
+import friendsPage from "../../view/FriendsPage/FriendsPage.js"
 
-userStore.bind('friend-page-getted', ()=> {
-    profilePage.emit('friend-page-getted');
+friendsStore.bind('friends-page-received', ()=> {
+    friendsPage.emit('friends-page-received');
 })
 
 userStore.bind('profile-getted', ()=> {
@@ -21,8 +23,8 @@ export function addHeaderListeners() {
         Dispatcher.dispatch('get-user-profile', {});
     });
     document.getElementById('friends-block').addEventListener('click', ()=>{
-        //Переход на страницу человека
-        Dispatcher.dispatch('go-friend-profile', {});
+        //Переход на страницу друзей
+        Dispatcher.dispatch('go-friends-page', {});
     });
     if (profilePage.state.viewState.editCreds) {
         document.getElementById('header__change-login').addEventListener('click', changeLogin);

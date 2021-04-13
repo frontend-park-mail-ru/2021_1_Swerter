@@ -8,6 +8,7 @@ import registerPage from "./view/RegisterPage/RegisterPage.js";
 import Dispatcher from "./dispatcher.js"
 import postStore from "./Stores/PostStore.js";
 import userStore from "./Stores/UserStore.js";
+import friendStore from "./Stores/FriendStore.js";
 
 window.application = document.getElementById('app');
 
