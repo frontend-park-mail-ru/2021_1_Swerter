@@ -3,7 +3,8 @@ import {addProfileHeaderListener} from "../../components/ProfileHeader/handler.j
 import {addChangeLoginListeners, addChangePassListeners} from "../../components/ConfigModal/handler.js";
 import {addHeaderListeners} from "../../components/Header/handler.js";
 import {addPostListeners} from "../../components/Post/handler.js";
-import {addPostModalListeners} from "../../components/PostModal/handler.js";
+import {addPostModalAddListeners} from "../../components/PostModal/handler.js";
+import {addPostModalEditListeners} from "../../components/PostModal/handler.js";
 import makeObservable from "../../observable.js";
 import {router} from "../../modules/router.js";
 import postStore from "../../Stores/PostStore.js";
@@ -26,6 +27,7 @@ class ProfilePage {
             changeLogin: false,
             changePassword: false,
             postAdding: false,
+            postEditing : false,
             contentUrls:[],
         }
     };
@@ -56,6 +58,7 @@ class ProfilePage {
         this.state.viewState.changeLogin = false;
         this.state.viewState.modEdited = false;
         this.state.viewState.postAdding = false;
+        this.state.viewState.postEditing = false;
     }
 
     addListeners() {
@@ -72,7 +75,10 @@ class ProfilePage {
             addChangeLoginListeners();
         }
         if (this.state.viewState.postAdding) {
-            addPostModalListeners();
+            addPostModalAddListeners();
+        }
+        if (this.state.viewState.postEditing) {
+            addPostModalEditListeners();
         }
     }
 
@@ -185,6 +191,14 @@ class ProfilePage {
             this.render();
             router.addEventsForLinks();
         })
+
+        this.bind('edit-all-images-btn', () => {
+            this.state.viewState.postEditing = true;
+            this.state.viewState.postAdding = false;
+            this.render();
+            router.addEventsForLinks();
+        })
+
 
     }
 

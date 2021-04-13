@@ -10,7 +10,7 @@ postStore.bind('content-changed', () => {
     profilePage.emit('content-post-changed')
 })
 
-export function addPostModalListeners() {
+export function addPostModalAddListeners() {
     document.getElementById('new-post__add-btn').addEventListener('click', () => {
         console.log('post add');
     });
@@ -18,8 +18,18 @@ export function addPostModalListeners() {
     document.getElementById('close-post-modal-btn').addEventListener('click', closeModal);
     document.getElementById('attach__photo').addEventListener('click', uploadPostContentFlux);
     document.getElementById('del-all-images-btn').addEventListener('click', ()=>{
-        Dispatcher.dispatch('clear-all-content')
+        Dispatcher.dispatch('clear-all-content');
     });
+    document.getElementById('edit-all-images-btn').addEventListener('click', ()=>{
+        profilePage.emit('edit-all-images-btn');
+    });
+
+    // document.getElementById('upload-post-content').addEventListener('click', uploadPostContentFlux);
+}
+
+export function addPostModalEditListeners() {
+    document.getElementById('modal-bg-close').addEventListener('click', closeModal);
+    document.getElementById('close-post-modal-btn').addEventListener('click', closeModal);
     // document.getElementById('upload-post-content').addEventListener('click', uploadPostContentFlux);
 }
 
