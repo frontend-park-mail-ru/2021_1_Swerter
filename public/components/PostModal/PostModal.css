@@ -42,15 +42,15 @@
 
 .btn__close {
     position: absolute;
-    color: black;
     top: 10px;
     right: 10px;
-    background-color: #F2F2F2;
     border-radius: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 1;
+    color: #606770;
+    background-color: #E4E6EB;
 }
 
 .btn__edit {
@@ -66,16 +66,23 @@
     align-items: center;
 }
 
-.btn__edit:hover {
+.btn__back {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    border-radius: 100%;
+    border: #606770 4px solid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #606770;
+    color: #E4E6EB;
+}
+
+.btn:hover {
     cursor: pointer;
     opacity: 0.8;
 }
-
-.btn__close:hover {
-    cursor: pointer;
-    opacity: 0.8;
-}
-
 
 .new-post-form {
     display: flex;
@@ -142,11 +149,6 @@
     background-color: #3B70E6;
     color: #FFFFFF;
     border-radius: 10px;
-}
-
-.new-post-form__attach__photo:hover {
-    cursor: pointer;
-    opacity: 0.8;
 }
 
 .new-post-form__post-btn:hover {

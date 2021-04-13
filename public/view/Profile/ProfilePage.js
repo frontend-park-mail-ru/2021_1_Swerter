@@ -199,6 +199,13 @@ class ProfilePage {
             router.addEventsForLinks();
         })
 
+        this.bind('post-edited-ended', () => {
+            this.state.viewState.postEditing = false;
+            this.state.viewState.postAdding = true;
+            this.state.viewState.contentUrls = postStore.getUrlsContent();
+            this.render();
+            router.addEventsForLinks();
+        })
 
     }
 

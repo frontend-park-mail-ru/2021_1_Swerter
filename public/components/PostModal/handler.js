@@ -28,10 +28,14 @@ export function addPostModalAddListeners() {
         profilePage.emit('edit-all-images-btn');
     });
 
+
     // document.getElementById('upload-post-content').addEventListener('click', uploadPostContentFlux);
 }
 
 export function addPostModalEditListeners() {
+    document.getElementById('btn-edit-post-end').addEventListener('click', ()=>{
+        profilePage.emit('post-edited-ended');
+    });
     document.getElementById('modal-bg-close').addEventListener('click', closeModal);
     document.getElementById('close-post-modal-btn').addEventListener('click', closeModal);
     // document.getElementById('upload-post-content').addEventListener('click', uploadPostContentFlux);
