@@ -15,6 +15,10 @@ postStore.bind('deleted-img-from-new-post', () => {
 })
 
 export function addPostModalAddListeners() {
+    document.getElementById('new-post-text').addEventListener('input', () => {
+        const text = document.getElementById('new-post-text').value
+        profilePage.emit('text-post-changed', text)
+    });
     document.getElementById('new-post__add-btn').addEventListener('click', () => {
         console.log('post add');
     });

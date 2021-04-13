@@ -7,7 +7,9 @@ div.modal-wrapper
                 div.btn__close(class="btn" id="close-post-modal-btn")
                     i(class="far fa-times-circle fa-3x")
             div.new-post-form__content
-                textarea.new-post-form__content__text(placeholder="What's on your mind")
+                textarea.new-post-form__content__text(id="new-post-text" placeholder="What's on your mind")
+                    if data.newsPostText
+                        | #{data.newsPostText}
                 div.new-post-form__content__images
                     div.btn__close(class="btn" id="del-all-images-btn")
                         i(class="far fa-times-circle fa-2x")

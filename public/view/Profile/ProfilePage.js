@@ -29,6 +29,7 @@ class ProfilePage {
             postAdding: false,
             postEditing : false,
             contentUrls:[],
+            newsPostText:"",
         }
     };
 
@@ -207,6 +208,10 @@ class ProfilePage {
             router.addEventsForLinks();
         })
 
+        this.bind('text-post-changed', (text) => {
+            this.state.viewState.newsPostText = text;
+            console.log(text)
+        })
     }
 
     addMetaInfoPosts(posts) {
