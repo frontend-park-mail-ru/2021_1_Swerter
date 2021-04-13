@@ -78,6 +78,10 @@ class PostStore {
         return listPosts.reverse();
     }
 
+    ClearContent() {
+        this.contentPost = []
+    }
+
     async changeLikePost(postId) {
         const response = await http.post({url: `/like/post/${postId}`});
         return response
@@ -88,6 +92,12 @@ makeObservable(PostStore);
 const postStore = new PostStore();
 
 export default postStore;
+
+
+Dispatcher.register('clear-all-content', (details) => {
+    postStore.ClearContent();
+    postStore.emit('content-changed')
+});
 
 Dispatcher.register('add-post', (details) => {
     postStore.addPost(details.newPostInfo).then(() => {
@@ -101,7 +111,7 @@ Dispatcher.register('add-post', (details) => {
 
 Dispatcher.register('add-content-post', (details) => {
     postStore.addContentPost(details.imgInfo);
-    postStore.emit('content-added')
+    postStore.emit('content-changed')
 });
 
 Dispatcher.register('logout', (details) => {

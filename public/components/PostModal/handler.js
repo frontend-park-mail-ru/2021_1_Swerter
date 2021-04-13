@@ -6,12 +6,8 @@ postStore.bind('post-added', () => {
     profilePage.emit('post-added')
 });
 
-postStore.bind('content-post-added', (fileName) => {
-    addImgName(fileName);
-});
-
-postStore.bind('content-added', () => {
-    profilePage.emit('content-post-added')
+postStore.bind('content-changed', () => {
+    profilePage.emit('content-post-changed')
 })
 
 export function addPostModalListeners() {
@@ -21,6 +17,9 @@ export function addPostModalListeners() {
     document.getElementById('modal-bg-close').addEventListener('click', closeModal);
     document.getElementById('close-post-modal-btn').addEventListener('click', closeModal);
     document.getElementById('attach__photo').addEventListener('click', uploadPostContentFlux);
+    document.getElementById('del-all-images-btn').addEventListener('click', ()=>{
+        Dispatcher.dispatch('clear-all-content')
+    });
     // document.getElementById('upload-post-content').addEventListener('click', uploadPostContentFlux);
 }
 

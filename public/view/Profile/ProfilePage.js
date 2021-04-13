@@ -180,9 +180,8 @@ class ProfilePage {
             router.addEventsForLinks();
         })
 
-        this.bind('content-post-added', () => {
+        this.bind('content-post-changed', () => {
             this.state.viewState.contentUrls = postStore.getUrlsContent();
-            console.log(this.state.viewState.contentUrls)
             this.render();
             router.addEventsForLinks();
         })

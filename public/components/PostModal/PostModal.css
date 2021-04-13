@@ -103,12 +103,17 @@
     margin-left: 10px;
     flex: 1;
     font-size: x-large;
-    color: #8C676B;
+    color: black;
     outline:none;
     border: none;
     resize: none;
     min-height: 150px;
 }
+
+.new-post-form__content__text::placeholder {
+    color: #8C676B;
+}
+
 
 .new-post-form__attach {
     flex: 0;
