@@ -10,6 +10,10 @@ postStore.bind('content-changed', () => {
     profilePage.emit('content-post-changed')
 })
 
+postStore.bind('deleted-img-from-new-post', () => {
+    profilePage.emit('content-post-changed')
+})
+
 export function addPostModalAddListeners() {
     document.getElementById('new-post__add-btn').addEventListener('click', () => {
         console.log('post add');
@@ -31,6 +35,16 @@ export function addPostModalEditListeners() {
     document.getElementById('modal-bg-close').addEventListener('click', closeModal);
     document.getElementById('close-post-modal-btn').addEventListener('click', closeModal);
     // document.getElementById('upload-post-content').addEventListener('click', uploadPostContentFlux);
+    const delImgIds = document.querySelectorAll('[id^="btn-del-img-"]')
+    delImgIds.forEach((item)=> {
+        item.addEventListener('click', () => {
+            const chanks = item.id.split('-')
+            let imgId = chanks[chanks.length - 1]
+            Dispatcher.dispatch('del-img-from-post', {
+                imgId
+            })
+        });
+    });
 }
 
 function closeModal() {

@@ -42,3 +42,8 @@ div.modal-wrapper
                 div.btn__close(id="close-post-modal-btn")
                     i(class="far fa-times-circle fa-3x")
             div.new-post-form__content
+                each img, i in data.contentUrls
+                    div.wrap__each__img
+                        div.btn__close(id="btn-del-img-"+i)
+                            i(class="far fa-times-circle fa-2x")
+                        img(class="new-post-form__content__image new-post-form__content__image_list" src=img)

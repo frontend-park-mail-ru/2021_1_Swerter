@@ -82,6 +82,10 @@ class PostStore {
         this.contentPost = []
     }
 
+    DelImgFromNewPost(index) {
+        this.contentPost.splice(index, 1);
+    }
+
     async changeLikePost(postId) {
         const response = await http.post({url: `/like/post/${postId}`});
         return response
@@ -97,6 +101,12 @@ export default postStore;
 Dispatcher.register('clear-all-content', (details) => {
     postStore.ClearContent();
     postStore.emit('content-changed')
+});
+
+
+Dispatcher.register('del-img-from-post', (details) => {
+    postStore.DelImgFromNewPost(details.imgId);
+    postStore.emit('deleted-img-from-new-post')
 });
 
 Dispatcher.register('add-post', (details) => {
