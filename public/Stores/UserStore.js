@@ -92,9 +92,15 @@ class UserStore {
         const posts = userData['postsData']
         let listPosts = [];
         for (const key in posts) {
-            posts[key].imgContent = posts[key].imgContent ? http.getHost() + posts[key].imgContent : '';
+            let imgUrls = [];
+            posts[key].imgContent.forEach((img)=>{
+                img.Url = http.getHost() + img.Url
+                imgUrls.push(img.Url)
+            })
+            posts[key].imgContent = imgUrls
             listPosts.push(posts[key]);
         }
+        console.log(listPosts)
         postStore.userPosts = listPosts.reverse();
     }
 

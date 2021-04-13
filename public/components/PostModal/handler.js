@@ -15,12 +15,12 @@ postStore.bind('deleted-img-from-new-post', () => {
 })
 
 export function addPostModalAddListeners() {
+
+    document.getElementById('new-post__add-btn').addEventListener('click', addPostFlux);
+
     document.getElementById('new-post-text').addEventListener('input', () => {
         const text = document.getElementById('new-post-text').value
         profilePage.emit('text-post-changed', text)
-    });
-    document.getElementById('new-post__add-btn').addEventListener('click', () => {
-        console.log('post add');
     });
     document.getElementById('modal-bg-close').addEventListener('click', closeModal);
     document.getElementById('close-post-modal-btn').addEventListener('click', closeModal);
@@ -32,8 +32,6 @@ export function addPostModalAddListeners() {
         profilePage.emit('edit-all-images-btn');
     });
 
-
-    // document.getElementById('upload-post-content').addEventListener('click', uploadPostContentFlux);
 }
 
 export function addPostModalEditListeners() {
@@ -60,13 +58,12 @@ function closeModal() {
 }
 
 function addPostFlux() {
-    const textPost = document.getElementById('text-post').value.replace(/<\/?[^>]+(>|$)/g, '');
+    const textPost = document.getElementById('new-post-text').value.replace(/<\/?[^>]+(>|$)/g, '');
     const currentDate = new Date();
     const date = currentDate.getDay() + '.' + currentDate.getMonth() + '.' + currentDate.getFullYear();
     const u = profileData.userData;
     const imgAvatar = u.imgAvatar;
     const postCreator = u.firstName + ' ' + u.lastName;
-
     Dispatcher.dispatch('add-post', {
         newPostInfo: {
             textPost,

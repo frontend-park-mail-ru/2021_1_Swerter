@@ -31,9 +31,15 @@ class PostStore {
         const posts = userData.body['postsData'];
         let listPosts = [];
         for (const key in posts) {
-            posts[key].imgContent = posts[key].imgContent ? http.getHost() + posts[key].imgContent : '';
+            let imgUrls = [];
+            posts[key].imgContent.forEach((img)=>{
+                img.Url = http.getHost() + img.Url
+                imgUrls.push(img.Url)
+            })
+            posts[key].imgContent = imgUrls
             listPosts.push(posts[key]);
         }
+        console.log(listPosts)
         return listPosts.reverse();
     }
 
@@ -59,9 +65,9 @@ class PostStore {
     addPost(newPostInfo) {
         const formData = new FormData();
         const imgContent = this.contentPost[0];
-        if (imgContent) {
-            formData.append('imgContent', imgContent, imgContent.name);
-        }
+        this.contentPost.forEach((content, i)=>{
+            formData.append(`imgContent${i}`, content, imgContent.name);
+        });
         formData.append('textPost', newPostInfo.textPost);
         formData.append('date', newPostInfo.date);
         const response = http.post({url: '/posts/add', data: formData, headers: {}});
@@ -113,8 +119,8 @@ Dispatcher.register('add-post', (details) => {
     postStore.addPost(details.newPostInfo).then(() => {
         postStore.getUserPosts().then((posts) => {
             postStore.userPosts = posts
-            console.log(posts)
             postStore.emit('post-added');
+            postStore.ClearContent();
         })
     })
 });

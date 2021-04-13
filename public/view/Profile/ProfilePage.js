@@ -85,6 +85,9 @@ class ProfilePage {
 
     registerEvents() {
         this.bind('post-added', () => {
+            this.setDefaultViewFlags()
+            this.state.viewState.newsPostText = ''
+            this.state.viewState.contentUrls = postStore.contentPost
             this.state.postsData = this.addMetaInfoPosts(postStore.userPosts);
             this.render();
             router.addEventsForLinks();
@@ -210,7 +213,6 @@ class ProfilePage {
 
         this.bind('text-post-changed', (text) => {
             this.state.viewState.newsPostText = text;
-            console.log(text)
         })
     }
 
