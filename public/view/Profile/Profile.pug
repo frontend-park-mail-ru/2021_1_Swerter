@@ -3,6 +3,9 @@ mixin header(data)
 
 +header({userData, viewState})
 
+mixin modalPost(data)
+    include ../../components/PostModal/PostModal
+
 mixin profileHeader(data)
     include ../../components/ProfileHeader/ProfileHeader
 
@@ -21,7 +24,6 @@ div(class="profile-content")
     div(class="left-content-column")
         div(class="left-content-1")
         div(class="left-content-2")
-
     div(class="right-content")
         div(class="lenta")
             if viewState.myPage
@@ -36,3 +38,6 @@ div(class="profile-content")
 
 if viewState.changePassword || viewState.changeLogin
     +modalConf(viewState)
+
+if viewState.postAdding
+    +modalPost(viewState)

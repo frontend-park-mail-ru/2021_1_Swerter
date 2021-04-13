@@ -22,10 +22,19 @@ class PostStore {
         })
     }
 
+    getUrlsContent() {
+        return this.contentPost.map(img => URL.createObjectURL(img))
+    }
+
     async getUserPosts() {
         const userData = await http.get({url: '/profile'});
         const posts = userData.body['postsData'];
-        return posts;
+        let listPosts = [];
+        for (const key in posts) {
+            posts[key].imgContent = posts[key].imgContent ? http.getHost() + posts[key].imgContent : '';
+            listPosts.push(posts[key]);
+        }
+        return listPosts.reverse();
     }
 
     async getNewsPosts() {
@@ -68,6 +77,11 @@ class PostStore {
         }
         return listPosts.reverse();
     }
+
+    async changeLikePost(postId) {
+        const response = await http.post({url: `/like/post/${postId}`});
+        return response
+    }
 }
 
 makeObservable(PostStore);
@@ -79,6 +93,7 @@ Dispatcher.register('add-post', (details) => {
     postStore.addPost(details.newPostInfo).then(() => {
         postStore.getUserPosts().then((posts) => {
             postStore.userPosts = posts
+            console.log(posts)
             postStore.emit('post-added');
         })
     })
@@ -86,10 +101,24 @@ Dispatcher.register('add-post', (details) => {
 
 Dispatcher.register('add-content-post', (details) => {
     postStore.addContentPost(details.imgInfo);
-    // Не по флаксу передавать инфу с событием
-    postStore.emit('content-post-added', details.imgInfo.imgContentFile.name);
+    postStore.emit('content-added')
 });
 
 Dispatcher.register('logout', (details) => {
     clearInterval(postStore.getNewsInterval);
+});
+
+Dispatcher.register('like-change', (details) => {
+    postStore.changeLikePost(details.postId).then((response) => {
+        if (response.status === 200) {
+            postStore.getUserPosts().then((posts) => {
+                postStore.userPosts = posts
+                postStore.emit('like-changed');
+            })
+            postStore.getNewsPosts().then((posts) => {
+                postStore.newsPosts = posts
+                postStore.emit('like-changed');
+            })
+        }
+    })
 });
