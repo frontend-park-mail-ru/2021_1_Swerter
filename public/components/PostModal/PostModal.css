@@ -171,7 +171,9 @@
 }
 .new-post-form__content__image__more {
     flex: 1.2;
+    overflow: hidden;
     position: relative;
+    display: flex;
 }
 
 .new-post-form__content__image__more-counter{
