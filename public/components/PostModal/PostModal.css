@@ -131,6 +131,8 @@
     flex-direction: column;
     border-radius: 10px;
     overflow: hidden;
+    margin-top: 15px;
+    border: #D8DADF 1px solid;
 }
 
 .new-post-form__content__images_bottom {
@@ -143,6 +145,7 @@
 .new-post-form__content__image {
     object-fit: cover;
     overflow: hidden;
+    margin: 1px;
 }
 
 .new-post-form__content__image_first {
