@@ -9,6 +9,7 @@ import Dispatcher from "./dispatcher.js"
 import postStore from "./Stores/PostStore.js";
 import userStore from "./Stores/UserStore.js";
 import friendStore from "./Stores/FriendStore.js";
+import albumStore from "./Stores/AlbumStore.js";
 
 window.application = document.getElementById('app');
 
@@ -16,8 +17,6 @@ window.application = document.getElementById('app');
 registerUrls()
 
 const user = await http.get({url: '/profile'});
-console.log(user.status)
-console.log('alal')
 switch (user.status) {
     case 200:
         Dispatcher.dispatch('get-user-profile', {});

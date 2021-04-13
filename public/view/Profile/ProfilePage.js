@@ -6,6 +6,7 @@ import {addPostListeners} from "../../components/Post/handler.js";
 import {addPostModalListeners} from "../../components/PostModal/handler.js";
 import makeObservable from "../../observable.js";
 import {router} from "../../modules/router.js";
+import newAlbumPage from "../NewAlbumPage/NewAlbumPage.js"
 import postStore from "../../Stores/PostStore.js";
 import userStore from "../../Stores/UserStore.js";
 
@@ -27,6 +28,7 @@ class ProfilePage {
             changePassword: false,
             postAdding: false,
             contentUrls:[],
+            switchContent : "POSTS"
         }
     };
 
@@ -56,14 +58,21 @@ class ProfilePage {
         this.state.viewState.changeLogin = false;
         this.state.viewState.modEdited = false;
         this.state.viewState.postAdding = false;
+        this.state.viewState.switchContent = "POSTS"
     }
 
     addListeners() {
         addHeaderListeners();
         addPostListeners();
         if (this.state.viewState.myPage) {
-            addCreatePostListeners();
             addProfileHeaderListener();
+            if(this.state.viewState.switchContent === "POSTS") {
+                addCreatePostListeners();
+            } else if (this.state.viewState.switchContent === "ALBUMS") {
+                document.getElementById("create-album-block").addEventListener('click', () => {
+                    newAlbumPage.emit("go-new-album-page");
+                })
+            }
         }
         if (this.state.viewState.changePassword) {
             addChangePassListeners();
@@ -188,6 +197,17 @@ class ProfilePage {
             router.addEventsForLinks();
         })
 
+        this.bind('albums-switch', () => {
+            this.state.viewState.switchContent = "ALBUMS"
+            this.render();
+            router.addEventsForLinks();
+        })
+
+        this.bind('posts-switch', () => {
+            this.state.viewState.switchContent = "POSTS"
+            this.render();
+            router.addEventsForLinks();
+        })
     }
 
     addMetaInfoPosts(posts) {

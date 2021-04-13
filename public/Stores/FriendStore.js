@@ -105,7 +105,7 @@ class FriendStore {
       saveUser.id = user['id'];
       saveUser.avatar = http.getHost() + '/static/usersAvatar/';
       saveUser.avatar += user['avatar'] ?
-        friend['avatar'] :
+        user['avatar'] :
         'defaultUser.jpg';
       saveUser.firstName = user['firstName'];
       saveUser.lastName = user['lastName'];

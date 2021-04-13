@@ -23,6 +23,12 @@ function addProfileHeaderListener() {
             profilePage.emit('edit-name')
         });
     }
+    document.getElementById('posts-switch').addEventListener('click', () => {
+        profilePage.emit('posts-switch');
+    });
+    document.getElementById('albums-switch').addEventListener('click', () => {
+        profilePage.emit('albums-switch');
+    });
 }
 
 
