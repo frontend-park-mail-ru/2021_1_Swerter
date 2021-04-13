@@ -2,8 +2,10 @@ import {addCreatePostListeners} from "../../components/AddPost/handler.js";
 import {addProfileHeaderListener} from "../../components/ProfileHeader/handler.js";
 import {addChangeLoginListeners, addChangePassListeners} from "../../components/ConfigModal/handler.js";
 import {addHeaderListeners} from "../../components/Header/handler.js";
+import {addPostListeners} from "../../components/Post/handler.js";
+import {addPostModalAddListeners} from "../../components/PostModal/handler.js";
+import {addPostModalEditListeners} from "../../components/PostModal/handler.js";
 import makeObservable from "../../observable.js";
-import {http} from "../../modules/http.js";
 import {router} from "../../modules/router.js";
 import postStore from "../../Stores/PostStore.js";
 import userStore from "../../Stores/UserStore.js";
@@ -24,6 +26,10 @@ class ProfilePage {
             editCreds: false,
             changeLogin: false,
             changePassword: false,
+            postAdding: false,
+            postEditing : false,
+            contentUrls:[],
+            newsPostText:"",
         }
     };
 
@@ -52,10 +58,13 @@ class ProfilePage {
         this.state.viewState.changePassword = false;
         this.state.viewState.changeLogin = false;
         this.state.viewState.modEdited = false;
+        this.state.viewState.postAdding = false;
+        this.state.viewState.postEditing = false;
     }
 
     addListeners() {
         addHeaderListeners();
+        addPostListeners();
         if (this.state.viewState.myPage) {
             addCreatePostListeners();
             addProfileHeaderListener();
@@ -66,11 +75,19 @@ class ProfilePage {
         if (this.state.viewState.changeLogin) {
             addChangeLoginListeners();
         }
+        if (this.state.viewState.postAdding) {
+            addPostModalAddListeners();
+        }
+        if (this.state.viewState.postEditing) {
+            addPostModalEditListeners();
+        }
     }
 
     registerEvents() {
         this.bind('post-added', () => {
-            console.log('post added')
+            this.setDefaultViewFlags()
+            this.state.viewState.newsPostText = ''
+            this.state.viewState.contentUrls = postStore.contentPost
             this.state.postsData = this.addMetaInfoPosts(postStore.userPosts);
             this.render();
             router.addEventsForLinks();
@@ -104,10 +121,7 @@ class ProfilePage {
         })
 
         this.bind('modal-closed',()=> {
-            console.log('close ')
-            this.state.viewState.editCreds = false;
-            this.state.viewState.changeLogin = false;
-            this.state.viewState.changePassword = false;
+            this.setDefaultViewFlags()
             this.render();
             router.addEventsForLinks();
         })
@@ -164,16 +178,47 @@ class ProfilePage {
             this.render();
             router.addEventsForLinks();
         })
+
+        this.bind('like-changed', () => {
+            this.state.postsData = this.addMetaInfoPosts(postStore.userPosts);
+            this.render();
+            router.addEventsForLinks();
+        })
+
+        this.bind('post-adding', () => {
+            this.state.viewState.postAdding = true;
+            this.render();
+            router.addEventsForLinks();
+        })
+
+        this.bind('content-post-changed', () => {
+            this.state.viewState.contentUrls = postStore.getUrlsContent();
+            this.render();
+            router.addEventsForLinks();
+        })
+
+        this.bind('edit-all-images-btn', () => {
+            this.state.viewState.postEditing = true;
+            this.state.viewState.postAdding = false;
+            this.render();
+            router.addEventsForLinks();
+        })
+
+        this.bind('post-edited-ended', () => {
+            this.state.viewState.postEditing = false;
+            this.state.viewState.postAdding = true;
+            this.state.viewState.contentUrls = postStore.getUrlsContent();
+            this.render();
+            router.addEventsForLinks();
+        })
+
+        this.bind('text-post-changed', (text) => {
+            this.state.viewState.newsPostText = text;
+        })
     }
 
     addMetaInfoPosts(posts) {
-        let listPosts = [];
-        for (const key in posts) {
-            posts[key].imgContent = posts[key].imgContent ? http.getHost() + posts[key].imgContent : '';
-            listPosts.push(posts[key]);
-        }
-        listPosts.reverse();
-        return listPosts.map((item) => {
+        return posts.map((item) => {
             item.imgAvatar = this.state.userData.imgAvatar;
             item.postCreator = this.state.userData.firstName + ' ' + this.state.userData.lastName;
             return item;

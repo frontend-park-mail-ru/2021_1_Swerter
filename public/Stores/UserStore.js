@@ -89,7 +89,19 @@ class UserStore {
         let imgAvatar = http.getHost() + '/static/usersAvatar/';
         imgAvatar += userData['avatar'] ? userData['avatar'] : 'defaultUser.jpg';
         this.user.imgAvatar = imgAvatar;
-        postStore.userPosts = userData['postsData'];
+        const posts = userData['postsData']
+        let listPosts = [];
+        for (const key in posts) {
+            let imgUrls = [];
+            posts[key].imgContent.forEach((img)=>{
+                img.Url = http.getHost() + img.Url
+                imgUrls.push(img.Url)
+            })
+            posts[key].imgContent = imgUrls
+            listPosts.push(posts[key]);
+        }
+        console.log(listPosts)
+        postStore.userPosts = listPosts.reverse();
     }
 
 }
