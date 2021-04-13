@@ -39,19 +39,19 @@ class PostStore {
             posts[key].imgContent = imgUrls
             listPosts.push(posts[key]);
         }
-        console.log(listPosts)
         return listPosts.reverse();
     }
 
     async getNewsPosts() {
         let news = await http.get({url: '/posts'});
-        news = this.postsObjToList(news.body).map((item) => {
+
+        const posts = this.postsObjToList(news.body).map((item) => {
             let urlImg = http.getHost() + '/static/usersAvatar/';
             urlImg += item.imgAvatar ? item.imgAvatar : 'defaultUser.jpg';
             item.imgAvatar = urlImg;
             return item;
         });
-        return news;
+        return posts;
     }
 
     addContentPost(imgInfo) {
@@ -76,9 +76,14 @@ class PostStore {
     }
 
     postsObjToList(posts) {
-        const listPosts = [];
+        let listPosts = []
         for (const key in posts) {
-            posts[key].imgContent = posts[key].imgContent ? http.getHost() + posts[key].imgContent : '';
+            let imgUrls = [];
+            posts[key].imgContent.forEach((img)=>{
+                img.Url = http.getHost() + img.Url
+                imgUrls.push(img.Url)
+            })
+            posts[key].imgContent = imgUrls
             listPosts.push(posts[key]);
         }
         return listPosts.reverse();
