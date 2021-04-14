@@ -12,6 +12,10 @@ import newAlbumPage from "../NewAlbumPage/NewAlbumPage.js"
 import postStore from "../../Stores/PostStore.js";
 import userStore from "../../Stores/UserStore.js";
 
+userStore.bind('init-user', ()=> {
+    profilePage.emit('init-user')
+})
+
 class ProfilePage {
     state = {
         postsData: [],
@@ -180,6 +184,7 @@ class ProfilePage {
             router.go('/login');
         })
 
+        //рудимент
         this.bind('profile-getted', () => {
             this.state.viewState.myPage = true;
             this.setUserInfo();
@@ -274,6 +279,13 @@ class ProfilePage {
             }
             this.render();
             router.addEventsForLinks();
+        })
+
+        this.bind('init-user', ()=>{
+            this.setDefaultViewFlags();
+            this.setUserInfo();
+            this.setUserPosts();
+            this.emit('user-inited')
         })
     }
 

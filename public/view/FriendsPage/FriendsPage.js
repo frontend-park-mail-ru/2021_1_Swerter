@@ -43,6 +43,7 @@ class FriendPage {
         //костыль хедера
         this.state.userData = profilePage.state.userData
         this.state.viewState = profilePage.state.viewState
+
     }
 
     setFollowersInfo() {

@@ -22,7 +22,7 @@ class LoginPage {
 
     registerEvents() {
         this.bind('authorized', () => {
-            // router.go('/profile');
+            router.go('/profile');
         });
     }
 }

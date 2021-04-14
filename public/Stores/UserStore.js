@@ -204,8 +204,19 @@ Dispatcher.register('go-friend-profile', (datails) => {
 Dispatcher.register('get-user-profile', () => {
     userStore.getProfile().then((userData) => {
         userStore.setUserData(userData);
-        userStore.emit('profile-getted')
+        //рудимент
+        // userStore.emit('profile-getted');
+        userStore.emit('authorized');
     });
 });
+
+Dispatcher.register('init-user', () => {
+    userStore.getProfile().then((userData) => {
+        userStore.setUserData(userData);
+        userStore.emit('init-user');
+    });
+});
+
+
 
 export default userStore;
