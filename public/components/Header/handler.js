@@ -23,7 +23,7 @@ export function addHeaderListeners() {
         Dispatcher.dispatch('get-user-profile', {});
     });
     document.getElementById('friends-block').addEventListener('click', ()=>{
-        //Переход на страницу друзей
+        // Переход на страницу друзей
         Dispatcher.dispatch('go-friends-page', {});
     });
     if (profilePage.state.viewState.editCreds) {

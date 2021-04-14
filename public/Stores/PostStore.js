@@ -12,6 +12,7 @@ class PostStore {
             this.getNewsPosts().then((posts) => {
                 this.newsPosts = posts;
                 this.emit('new-news');
+                this.emit('init-news');
             });
             this.getNewsInterval = setInterval(() => {
                 this.getNewsPosts().then((posts) => {

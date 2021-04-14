@@ -10,6 +10,7 @@ class Router {
     }
 
     go(url) {
+        window.location.hash = url
         this.routes[url].page()
         this.addEventsForLinks()
     }
@@ -21,7 +22,8 @@ class Router {
                 let indexDog = a.href.indexOf("@")
                 if (indexDog + 1) {
                     e.preventDefault()
-                    this.go(a.href.split("@")[1])
+                    const page = a.href.split("@")[1]
+                    this.go(page)
                 }
             })
         })
