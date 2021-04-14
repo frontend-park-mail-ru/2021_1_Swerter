@@ -31,7 +31,6 @@ export function addPostModalAddListeners() {
     document.getElementById('edit-all-images-btn').addEventListener('click', ()=>{
         profilePage.emit('edit-all-images-btn');
     });
-
 }
 
 export function addPostModalEditListeners() {
