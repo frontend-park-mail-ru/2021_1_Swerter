@@ -1,0 +1,10 @@
+div.modal-wrapper(class="modal-wrapper_img")
+    div.post-counter #{data.startImgId + 1}/#{data.imgContent.length}
+    div(id="btn-close__modal__show-post" class="btn btn__close post-img__btn-close")
+        i(class="far fa-times-circle fa-3x")
+    div(id="go-prev-img" class=("go go_left"))
+        i(class="fas fa-chevron-left fa-5x")
+    div.modal-bg(id="modal-bg-close")
+    img.post-img(src=data.imgContent[data.startImgId])
+    div(id="go-next-img" class=("go go_right"))
+        i(class="fas fa-chevron-right fa-5x")

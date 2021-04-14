@@ -1,0 +1,11 @@
+div.friend-block
+    img.friend-block__avatar(src=data.avatar id=`fb-friend-` + data.id)
+    div.friend-block__content
+        div.friend-info
+            span.friend-info__user-name #{data.firstName} &nbsp;
+            span.friend-info__user-surname #{data.lastName}
+    if data.isSearched
+        if !data.isFriend
+            img.action-friend-btn(id=`add-new-friend-` + data.id src="./assets/iconAdd.png")
+        else
+            img.action-friend-btn(src="./assets/iconCheckMark.png")
