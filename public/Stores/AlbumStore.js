@@ -7,6 +7,7 @@ class AlbumStore {
   constructor() {
     //Для картинок
     this.contentAlbum = [];
+    this.currentAlbum = {};
   }
 
 
@@ -66,6 +67,18 @@ class AlbumStore {
     return listAlbums.reverse();
   }
 
+  async getAlbum(id) {
+    const response = await http.get({url: `/album?id=${id}`});
+    const album = response.body;
+    let imgUrls = []
+    album.imgContent.forEach((img)=>{
+      img.Url = http.getHost() + img.Url
+      imgUrls.push(img.Url)
+    })
+    album.imgContent = imgUrls
+    return album;
+  }
+
   postsObjToList(posts) {
     const listPosts = [];
     for (const key in posts) {
@@ -92,10 +105,16 @@ Dispatcher.register('add-photo-to-album', (details) => {
   albumStore.emit('album-content-loaded');
 });
 
+Dispatcher.register('go-album-page', (details) => {
+  albumStore.getAlbum(details.id).then((album) => {
+    albumStore.currentAlbum = album;
+    albumStore.emit('album-received');
+  });
+});
+
 Dispatcher.register('add-album', (details) => {
   albumStore.addAlbum(details.newAlbumInfo).then(() => {
     albumStore.getUserAlbums().then((albums) => {
-      console.log(albums)
       albumStore.userAlbums = albums
       albumStore.emit('album-added');
       albumStore.ClearContent();
