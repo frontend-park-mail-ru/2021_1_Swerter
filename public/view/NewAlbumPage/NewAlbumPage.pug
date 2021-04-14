@@ -11,7 +11,7 @@ mixin album-photo(data)
 
 div.new-album-page-content
     div.new-album-page-content__left-block
-        +add-album()
+        +add-album({title, description})
     div.new-album-page-content__right-block
         each photo in photos
           +album-photo(photo)

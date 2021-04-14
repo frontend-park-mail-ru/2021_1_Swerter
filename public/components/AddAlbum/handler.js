@@ -1,9 +1,14 @@
 import Dispatcher from '../../dispatcher.js';
 import albumStore from '../../Stores/AlbumStore.js';
 import newAlbumPage from '../../view/NewAlbumPage/NewAlbumPage.js';
+import profilePage from '../../view/Profile/ProfilePage.js';
 
 albumStore.bind('album-content-loaded', () => {
   newAlbumPage.emit("album-content-loaded");
+})
+
+albumStore.bind('album-added', () => {
+  profilePage.emit("album-added");
 })
 
 export function addAlbumListeners() {
@@ -12,6 +17,8 @@ export function addAlbumListeners() {
 }
 
 function addPhotoToAlbum() {
+  newAlbumPage.state.title = document.getElementById("album-title").value
+  newAlbumPage.state.description = document.getElementById("album-description").value
   const inputAlbumImg = document.createElement('input');
   inputAlbumImg.type = 'file';
   inputAlbumImg.onchange = (e) => {

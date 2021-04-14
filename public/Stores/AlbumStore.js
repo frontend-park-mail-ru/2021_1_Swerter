@@ -97,8 +97,8 @@ Dispatcher.register('add-album', (details) => {
     albumStore.getUserAlbums().then((albums) => {
       console.log(albums)
       albumStore.userAlbums = albums
-      // albumStore.emit('album-added');
-      // albumStore.ClearContent();
+      albumStore.emit('album-added');
+      albumStore.ClearContent();
     })
   })
 });

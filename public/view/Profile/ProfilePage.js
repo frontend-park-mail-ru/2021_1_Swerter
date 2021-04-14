@@ -11,10 +11,12 @@ import {router} from "../../modules/router.js";
 import newAlbumPage from "../NewAlbumPage/NewAlbumPage.js"
 import postStore from "../../Stores/PostStore.js";
 import userStore from "../../Stores/UserStore.js";
+import albumStore from '../../Stores/AlbumStore.js';
 
 class ProfilePage {
     state = {
         postsData: [],
+        albumsData : [],
         showPost: false,
         userData: {
             firstName: '',
@@ -272,6 +274,14 @@ class ProfilePage {
             if (this.state.showPost.startImgId > 0) {
                 this.state.showPost.startImgId--;
             }
+            this.render();
+            router.addEventsForLinks();
+        })
+
+        this.bind('album-added', (data) => {
+            this.state.viewState.switchContent = "ALBUMS";
+            this.state.albumsData = albumStore.userAlbums
+            console.log(this.state.albumsData)
             this.render();
             router.addEventsForLinks();
         })

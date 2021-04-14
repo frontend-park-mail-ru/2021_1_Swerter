@@ -1,7 +1,7 @@
 div.create-album-block__content
     span.create-album Create Album
-    input.album-name-block(placeholder="Album Name" id="album-title")
-    textarea.album-description-block(placeholder="Description (optional)" id="album-description")
+    input.album-name-block(placeholder="Album Name" id="album-title" value=title)
+    textarea.album-description-block(placeholder="Description (optional)" id="album-description") #{description}
     div.album-upload-photos-btn(id="add-photo-to-album")
         span.album-upload-photos-btn__text Upload Photos
 hr.new-album-line

@@ -13,6 +13,8 @@ export function addNewAlbumPageListeners() {
 
 class AddNewAlbumPage {
   state = {
+    title: "",
+    description: "",
     photos: [],
     userData : {},
     viewState : {}
@@ -32,6 +34,7 @@ class AddNewAlbumPage {
   }
 
   setAlbumInfo() {
+
     //костыль хедера
     this.state.userData = profilePage.state.userData
     this.state.viewState = profilePage.state.viewState

@@ -22,6 +22,7 @@ switch (user.status) {
         Dispatcher.dispatch('get-user-profile', {});
         postStore.emit('authorized')
         userStore.emit('authorized')
+        albumStore.emit('authorized')
         router.go('/profile')
         break
     case 401:
