@@ -249,7 +249,11 @@ class ProfilePage {
         })
 
         this.bind('show-post-img', (data) => {
+            //смотрю из всех постов, что неправильно
             this.state.showPost = this.state.postsData.filter((item) => data.postId == item.ID)[0]
+            if (!this.state.showPost) {
+                this.state.showPost = postStore.newsPosts.filter((item) => data.postId == item.ID)[0]
+            }
             //Потому что id фоток в посте с 1
             this.state.showPost.startImgId = data.imgId - 1
             this.render();
