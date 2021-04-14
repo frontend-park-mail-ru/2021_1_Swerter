@@ -2,6 +2,7 @@ import Dispatcher from '../dispatcher.js';
 import {http} from '../modules/http.js';
 import makeObservable from '../observable.js';
 
+
 class AlbumStore {
   constructor() {
     //Для картинок
@@ -10,9 +11,12 @@ class AlbumStore {
 
 
   getUrlsContent() {
-    return this.contentAlbum.map(img => URL.createObjectURL(img))
+    return this.contentAlbum.map(img => URL.createObjectURL(img));
   }
 
+  ClearContent() {
+    this.contentAlbum = []
+  }
 
   // async getNewsPosts() {
   //   let news = await http.get({url: '/posts'});
@@ -33,18 +37,34 @@ class AlbumStore {
     this.contentPost = [];
   }
 
-  // addPost(newPostInfo) {
-  //   const formData = new FormData();
-  //   const imgContent = this.contentPost[0];
-  //   if (imgContent) {
-  //     formData.append('imgContent', imgContent, imgContent.name);
-  //   }
-  //   formData.append('textPost', newPostInfo.textPost);
-  //   formData.append('date', newPostInfo.date);
-  //   const response = http.post({url: '/posts/add', data: formData, headers: {}});
-  //   this.delContent();
-  //   return response;
-  // }
+  addAlbum(newAlbumInfo) {
+    const formData = new FormData();
+    const imgContent = this.contentAlbum[0];
+    this.contentAlbum.forEach((content, i) => {
+      formData.append(`imgContent${i}`, content, imgContent.name);
+    });
+    formData.append('albumTitle', newAlbumInfo.albumTitle);
+    formData.append('albumDescription', newAlbumInfo.albumDescription);
+    const response = http.post({url: '/album/add', data: formData, headers: {}});
+    this.delContent();
+    return response;
+  }
+
+  async getUserAlbums() {
+    const userData = await http.get({url: '/profile'});
+    const albums = userData.body['albumsData'];
+    let listAlbums = [];
+    for (const key in albums) {
+      let imgUrls = [];
+      albums[key].imgContent.forEach((img)=>{
+        img.Url = http.getHost() + img.Url
+        imgUrls.push(img.Url)
+      })
+      albums[key].imgContent = imgUrls
+      listAlbums.push(albums[key]);
+    }
+    return listAlbums.reverse();
+  }
 
   postsObjToList(posts) {
     const listPosts = [];
@@ -57,7 +77,7 @@ class AlbumStore {
 
   async changeLikePost(postId) {
     const response = await http.post({url: `/like/post/${postId}`});
-    return response
+    return response;
   }
 }
 
@@ -66,18 +86,21 @@ const albumStore = new AlbumStore();
 
 export default albumStore;
 
-// Dispatcher.register('add-post', (details) => {
-//   postStore.addPost(details.newPostInfo).then(() => {
-//     postStore.getUserPosts().then((posts) => {
-//       postStore.userPosts = posts
-//       console.log(posts)
-//       postStore.emit('post-added');
-//     })
-//   })
-// });
 
 Dispatcher.register('add-photo-to-album', (details) => {
   albumStore.addPhotoToAlbum(details.imgInfo);
   albumStore.emit('album-content-loaded');
 });
+
+Dispatcher.register('add-album', (details) => {
+  albumStore.addAlbum(details.newAlbumInfo).then(() => {
+    albumStore.getUserAlbums().then((albums) => {
+      console.log(albums)
+      albumStore.userAlbums = albums
+      // albumStore.emit('album-added');
+      // albumStore.ClearContent();
+    })
+  })
+});
+
 

@@ -7,6 +7,7 @@ albumStore.bind('album-content-loaded', () => {
 })
 
 export function addAlbumListeners() {
+  document.getElementById('create-new-album').addEventListener('click', addAlbum);
   document.getElementById('add-photo-to-album').addEventListener('click', addPhotoToAlbum);
 }
 
@@ -22,6 +23,18 @@ function addPhotoToAlbum() {
     });
   };
   inputAlbumImg.click();
+}
+
+
+function addAlbum() {
+  const albumTitle = document.getElementById('album-title').value.replace(/<\/?[^>]+(>|$)/g, '');
+  const albumDescription = document.getElementById('album-description').value.replace(/<\/?[^>]+(>|$)/g, '');
+  Dispatcher.dispatch('add-album', {
+    newAlbumInfo: {
+      albumTitle,
+      albumDescription
+    },
+  });
 }
 
 

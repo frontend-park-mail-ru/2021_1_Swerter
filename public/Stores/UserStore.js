@@ -90,15 +90,18 @@ class UserStore {
         imgAvatar += userData['avatar'] ? userData['avatar'] : 'defaultUser.jpg';
         this.user.imgAvatar = imgAvatar;
         const posts = userData['postsData']
+        console.log(posts)
         let listPosts = [];
-        for (const key in posts) {
-            let imgUrls = [];
-            posts[key].imgContent.forEach((img)=>{
-                img.Url = http.getHost() + img.Url
-                imgUrls.push(img.Url)
-            })
-            posts[key].imgContent = imgUrls
-            listPosts.push(posts[key]);
+        if (posts) {
+            for (const key in posts) {
+                let imgUrls = [];
+                posts[key].imgContent.forEach((img)=>{
+                    img.Url = http.getHost() + img.Url
+                    imgUrls.push(img.Url)
+                })
+                posts[key].imgContent = imgUrls
+                listPosts.push(posts[key]);
+            }
         }
         console.log(listPosts)
         postStore.userPosts = listPosts.reverse();
