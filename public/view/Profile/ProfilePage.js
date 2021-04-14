@@ -13,6 +13,10 @@ import postStore from "../../Stores/PostStore.js";
 import userStore from "../../Stores/UserStore.js";
 import albumStore from '../../Stores/AlbumStore.js';
 
+userStore.bind('init-user', ()=> {
+    profilePage.emit('init-user')
+})
+
 class ProfilePage {
     state = {
         postsData: [],
@@ -182,6 +186,7 @@ class ProfilePage {
             router.go('/login');
         })
 
+        //рудимент
         this.bind('profile-getted', () => {
             this.state.viewState.myPage = true;
             this.setUserInfo();
@@ -278,12 +283,19 @@ class ProfilePage {
             router.addEventsForLinks();
         })
 
+
         this.bind('album-added', (data) => {
             this.state.viewState.switchContent = "ALBUMS";
             this.state.albumsData = albumStore.userAlbums
             console.log(this.state.albumsData)
             this.render();
             router.addEventsForLinks();
+         })
+        this.bind('init-user', ()=>{
+            this.setDefaultViewFlags();
+            this.setUserInfo();
+            this.setUserPosts();
+            this.emit('user-inited')
         })
     }
 
