@@ -19,7 +19,6 @@ registerUrls()
 
 
 window.addEventListener('load', () => {
-    console.log('loaded')
     let location = window.location.hash.split('#')[1]
     const user = http.get({url: '/profile'});
     user.then((response) => {
@@ -36,7 +35,6 @@ window.addEventListener('load', () => {
                         case '/profile':
                             Dispatcher.dispatch('get-user-profile', {});
                             break;
-                            //Проброс авторизованных
                         case '/login':
                             Dispatcher.dispatch('get-user-profile', {});
                             break;
@@ -61,7 +59,6 @@ window.addEventListener('load', () => {
         }
     })
 })
-
 
 
 function registerUrls() {

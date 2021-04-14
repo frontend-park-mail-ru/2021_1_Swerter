@@ -1,7 +1,6 @@
 import {addHeaderListeners} from "../../components/Header/handler.js";
 import {addPostListeners} from "../../components/Post/handler.js";
 import postStore from "../../Stores/PostStore.js";
-//Котсыль пока не знаю как хедер вынести
 import profilePage from "../Profile/ProfilePage.js";
 import makeObservable from "../../observable.js";
 

@@ -21,8 +21,4 @@ export function addShowModalAddListeners() {
     document.getElementById('go-prev-img').addEventListener('click', ()=>{
         profilePage.emit("go-prev-img")
     });
-
-    // document.getElementById('edit-all-images-btn').addEventListener('click', ()=>{
-        // profilePage.emit('edit-all-images-btn');
-    // });
 }

@@ -7,7 +7,6 @@ function addCreatePostListeners() {
     document.getElementById('attach-post-photo-btn').addEventListener('click', () => {
         profilePage.emit('post-adding')
     });
-    // document.getElementById('upload-post-content').addEventListener('click', uploadPostContentFlux);
 }
 
 export {addCreatePostListeners};

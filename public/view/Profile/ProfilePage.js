@@ -169,7 +169,7 @@ class ProfilePage {
             router.addEventsForLinks();
         })
 
-        //8
+
         this.bind('authorized', () => {
             this.setDefaultViewFlags();
             this.setUserInfo();
@@ -186,15 +186,6 @@ class ProfilePage {
             this.state.userData.lastName = '';
             this.state.postsData = [];
             router.go('/login');
-        })
-
-        //рудимент
-        this.bind('profile-getted', () => {
-            this.state.viewState.myPage = true;
-            this.setUserInfo();
-            this.setUserPosts();
-            this.render();
-            router.addEventsForLinks();
         })
 
         this.bind('friend-page-received', () => {
@@ -259,12 +250,11 @@ class ProfilePage {
         })
 
         this.bind('show-post-img', (data) => {
-            //смотрю из всех постов, что неправильно
             this.state.showPost = this.state.postsData.filter((item) => data.postId == item.ID)[0]
             if (!this.state.showPost) {
                 this.state.showPost = postStore.newsPosts.filter((item) => data.postId == item.ID)[0]
             }
-            //Потому что id фоток в посте с 1
+
             this.state.showPost.startImgId = data.imgId - 1
             this.render();
             router.addEventsForLinks();

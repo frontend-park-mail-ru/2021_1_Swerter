@@ -39,7 +39,6 @@ export function addPostModalEditListeners() {
     });
     document.getElementById('modal-bg-close').addEventListener('click', closeModal);
     document.getElementById('close-post-modal-btn').addEventListener('click', closeModal);
-    // document.getElementById('upload-post-content').addEventListener('click', uploadPostContentFlux);
     const delImgIds = document.querySelectorAll('[id^="btn-del-img-"]')
     delImgIds.forEach((item)=> {
         item.addEventListener('click', () => {

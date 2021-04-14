@@ -40,7 +40,7 @@ class FriendPage {
 
     setFriendsInfo() {
         this.state.friends = friendStore.state.friends;
-        //костыль хедера
+
         this.state.userData = profilePage.state.userData
         this.state.viewState = profilePage.state.viewState
 

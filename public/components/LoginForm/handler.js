@@ -7,14 +7,12 @@ userStore.bind('send-login-request-failed', ()=>{
     displayLoginFormValidationError('Wrong login or password');
 });
 
-//6
+
 userStore.bind('authorized', ()=>{
     loginPage.emit('authorized');
-    //7
     profilePage.emit('authorized');
 });
 
-//1
 export function addLoginFormListeners() {
     document.getElementById('submit-login-form').addEventListener('click', submitLoginForm);//2
 }
@@ -33,7 +31,7 @@ function submitLoginForm() {
         displayLoginFormValidationError(errorMsg);
         return
     }
-    //3
+
     Dispatcher.dispatch('send-login-request',{
         login: login.value,
         password: password.value,

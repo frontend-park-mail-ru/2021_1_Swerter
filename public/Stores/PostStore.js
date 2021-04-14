@@ -4,10 +4,8 @@ import makeObservable from '../observable.js';
 
 class PostStore {
     constructor() {
-        //Для картинок
         this.contentPost = [];
 
-        //Первый раз подгружаем всё без таймаута
         this.bind('authorized', () => {
             this.getNewsPosts().then((posts) => {
                 this.newsPosts = posts;

@@ -91,7 +91,6 @@ class UserStore {
         imgAvatar += userData['avatar'] ? userData['avatar'] : 'defaultUser.jpg';
         this.user.imgAvatar = imgAvatar;
         const posts = userData['postsData']
-        console.log(posts)
         let listPosts = [];
         if (posts) {
             for (const key in posts) {
@@ -104,10 +103,8 @@ class UserStore {
                 listPosts.push(posts[key]);
             }
         }
-        console.log(listPosts)
         postStore.userPosts = listPosts.reverse();
         const albums = userData['albumsData']
-        console.log(albums)
         let listAlbums = [];
         if (albums) {
             for (const key in albums) {
@@ -120,10 +117,8 @@ class UserStore {
                 listAlbums.push(albums[key]);
             }
         }
-        console.log(listAlbums)
         albumStore.userAlbums = listAlbums.reverse();
     }
-
 }
 
 makeObservable(UserStore);
@@ -169,13 +164,13 @@ Dispatcher.register('new-password', (details) => {
         }
     );
 });
-//4
+
+
 Dispatcher.register('send-login-request', (details) => {
     userStore.sendLoginRequest(details).then((response) => {
             if (response.status === 200) {
                 userStore.getProfile().then((userData) => {
                         userStore.setUserData(userData);
-                        //5
                         userStore.emit('authorized')
                         postStore.emit('authorized')
                     }
@@ -202,7 +197,6 @@ Dispatcher.register('logout', (details) => {
 Dispatcher.register('send-register-request', (details) => {
     userStore.sendRegisterRequest(details).then(response => {
         if (response.status === 200) {
-            //Не по флаксу отправлять инфу о событии
             userStore.emit('registered', details);
         } else if (response.status === 403) {
             userStore.emit('registration-failed');
@@ -221,8 +215,6 @@ Dispatcher.register('go-friend-profile', (datails) => {
 Dispatcher.register('get-user-profile', () => {
     userStore.getProfile().then((userData) => {
         userStore.setUserData(userData);
-        //рудимент
-        // userStore.emit('profile-getted');
         userStore.emit('authorized');
     });
 });
@@ -233,7 +225,5 @@ Dispatcher.register('init-user', () => {
         userStore.emit('init-user');
     });
 });
-
-
 
 export default userStore;

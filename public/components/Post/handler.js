@@ -35,5 +35,3 @@ function changeLike(like) {
     })
 }
 
-// const classActiveLike = 'post__footer__column__like_active'
-// const classDeactiveLike = 'post__footer__column__like_deactive'

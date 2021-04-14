@@ -26,7 +26,7 @@ class AlbumPage {
   setInfo() {
     this.state.album = albumStore.currentAlbum;
     console.log(this.state.album)
-    //костыль хедера
+
     this.state.userData = profilePage.state.userData
     this.state.viewState = profilePage.state.viewState
   }
