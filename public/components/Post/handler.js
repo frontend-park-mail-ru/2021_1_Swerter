@@ -22,8 +22,7 @@ export function addPostListeners() {
             const chanks = item.id.split('-')
             let imgId = chanks[chanks.length - 2]
             let postId = chanks[chanks.length - 1]
-            console.log(imgId)
-            console.log(postId)
+            profilePage.emit('show-post-img', {postId, imgId})
         });
     });
 }

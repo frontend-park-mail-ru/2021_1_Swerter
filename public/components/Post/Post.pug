@@ -22,8 +22,8 @@ div(id="post" class="post")
                         img(id="post-img-4-"+data.ID class="new-post-form__content__image_fifth new-post-form__content__image" src=data.imgContent[3])
                     if data.imgContent.length > 4
                         div.new-post-form__content__image__more(class="new-post-form__content__image")
-                            div.new-post-form__content__image__more-counter + #{data.imgContent.length - 4}
-                            img(id="post-img-4-"+data.ID class="new-post-form__content__image_fifth new-post-form__content__image" src=data.imgContent[3])
+                            div.new-post-form__content__image__more-counter(id="post-img-4-"+data.ID) + #{data.imgContent.length - 4}
+                            img(class="new-post-form__content__image_fifth new-post-form__content__image" src=data.imgContent[3])
     div(class="post__footer")
         div(class="post__footer__row__metric")
             if data.liked

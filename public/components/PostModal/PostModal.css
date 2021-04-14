@@ -180,6 +180,10 @@
     margin: 1px;
 }
 
+.new-post-form__content__image:hover {
+    cursor: pointer;
+}
+
 .new-post-form__content__image_list {
     overflow: initial;
     position: relative;
