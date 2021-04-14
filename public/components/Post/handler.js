@@ -15,6 +15,16 @@ export function addPostListeners() {
             changeLike(like);
         });
     }
+
+    const postImgs = document.querySelectorAll('[id^="post-img-"]')
+    postImgs.forEach((item)=> {
+        item.addEventListener('click', () => {
+            const chanks = item.id.split('-')
+            let imgId = chanks[chanks.length - 2]
+            let postId = chanks[chanks.length - 1]
+            profilePage.emit('show-post-img', {postId, imgId})
+        });
+    });
 }
 
 function changeLike(like) {

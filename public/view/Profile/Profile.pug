@@ -20,6 +20,9 @@ mixin addPost(data)
 mixin modalConf(data)
     include ../../components/ConfigModal/ConfigModal
 
+mixin modalShowPost(data)
+    include ../../components/ShowImgModal/ShowImgModal
+
 div(class="profile-content")
     if viewState.switchContent === "POSTS"
         div(class="left-content-column")
@@ -51,3 +54,6 @@ if viewState.changePassword || viewState.changeLogin
 
 if viewState.postAdding || viewState.postEditing
     +modalPost(viewState)
+
+if showPost
+    +modalShowPost(showPost)

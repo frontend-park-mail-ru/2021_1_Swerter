@@ -5,6 +5,7 @@ import {addHeaderListeners} from "../../components/Header/handler.js";
 import {addPostListeners} from "../../components/Post/handler.js";
 import {addPostModalAddListeners} from "../../components/PostModal/handler.js";
 import {addPostModalEditListeners} from "../../components/PostModal/handler.js";
+import {addShowModalAddListeners} from "../../components/ShowImgModal/handler.js";
 import makeObservable from "../../observable.js";
 import {router} from "../../modules/router.js";
 import newAlbumPage from "../NewAlbumPage/NewAlbumPage.js"
@@ -14,6 +15,7 @@ import userStore from "../../Stores/UserStore.js";
 class ProfilePage {
     state = {
         postsData: [],
+        showPost: false,
         userData: {
             firstName: '',
             lastName: '',
@@ -28,10 +30,10 @@ class ProfilePage {
             changeLogin: false,
             changePassword: false,
             postAdding: false,
-            postEditing : false,
-            contentUrls:[],
-            switchContent : "POSTS",
-            newsPostText:"",
+            postEditing: false,
+            contentUrls: [],
+            switchContent: "POSTS",
+            newsPostText: "",
         }
     };
 
@@ -63,7 +65,7 @@ class ProfilePage {
         this.state.viewState.postAdding = false;
         this.state.viewState.switchContent = "POSTS"
         this.state.viewState.postEditing = false;
-
+        this.state.showPost = false;
     }
 
     addListeners() {
@@ -71,7 +73,7 @@ class ProfilePage {
         addPostListeners();
         if (this.state.viewState.myPage) {
             addProfileHeaderListener();
-            if(this.state.viewState.switchContent === "POSTS") {
+            if (this.state.viewState.switchContent === "POSTS") {
                 addCreatePostListeners();
             } else if (this.state.viewState.switchContent === "ALBUMS") {
                 document.getElementById("create-album-block").addEventListener('click', () => {
@@ -91,6 +93,10 @@ class ProfilePage {
         if (this.state.viewState.postEditing) {
             addPostModalEditListeners();
         }
+        if (this.state.showPost) {
+            addShowModalAddListeners();
+        }
+
     }
 
     registerEvents() {
@@ -110,19 +116,19 @@ class ProfilePage {
             router.addEventsForLinks();
         })
 
-        this.bind('edit-name',()=> {
+        this.bind('edit-name', () => {
             this.state.viewState.modEdited = true;
             this.render();
             router.addEventsForLinks();
         })
 
-        this.bind('end-edit-name',()=> {
+        this.bind('end-edit-name', () => {
             this.state.viewState.modEdited = false;
             this.render();
             router.addEventsForLinks();
         })
 
-        this.bind('new-name-setted',()=> {
+        this.bind('new-name-setted', () => {
             this.state.userData.firstName = userStore.user.firstName;
             this.state.userData.lastName = userStore.user.lastName;
             this.state.postsData = this.addMetaInfoPosts(this.state.postsData);
@@ -130,32 +136,33 @@ class ProfilePage {
             router.addEventsForLinks();
         })
 
-        this.bind('modal-closed',()=> {
+        this.bind('modal-closed', () => {
             this.setDefaultViewFlags()
+            console.log(this.state.showPost)
             this.render();
             router.addEventsForLinks();
         })
 
-        this.bind('modal-creds-opened',()=> {
+        this.bind('modal-creds-opened', () => {
             this.state.viewState.editCreds = !this.state.viewState.editCreds;
             this.render();
             router.addEventsForLinks();
         })
 
-        this.bind('password-changed-opened',()=> {
+        this.bind('password-changed-opened', () => {
             this.state.viewState.changePassword = true;
             this.render();
             router.addEventsForLinks();
         })
 
-        this.bind('login-changed-opened',()=> {
+        this.bind('login-changed-opened', () => {
             this.state.viewState.changeLogin = true;
             this.render();
             router.addEventsForLinks();
         })
 
         //8
-        this.bind('authorized',()=> {
+        this.bind('authorized', () => {
             this.setDefaultViewFlags();
             this.setUserInfo();
             this.setUserPosts();
@@ -164,7 +171,7 @@ class ProfilePage {
             router.addEventsForLinks();
         })
 
-        this.bind('logouted',()=> {
+        this.bind('logouted', () => {
             this.setDefaultViewFlags();
             this.state.userData.imgAvatar = '';
             this.state.userData.firstName = '';
@@ -173,7 +180,7 @@ class ProfilePage {
             router.go('/login');
         })
 
-        this.bind('profile-getted',()=> {
+        this.bind('profile-getted', () => {
             this.state.viewState.myPage = true;
             this.setUserInfo();
             this.setUserPosts();
@@ -241,6 +248,33 @@ class ProfilePage {
             this.state.viewState.newsPostText = text;
         })
 
+        this.bind('show-post-img', (data) => {
+            //смотрю из всех постов, что неправильно
+            this.state.showPost = this.state.postsData.filter((item) => data.postId == item.ID)[0]
+            if (!this.state.showPost) {
+                this.state.showPost = postStore.newsPosts.filter((item) => data.postId == item.ID)[0]
+            }
+            //Потому что id фоток в посте с 1
+            this.state.showPost.startImgId = data.imgId - 1
+            this.render();
+            router.addEventsForLinks();
+        })
+
+        this.bind('go-next-img', (data) => {
+            if (this.state.showPost.startImgId < this.state.showPost.imgContent.length - 1) {
+                this.state.showPost.startImgId++;
+            }
+            this.render();
+            router.addEventsForLinks();
+        })
+
+        this.bind('go-prev-img', (data) => {
+            if (this.state.showPost.startImgId > 0) {
+                this.state.showPost.startImgId--;
+            }
+            this.render();
+            router.addEventsForLinks();
+        })
     }
 
     addMetaInfoPosts(posts) {

@@ -1,4 +1,4 @@
-div(class="post")
+div(id="post" class="post")
     div(class="post-header")
         img(class="avatar-in-post" src=data.imgAvatar)
         div(class="post-info")
@@ -9,20 +9,20 @@ div(class="post")
             p(class="post__content__text") #{data.textPost}
         if data.imgContent
             if data.imgContent.length === 1
-                img(class="new-post-form__content__image new-post-form__content__image_first" src=data.imgContent[0])
+                img(id="post-img-1-"+data.ID class="new-post-form__content__image new-post-form__content__image_first" src=data.imgContent[0])
             if data.imgContent.length === 2
-                img(class="new-post-form__content__image new-post-form__content__image_first" src=data.imgContent[0])
-                img(class="new-post-form__content__image new-post-form__content__image_second" src=data.imgContent[1])
+                img(id="post-img-1-"+data.ID class="new-post-form__content__image new-post-form__content__image_first" src=data.imgContent[0])
+                img(id="post-img-2-"+data.ID class="new-post-form__content__image new-post-form__content__image_second" src=data.imgContent[1])
             if data.imgContent.length >= 3
-                img(class="new-post-form__content__image new-post-form__content__image_first" src=data.imgContent[0])
+                img(id="post-img-1-"+data.ID class="new-post-form__content__image new-post-form__content__image_first" src=data.imgContent[0])
                 div.new-post-form__content__images_bottom
-                    img(class="new-post-form__content__image_third new-post-form__content__image" src=data.imgContent[1])
-                    img(class="new-post-form__content__image_fourth new-post-form__content__image" src=data.imgContent[2])
+                    img(id="post-img-2-"+data.ID class="new-post-form__content__image_third new-post-form__content__image" src=data.imgContent[1])
+                    img(id="post-img-3-"+data.ID class="new-post-form__content__image_fourth new-post-form__content__image" src=data.imgContent[2])
                     if data.imgContent.length === 4
-                        img(class="new-post-form__content__image_fifth new-post-form__content__image" src=data.imgContent[3])
+                        img(id="post-img-4-"+data.ID class="new-post-form__content__image_fifth new-post-form__content__image" src=data.imgContent[3])
                     if data.imgContent.length > 4
                         div.new-post-form__content__image__more(class="new-post-form__content__image")
-                            div.new-post-form__content__image__more-counter + #{data.imgContent.length - 4}
+                            div.new-post-form__content__image__more-counter(id="post-img-4-"+data.ID) + #{data.imgContent.length - 4}
                             img(class="new-post-form__content__image_fifth new-post-form__content__image" src=data.imgContent[3])
     div(class="post__footer")
         div(class="post__footer__row__metric")
