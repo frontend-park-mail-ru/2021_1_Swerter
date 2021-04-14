@@ -1,0 +1,242 @@
+.modal-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    z-index: 1;
+    top:0;
+}
+
+.modal-bg {
+    background-color: #666666;
+    width: 100%;
+    height: 100vh;
+    opacity: 0.4;
+}
+
+.new-post-form__header {
+    flex: 0.5;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.new-post-form__header::after {
+    content: "";
+    position: absolute;
+    background-color: #D8DADF;
+    bottom: -1px;
+    height: 2px;
+    width: 96%;
+    left: 2%;
+}
+
+.modal__title {
+    font-size: xx-large;
+    font-weight: 600;
+    color: #050505;
+}
+
+.btn__close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    color: #606770;
+    background-color: #E4E6EB;
+}
+
+.btn__edit {
+    position: absolute;
+    color: black;
+    top: 10px;
+    left: 10px;
+    background-color: #F2F2F2;
+    border-radius: 6px;
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn__back {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    border-radius: 100%;
+    border: #606770 4px solid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #606770;
+    color: #E4E6EB;
+}
+
+.btn:hover {
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.new-post-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: absolute;
+    width: 600px;
+    height: 80vh;
+    background-color: #FFFFFF;
+    border-radius: 15px;
+    padding: 15px;
+}
+
+.new-post-form__content {
+    flex: 4;
+    margin-top: 15px;
+    display: flex;
+    justify-content: start;
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height:auto;
+}
+
+.new-post-form__content__text {
+    margin-left: 10px;
+    flex: 1;
+    font-size: x-large;
+    color: black;
+    outline:none;
+    border: none;
+    resize: none;
+    min-height: 150px;
+}
+
+.new-post-form__content__text::placeholder {
+    color: #8C676B;
+}
+
+
+.new-post-form__attach {
+    flex: 0;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    border: #CED0D4 2px solid;
+    padding: 10px;
+    margin-top: 15px;
+}
+
+.new-post-form__attach__text {
+    font-size: x-large;
+    color: #8C676B;
+}
+
+.new-post-form__post-btn {
+    flex: 0;
+    margin-top: 15px;
+    font-size: x-large;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    background-color: #3B70E6;
+    color: #FFFFFF;
+    border-radius: 10px;
+}
+
+.new-post-form__post-btn:hover {
+    cursor: pointer;
+    background-color:#1771E6;
+    opacity: 0.8;
+}
+
+.new-post-form__content__images {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 15px;
+    border: #D8DADF 1px solid;
+}
+
+.new-post-form__content__images_bottom {
+    flex: 1;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-between;
+}
+
+.new-post-form__content__image {
+    object-fit: cover;
+    overflow: hidden;
+    margin: 1px;
+}
+
+.new-post-form__content__image:hover {
+    cursor: pointer;
+}
+
+.new-post-form__content__image_list {
+    overflow: initial;
+    position: relative;
+    max-width: 100%;
+}
+
+.new-post-form__content__image_first {
+    border-radius: 10px 10px 0px 0px;
+    flex: 1;
+}
+
+.new-post-form__content__image_second {
+    flex: 1;
+    border-radius:  0px 0px 10px 10px;
+}
+
+.new-post-form__content__image_third {
+    flex: 1;
+    border-radius:  0px 0px 0px 10px;
+
+}
+
+.new-post-form__content__image_fourth {
+    flex: 1;
+}
+
+.new-post-form__content__image_fifth{
+    flex: 1;
+    border-radius: 0px 0px 10px 0px;
+}
+.new-post-form__content__image__more {
+    flex: 1.2;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+}
+
+.new-post-form__content__image__more-counter{
+    position: absolute;
+    background-color: #2C2C2C;
+    opacity: 80%;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: xx-large;
+    font-weight: bold;
+    color: #FFFFFF;
+}
+
+.wrap__each__img {
+    overflow: initial;
+    position: relative;
+    display: flex;
+}

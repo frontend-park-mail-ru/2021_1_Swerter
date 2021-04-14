@@ -1,0 +1,37 @@
+
+.friend-search-block {
+    background: #7BA7AB;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.friend-search-block__input {
+    width: 170px;
+    height: 42px;
+    padding-left: 15px;
+    border-radius: 42px;
+    border: 2px solid #324b4e;
+    background: #fff;
+    outline: none;
+    position: relative;
+    transition: .3s linear;
+    font-size: 22px;
+}
+
+.friend-search-block__input:focus {
+    width: 410px;
+}
+
+.friend-search-block__icon {
+    width: 28px;
+    height: 28px;
+    background: none;
+    border: none;
+    position: absolute;
+    margin-right: 10px;
+}
+
+.friend-search-block__icon:hover {
+    cursor: pointer;
+}

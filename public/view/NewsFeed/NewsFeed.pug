@@ -1,12 +1,11 @@
 mixin header(data)
     include ../../components/Header/Header
 
-+header(profileData.userData)
++header({userData, viewState})
 
 mixin post(data)
     div(class="wrap-post")
         include ../../components/Post/Post
-
 
 div(class="news-feed")
     each postData in postsData

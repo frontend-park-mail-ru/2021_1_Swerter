@@ -1,0 +1,6 @@
+div.friend-search-block
+    if data.firstName !== ""
+        input.friend-search-block__input(id="search-friend-input" type="text" value=data.firstName + data.lastName  placeholder="friend...")
+    else
+        input.friend-search-block__input(id="search-friend-input" type="text" placeholder="Find friend...")
+    img.friend-search-block__icon(id="search-friend-btn" src="./assets/iconFinder.png")
