@@ -34,7 +34,7 @@ class AddNewAlbumPage {
   }
 
   setAlbumInfo() {
-
+    this.state.photos = albumStore.getUrlsContent()
     //костыль хедера
     this.state.userData = profilePage.state.userData
     this.state.viewState = profilePage.state.viewState
@@ -48,6 +48,7 @@ class AddNewAlbumPage {
   registerEvents() {
     this.bind('go-new-album-page', () => {
       this.setAlbumInfo()
+      console.log(this.state.photos)
       this.render();
       router.addEventsForLinks();
     })

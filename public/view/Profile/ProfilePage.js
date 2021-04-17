@@ -6,6 +6,7 @@ import {addPostListeners} from "../../components/Post/handler.js";
 import {addPostModalAddListeners} from "../../components/PostModal/handler.js";
 import {addPostModalEditListeners} from "../../components/PostModal/handler.js";
 import {addShowModalAddListeners} from "../../components/ShowImgModal/handler.js";
+import {addAlbumsListeners} from "../../components/AlbumPreview/handler.js"
 import makeObservable from "../../observable.js";
 import {router} from "../../modules/router.js";
 import newAlbumPage from "../NewAlbumPage/NewAlbumPage.js"
@@ -82,6 +83,7 @@ class ProfilePage {
             if (this.state.viewState.switchContent === "POSTS") {
                 addCreatePostListeners();
             } else if (this.state.viewState.switchContent === "ALBUMS") {
+                addAlbumsListeners();
                 document.getElementById("create-album-block").addEventListener('click', () => {
                     newAlbumPage.emit("go-new-album-page");
                 })
@@ -224,6 +226,7 @@ class ProfilePage {
 
         this.bind('albums-switch', () => {
             this.state.viewState.switchContent = "ALBUMS";
+            this.state.albumsData = albumStore.userAlbums
             this.render();
             router.addEventsForLinks();
         })

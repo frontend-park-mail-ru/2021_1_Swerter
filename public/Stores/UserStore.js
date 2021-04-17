@@ -2,6 +2,7 @@ import Dispatcher from '../dispatcher.js';
 import {http} from '../modules/http.js';
 import makeObservable from '../observable.js';
 import postStore from "./PostStore.js";
+import albumStore from './AlbumStore.js';
 
 class UserStore {
 
@@ -105,6 +106,22 @@ class UserStore {
         }
         console.log(listPosts)
         postStore.userPosts = listPosts.reverse();
+        const albums = userData['albumsData']
+        console.log(albums)
+        let listAlbums = [];
+        if (albums) {
+            for (const key in albums) {
+                let imgUrls = [];
+                albums[key].imgContent.forEach((img)=>{
+                    img.Url = http.getHost() + img.Url
+                    imgUrls.push(img.Url)
+                })
+                albums[key].imgContent = imgUrls
+                listAlbums.push(albums[key]);
+            }
+        }
+        console.log(listAlbums)
+        albumStore.userAlbums = listAlbums.reverse();
     }
 
 }
