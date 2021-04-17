@@ -5,6 +5,11 @@
     background: linear-gradient(180deg, #5EACF4 0.03%, #FFFFFF 78.12%);
 }
 
+.first-last-name {
+    position: relative;
+    top: 15px;
+}
+
 .header-content {
     display: flex;
     flex-direction: column;
