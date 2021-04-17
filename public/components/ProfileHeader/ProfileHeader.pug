@@ -14,7 +14,7 @@ div(class="profile-header-content")
         div(class="profile-info")
             if !data.viewState.modEdited
                 div(class="profile-info-content")
-                    h1
+                    h1.first-last-name
                         | #{data.userData.firstName}
                         | #{data.userData.lastName}
                     if data.viewState.myPage
