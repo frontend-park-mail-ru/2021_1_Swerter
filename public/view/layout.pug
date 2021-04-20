@@ -1,0 +1,7 @@
+mixin header(data)
+    include ../components/Header/Header
+
+block header
+    +header({userData, viewState})
+
+block content
