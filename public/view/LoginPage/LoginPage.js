@@ -1,6 +1,6 @@
 import {addLoginFormListeners} from "../../components/LoginForm/handler.js";
 import {router} from "../../modules/router.js";
-import makeObservable from "../../observable.js";
+import makeObservable from "../../modules/observable.js";
 
 class LoginPage {
     state = {

@@ -1,4 +1,4 @@
-import Dispatcher from '../../dispatcher.js';
+import Dispatcher from '../../modules/dispatcher.js';
 import friendsStore from '../../Stores/FriendStore.js';
 import profilePage from '../../view/Profile/ProfilePage.js';
 import userStore from '../../Stores/UserStore.js';

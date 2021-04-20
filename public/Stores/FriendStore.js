@@ -1,6 +1,6 @@
-import Dispatcher from '../dispatcher.js';
+import Dispatcher from '../modules/dispatcher.js';
 import {http} from '../modules/http.js';
-import makeObservable from '../observable.js';
+import makeObservable from '../modules/observable.js';
 import postStore from './PostStore.js';
 
 class FriendStore {

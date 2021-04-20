@@ -1,4 +1,4 @@
-import Dispatcher from "../../dispatcher.js";
+import Dispatcher from "../../modules/dispatcher.js";
 import postStore from "../../Stores/PostStore.js";
 import profilePage from "../../view/Profile/ProfilePage.js";
 import newsFeedPage from "../../view/NewsFeed/NewsFeedPage.js";

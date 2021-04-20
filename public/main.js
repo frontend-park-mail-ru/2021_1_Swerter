@@ -6,7 +6,7 @@ import loginPage from "./view/LoginPage/LoginPage.js";
 import newsFeedPage from "./view/NewsFeed/NewsFeedPage.js";
 import registerPage from "./view/RegisterPage/RegisterPage.js";
 import friendPage from "./view/FriendsPage/FriendsPage.js";
-import Dispatcher from "./dispatcher.js"
+import Dispatcher from "./modules/dispatcher.js"
 import postStore from "./Stores/PostStore.js";
 import userStore from "./Stores/UserStore.js";
 import friendStore from "./Stores/FriendStore.js";
@@ -14,9 +14,7 @@ import albumStore from "./Stores/AlbumStore.js";
 
 window.application = document.getElementById('app');
 
-
 registerUrls()
-
 
 window.addEventListener('load', () => {
     console.log('loaded')

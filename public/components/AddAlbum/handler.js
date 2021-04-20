@@ -1,4 +1,4 @@
-import Dispatcher from '../../dispatcher.js';
+import Dispatcher from '../../modules/dispatcher.js';
 import albumStore from '../../Stores/AlbumStore.js';
 import newAlbumPage from '../../view/NewAlbumPage/NewAlbumPage.js';
 import profilePage from '../../view/Profile/ProfilePage.js';

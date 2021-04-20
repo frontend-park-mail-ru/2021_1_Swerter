@@ -7,21 +7,21 @@ import {addPostModalAddListeners} from "../../components/PostModal/handler.js";
 import {addPostModalEditListeners} from "../../components/PostModal/handler.js";
 import {addShowModalAddListeners} from "../../components/ShowImgModal/handler.js";
 import {addAlbumsListeners} from "../../components/AlbumPreview/handler.js"
-import makeObservable from "../../observable.js";
+import makeObservable from "../../modules/observable.js";
 import {router} from "../../modules/router.js";
 import newAlbumPage from "../NewAlbumPage/NewAlbumPage.js"
 import postStore from "../../Stores/PostStore.js";
 import userStore from "../../Stores/UserStore.js";
 import albumStore from '../../Stores/AlbumStore.js';
 
-userStore.bind('init-user', ()=> {
+userStore.bind('init-user', () => {
     profilePage.emit('init-user')
 })
 
 class ProfilePage {
     state = {
         postsData: [],
-        albumsData : [],
+        albumsData: [],
         showPost: false,
         userData: {
             firstName: '',
@@ -293,8 +293,9 @@ class ProfilePage {
             console.log(this.state.albumsData)
             this.render();
             router.addEventsForLinks();
-         })
-        this.bind('init-user', ()=>{
+        })
+
+        this.bind('init-user', () => {
             this.setDefaultViewFlags();
             this.setUserInfo();
             this.setUserPosts();

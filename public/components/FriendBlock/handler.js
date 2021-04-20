@@ -1,6 +1,6 @@
 import userStore from '../../Stores/UserStore.js';
 import profilePage from '../../view/Profile/ProfilePage.js';
-import Dispatcher from '../../dispatcher.js';
+import Dispatcher from '../../modules/dispatcher.js';
 import friendStore from '../../Stores/FriendStore.js';
 
 userStore.bind('friend-page-received', ()=> {
