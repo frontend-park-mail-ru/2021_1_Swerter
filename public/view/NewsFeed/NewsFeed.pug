@@ -1,12 +1,11 @@
-mixin header(data)
-    include ../../components/Header/Header
+extends ../layout
 
-+header({userData, viewState})
+block content
 
-mixin post(data)
-    div(class="wrap-post")
-        include ../../components/Post/Post
+    mixin post(data)
+        div(class="wrap-post")
+            include ../../components/Post/Post
 
-div(class="news-feed")
-    each postData in postsData
-        +post(postData)
+    div(class="news-feed")
+        each postData in postsData
+            +post(postData)
