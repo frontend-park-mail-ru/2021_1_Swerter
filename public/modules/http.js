@@ -75,4 +75,4 @@ class HttpRequest {
 
 }
 
-export let http = new HttpRequest('http://localhost:8000');
+export let http = new HttpRequest('https://my-motivation-swerter.herokuapp.com/');
