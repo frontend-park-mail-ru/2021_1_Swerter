@@ -1,5 +1,5 @@
 import {addRegisterFormListeners} from "../../components/RegisterForm/handler.js";
-import makeObservable from "../../observable.js";
+import makeObservable from "../../modules/observable.js";
 
 
 class RegisterPage {

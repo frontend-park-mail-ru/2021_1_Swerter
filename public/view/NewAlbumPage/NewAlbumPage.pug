@@ -1,19 +1,18 @@
-mixin header(data)
-    include ../../components/Header/Header
+extends ../layout
 
-+header({userData, viewState})
+block content
 
-mixin add-album(data)
-    include ../../components/AddAlbum/AddAlbum
+    mixin add-album(data)
+        include ../../components/AddAlbum/AddAlbum
 
-mixin album-photo(data)
-    include ../../components/AlbumPhotos/AlbumsPhotos
+    mixin album-photo(data)
+        include ../../components/AlbumPhotos/AlbumsPhotos
 
-div.new-album-page-content
-    div.new-album-page-content__left-block
-        +add-album({title, description})
-    div.new-album-page-content__right-block
-        each photo in photos
-          +album-photo(photo)
+    div.new-album-page-content
+        div.new-album-page-content__left-block
+            +add-album({title, description})
+        div.new-album-page-content__right-block
+            each photo in photos
+              +album-photo(photo)
 
 

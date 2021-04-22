@@ -1,4 +1,4 @@
-import Dispatcher from "../../dispatcher.js";
+import Dispatcher from "../../modules/dispatcher.js";
 import postStore from "../../Stores/PostStore.js";
 import profilePage from "../../view/Profile/ProfilePage.js";
 import newsFeedPage from "../../view/NewsFeed/NewsFeedPage.js";
@@ -11,8 +11,10 @@ postStore.bind('like-changed', () => {
 export function addPostListeners() {
     const likes = document.getElementsByClassName('post__footer__column__like')
     for (let like of likes) {
-        like.addEventListener('click', () => {
+        like.addEventListener('click', (e) => {
+            e.preventDefault();
             changeLike(like);
+            // console.log(e)
         });
     }
 

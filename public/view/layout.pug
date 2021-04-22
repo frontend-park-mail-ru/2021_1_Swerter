@@ -1,0 +1,16 @@
+mixin header(data)
+    include ../components/Header/Header
+
+block header
+    +header({userData, viewState})
+
+block content
+
+if viewState.changePassword || viewState.changeLogin
+    +modalConf(viewState)
+
+if viewState.postAdding || viewState.postEditing
+    +modalPost(viewState)
+
+if showPost
+    +modalShowPost(showPost)

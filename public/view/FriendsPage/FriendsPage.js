@@ -1,5 +1,5 @@
 import {addHeaderListeners} from "../../components/Header/handler.js";
-import makeObservable from "../../observable.js";
+import makeObservable from "../../modules/observable.js";
 import {addFriendsRequestListeners} from "../../components/FriendRequestBlock/handler.js"
 import {addFriendsListeners} from "../../components/FriendBlock/handler.js"
 import {http} from "../../modules/http.js";

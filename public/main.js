@@ -6,17 +6,22 @@ import loginPage from "./view/LoginPage/LoginPage.js";
 import newsFeedPage from "./view/NewsFeed/NewsFeedPage.js";
 import registerPage from "./view/RegisterPage/RegisterPage.js";
 import friendPage from "./view/FriendsPage/FriendsPage.js";
-import Dispatcher from "./dispatcher.js"
+import Dispatcher from "./modules/dispatcher.js"
 import postStore from "./Stores/PostStore.js";
-import userStore from "./Stores/UserStore.js";
-import friendStore from "./Stores/FriendStore.js";
-import albumStore from "./Stores/AlbumStore.js";
+
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js', {scope:'/'})
+        .then((registration) => {
+            console.log('scope:', registration.scope);
+        })
+        .catch((err) => {
+            console.log('sw err')
+        })
+}
 
 window.application = document.getElementById('app');
 
-
 registerUrls()
-
 
 window.addEventListener('load', () => {
     let location = window.location.hash.split('#')[1]

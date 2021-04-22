@@ -1,5 +1,5 @@
 import profilePage from "../../view/Profile/ProfilePage.js";
-import Dispatcher from "../../dispatcher.js";
+import Dispatcher from "../../modules/dispatcher.js";
 import userStore from "../../Stores/UserStore.js";
 import friendsStore from "../../Stores/FriendStore.js";
 import friendsPage from "../../view/FriendsPage/FriendsPage.js"

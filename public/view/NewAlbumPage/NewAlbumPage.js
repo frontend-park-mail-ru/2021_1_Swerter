@@ -1,5 +1,5 @@
 import {addHeaderListeners} from "../../components/Header/handler.js";
-import makeObservable from "../../observable.js";
+import makeObservable from "../../modules/observable.js";
 import {router} from "../../modules/router.js";
 import profilePage from '../Profile/ProfilePage.js'
 import {addAlbumListeners} from "../../components/AddAlbum/handler.js"

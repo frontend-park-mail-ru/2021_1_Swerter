@@ -2,7 +2,7 @@ import {addHeaderListeners} from "../../components/Header/handler.js";
 import {addPostListeners} from "../../components/Post/handler.js";
 import postStore from "../../Stores/PostStore.js";
 import profilePage from "../Profile/ProfilePage.js";
-import makeObservable from "../../observable.js";
+import makeObservable from "../../modules/observable.js";
 
 postStore.bind('new-news', () => {
     newsFeedPage.emit('new-news-getted');
