@@ -4,6 +4,8 @@
 
 **MyMotivation** — это соцсеть. Социальная сеть. Друзья, чаты, новости и группы - это всё про нас.
 
+**Deploy** - https://my-motivation.netlify.app/
+
 ## Стек технологий
 
 **Frontend:** JavaScript
