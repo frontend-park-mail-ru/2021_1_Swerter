@@ -11,8 +11,10 @@ postStore.bind('like-changed', () => {
 export function addPostListeners() {
     const likes = document.getElementsByClassName('post__footer__column__like')
     for (let like of likes) {
-        like.addEventListener('click', () => {
+        like.addEventListener('click', (e) => {
+            e.preventDefault();
             changeLike(like);
+            // console.log(e)
         });
     }
 
