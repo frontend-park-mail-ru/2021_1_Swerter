@@ -31,15 +31,20 @@ function addProfileHeaderListener() {
     });
 }
 
+async function endEdit() {
 
-function endEdit() {
-    const firstName = document.getElementById('input-firstname').value.replace(/<\/?[^>]+(>|$)/g, '');
-    const lastName = document.getElementById('input-lastname').value.replace(/<\/?[^>]+(>|$)/g, '');
+  profileData.userData.modEdited = false;
+  profileData.userData.firstName = document.getElementById('input-firstname').value.replace(/<\/?[^>]+(>|$)/g, '');
+  profileData.userData.lastName = document.getElementById('input-lastname').value.replace(/<\/?[^>]+(>|$)/g, '');
+  const body = profileData.userData;
 
-    Dispatcher.dispatch('new-name',{
-        firstName,
-        lastName
-    })
+  http.post({
+    url: '/profile', data: JSON.stringify({
+      firstName: body.firstName,
+      lastName: body.lastName,
+    }),
+  });
+  router.goProfile({needUpdate: false});
 }
 
 function uploadAvaFlux() {
