@@ -1,33 +1,12 @@
-import {addLoginFormListeners} from "../../components/LoginForm/handler.js";
-import {router} from "../../modules/router.js";
-import makeObservable from "../../modules/observable.js";
+import {Component} from "../Component.js";
+import {SiteDescription} from "../../components/SiteDescription/SiteDescription.js";
+import {LoginForm} from "../../components/LoginForm/LoginForm.js";
 
-class LoginPage {
-    state = {
-
-    }
-
+export class LoginPage extends Component {
     constructor() {
-        this.registerEvents()
-    }
+        super(loginpageTemplate);
 
-    render() {
-        application.innerHTML = loginpageTemplate(this.state);
-        this.addListeners()
-    }
-
-    addListeners() {
-        addLoginFormListeners();
-    }
-
-    registerEvents() {
-        this.bind('authorized', () => {
-            router.go('/profile');
-        });
+        this.addChildren('siteDescription', SiteDescription);
+        this.addChildren('loginForm', LoginForm);
     }
 }
-
-makeObservable(LoginPage)
-const loginPage = new LoginPage();
-
-export default loginPage
