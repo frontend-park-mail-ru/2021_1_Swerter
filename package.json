@@ -6,7 +6,7 @@
   "scripts": {
     "start": "DEBUG=* node server/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "pug -c -E tmpl.js -D ./public/view --name-after-file",
+    "build": "pug -c -E tmpl.js -D ./public --name-after-file",
     "lint": "npx eslint --fix --ignore-pattern *.tmpl.js public/"
   },
   "repository": {
