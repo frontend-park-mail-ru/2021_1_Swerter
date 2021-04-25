@@ -1,7 +1,16 @@
 import makeObservable from "../modules/observable.js";
 
-class View {
+class Component {
+    /* 'eventName': {
+            'callback': function(event) { ... },
+            'getElement': function() {
+                return this.element
+                    .getElementsByClassName('child element but not component')[0];
+            }
+    */
     events = {};
+
+    // 'loginButton': Button // class Button extends Component
     children = {};
 
     constructor(template) {
@@ -34,8 +43,9 @@ class View {
     }
 
     addEventListeners() {
-        for (const [event, callback] of Object.entries(this.events)) {
-            this.element.addEventListener(event, callback);
+        for (const [event, {callback, getElement}] of Object.entries(this.events)) {
+            const element = getElement();
+            element.addEventListener(event, callback);
         }
     }
 
@@ -52,8 +62,9 @@ class View {
     }
 
     removeEventListeners() {
-        for (const [event, callback] of Object.entries(this.events)) {
-            this.element.removeEventListener(event, callback);
+        for (const [event, {callback, getElement}] of Object.entries(this.events)) {
+            const element = getElement();
+            element.removeEventListener(event, callback);
         }
     }
 
@@ -61,10 +72,13 @@ class View {
         this.children[childName] = new childComponent();
     }
 
-    addEvent(eventName, callback) {
-        this.events[eventName] = callback.bind(this);
+    addEvent(eventName, callback, getElement = () => this.element) {
+        this.events[eventName] = {
+            'callback': callback.bind(this),
+            'getElement': getElement.bind(this)
+        };
     }
 }
-makeObservable(View);
+makeObservable(Component);
 
-export {View};
+export {Component};
