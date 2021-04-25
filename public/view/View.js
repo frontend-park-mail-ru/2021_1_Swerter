@@ -60,6 +60,10 @@ class View {
     addChildren(childName, childComponent) {
         this.children[childName] = new childComponent();
     }
+
+    addEvent(eventName, callback) {
+        this.events[eventName] = callback.bind(this);
+    }
 }
 makeObservable(View);
 
