@@ -1,48 +1,97 @@
+import { fatal } from "./errors.js";
+
 class Dispatcher {
     constructor() {
-        this.events = {};
+        this._callbacks = {};
+        this._isHandled = {};
+        this._isPending = {};
+
+        this._prefix = 'ID_';
+        this._lastId = 1;
+
+        this._isDispatching = false;
+        this._pendingAction = null;
     }
 
-    register(event, callback) {
-        if (typeof callback !== 'function') {
-            console.error(`The listener callback must be a function, the given type is ${typeof callback}`);
-            return false;
-        }
+    register(callback) {
+        const id = this._prefix + this._lastId++;
+        this._callbacks[id] = callback;
 
-        if (typeof event !== 'string') {
-            console.error(`The event name must be a string, the given type is ${typeof event}`);
-            return false;
-        }
-
-        if (this.events[event] === undefined) {
-            this.events[event] = {
-                listeners: [],
-            };
-        }
-
-        this.events[event].listeners.push(callback);
+        return id;
     }
 
-    removeListener(event, callback) {
-        if (this.events[event] === undefined) {
-            console.error(`This event: ${event} does not exist`);
-            return false;
+    unregister(id) {
+        if (!this._callbacks[id]) {
+            fatal(`Dispatcher.unregister(): ${id} does not map to a registered callback.`);
         }
 
-        this.events[event].listeners = this.events[event].listeners.filter((listener) => {
-            return listener.toString() !== callback.toString();
+        delete this._callbacks[id];
+    }
+
+    waitFor(ids) {
+        if (!this._isDispatching) {
+            fatal('Dispatcher.waitFor(): Must be invoked while dispatching');
+        }
+
+        ids.forEach(id => {
+            if (this._isPending[id]) {
+                if (!this._isHandled[id]) {
+                    fatal(`Dispatcher.waitFor(): Circular dependency detected while waiting for ${id}.`);
+                }
+                return;
+            }
+
+            if (!this._callbacks[id]) {
+                fatal(`Dispatcher.waitFor(): ${id} does not map to a registered callback.`)
+            }
+
+            this._invokeCallback(id);
         });
     }
 
-    dispatch(event, details) {
-        if (this.events[event] === undefined) {
-            console.error(`This event: ${event} does not exist`);
-            return false;
+    dispatch(action) {
+        if (this._isDispatching) {
+            fatal('Dispatch.dispatch(): Already dispatching.')
         }
-        this.events[event].listeners.forEach((listener) => {
-            listener(details);
-        });
+
+        this._startDispatching(action);
+        try {
+            for (const id in this._callbacks) {
+                if (!this._isPending[id]) {
+                    this._invokeCallback(id);
+                }
+            }
+        } finally {
+            this._stopDispatching();
+        }
     }
+
+    isDispatching() {
+        return this._isDispatching;
+    }
+
+    _invokeCallback(id) {
+        this._isPending[id] = true;
+        this._callbacks[id](this._pendingAction);
+        this._isHandled[id] = true;
+    }
+
+    _startDispatching(action) {
+        for (const id in this._callbacks) {
+            this._isPending[id] = false;
+            this._isHandled[id] = false;
+        }
+
+        this._pendingAction = action;
+        this._isDispatching = true;
+    }
+
+    _stopDispatching() {
+        delete this._pendingAction;
+        this._isDispatching = false;
+    };
 }
 
-export default new Dispatcher();
+const dispatcher = new Dispatcher();
+
+export default dispatcher;
