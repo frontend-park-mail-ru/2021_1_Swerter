@@ -1,4 +1,4 @@
-import makeObservable from "../modules/observable.js";
+import makeObservable from "./observable.js";
 
 class Component {
     /* 'eventName': {
@@ -17,6 +17,11 @@ class Component {
         this.template = template;
         this.element = null;
         this.data = null;
+    }
+
+    renderTo(element, position = 'afterbegin') {
+        element.insertAdjacentElement(position, this.render());
+        return this.element;
     }
 
     render(data = {}) {
@@ -43,7 +48,7 @@ class Component {
     }
 
     addEventListeners() {
-        for (const [event, {callback, getElement}] of Object.entries(this.events)) {
+        for (const [event, { callback, getElement }] of Object.entries(this.events)) {
             const element = getElement();
             element.addEventListener(event, callback);
         }
@@ -62,7 +67,7 @@ class Component {
     }
 
     removeEventListeners() {
-        for (const [event, {callback, getElement}] of Object.entries(this.events)) {
+        for (const [event, { callback, getElement }] of Object.entries(this.events)) {
             const element = getElement();
             element.removeEventListener(event, callback);
         }
@@ -78,7 +83,11 @@ class Component {
             'getElement': getElement.bind(this)
         };
     }
+
+    allowed() {
+        return true;
+    }
 }
 makeObservable(Component);
 
-export {Component};
+export { Component };
