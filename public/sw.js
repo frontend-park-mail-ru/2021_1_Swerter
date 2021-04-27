@@ -148,3 +148,15 @@ this.addEventListener('fetch', (event) => {
             })
     )
 })
+
+const swRegister = () => {
+        if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('sw.js', {scope:'/'})
+                    .then((registration) => {
+                            console.log('scope:', registration.scope);
+                    })
+                    .catch((err) => {
+                            console.log('sw err')
+                    })
+        }
+};
