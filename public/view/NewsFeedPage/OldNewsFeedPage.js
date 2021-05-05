@@ -9,7 +9,7 @@ postStore.bind('new-news', () => {
     newsFeedPage.emit('new-news-getted');
 });
 
-class NewsFeedPage {
+class OldNewsFeedPage {
     state = {
         postsData: []
     }
@@ -44,7 +44,7 @@ class NewsFeedPage {
     }
 }
 
-makeObservable(NewsFeedPage);
-const newsFeedPage = new NewsFeedPage();
+makeObservable(OldNewsFeedPage);
+const newsFeedPage = new OldNewsFeedPage();
 
 export default newsFeedPage;
