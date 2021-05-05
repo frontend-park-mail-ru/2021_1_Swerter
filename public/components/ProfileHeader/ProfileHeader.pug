@@ -1,38 +1,35 @@
 div(class="profile-header-content")
     div(class="header-content")
-        img(id="bg" class="background-img" src=data.userData.imgBg)
+        img(id="bg" class="background-img" src=user.imgBg)
         div(class="upload-bg-wr")
-            //if data.myPage
-            //    div(class="upload-bg" onclick='profileHeader.uploadBg()')
-            //        i(class="fas fa-camera fa-2x")
         div(class="ava-img")
             div.ava-wrapper
-                img(id="ava" class="ava" src=data.userData.imgAvatar)
-                if data.viewState.myPage
-                    div(id="profile-header-upload-ava" class="upload-ava")
+                img(class="ava" src=user.imgAvatar)
+                if myPage
+                    div(class="upload-ava profile-header-upload-ava")
                         i(class="fas fa-camera fa-2x")
         div(class="profile-info")
-            if !data.viewState.modEdited
+            if !editMode
                 div(class="profile-info-content")
                     h1.first-last-name
-                        | #{data.userData.firstName}
-                        | #{data.userData.lastName}
-                    if data.viewState.myPage
-                        div(id="btn-edit-Profile" class="btn-edit-profile" )
+                        | #{user.firstName}
+                        | #{user.lastName}
+                    if myPage
+                        div(class="btn-edit-profile" )
                             b Edit
                     hr(class="profile-header-line")
                     div(class="switch-profile-page-content")
-                        div(id="posts-switch" class="switch-profile-page-content__item")
+                        div(class="switch-profile-page-content__item posts-switch")
                             h4 Posts
-                        div(id="albums-switch" class="switch-profile-page-content__item")
+                        div(class="switch-profile-page-content__item albums-switch")
                             h4 Albums
             else
                 div(class="profile-editing")
                     div
                         label.profile-edit-lbl Firstname:
-                            input(id="input-firstname" value=data.userData.firstName class="edit-input")
+                            input(value=user.firstName class="edit-input input-firstname")
                     div
                         label.profile-edit-lbl Lastname:
-                            input(id="input-lastname" value=data.userData.lastName class="edit-input")
-                    input(id="profile-header-edit-submit" type="submit" class="btn-edit-submit-profile")
+                            input(value=user.lastName class="edit-input input-lastname")
+                    input(type="submit" class="btn-edit-submit-profile profile-header-edit-submit")
 

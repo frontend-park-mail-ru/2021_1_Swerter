@@ -1,53 +1,36 @@
-extends ../layout
+div.profile-page
+    if !albumEditMode
+        component(name='Header')
+        component(name='ProfileHeader')
+        div(class="profile-content")
+            if switchContent === "POSTS"
+                div(class="left-content-column")
+                    div(class="left-content-1")
+                    div(class="left-content-2")
+                div(class="right-content")
+                    div(class="lenta")
+                        if myPage
+                            component(name='AddPost')
+                        if (postsData.length !== 0)
+                            each postData in postsData
+                                - const jsonPost = JSON.stringify(postData);
+                                div(class="post-profile-wrapper")
+                                    component(name='Post' props=jsonPost)
+                        else
+                            div(class="no-post-content")
+                                b No posts yet... #{test}
+            else if switchContent === "ALBUMS"
+                div(class="albums-wrapper")
+                    div(class="albums-content")
+                        div(class="albums-content__item create-album-block")
+                            div(class="album-title-img")
+                                img(class = "img-add-album" src="./assets/iconAddAlbum.png")
+                            div(class="album-title-text")
+                                span Create Album
+                        each album in albumsData
+                            component(name='AlbumPreview')
+    else
+        component(name='AddAlbum')
 
-block content
-
-    mixin modalPost(data)
-        include ../../components/PostModal/PostModal
-
-    mixin profileHeader(data)
-        include ../../components/ProfileHeader/ProfileHeader
-
-    +profileHeader({userData, viewState})
-
-    mixin post(data)
-        include ../../components/Post/Post
-
-    mixin addPost(data)
-        include ../../components/AddPost/AddPost
-
-    mixin modalConf(data)
-        include ../../components/ConfigModal/ConfigModal
-
-    mixin modalShowPost(data)
-        include ../../components/ShowImgModal/ShowImgModal
-
-    mixin albums(data)
-        include ../../components/AlbumPreview/AlbumPreview
-
-    div(class="profile-content")
-        if viewState.switchContent === "POSTS"
-            div(class="left-content-column")
-                div(class="left-content-1")
-                div(class="left-content-2")
-            div(class="right-content")
-                div(class="lenta")
-                    if viewState.myPage
-                        +addPost(userData)
-                    if (postsData.length !== 0)
-                        each postData in postsData
-                            div(class="post-profile-wrapper")
-                                +post(postData)
-                    else
-                        div(class="no-post-content")
-                            b No posts yet... #{test}
-        else if viewState.switchContent === "ALBUMS"
-            div(class="albums-wrapper")
-                div(class="albums-content")
-                    div(id="create-album-block" class="albums-content__item")
-                        div(class="album-title-img")
-                            img(class = "img-add-album" src="./assets/iconAddAlbum.png")
-                        div(class="album-title-text")
-                            span Create Album
-                    each album in albumsData
-                        +albums(album)
+    if postModalOpened
+        component(name='PostModal')

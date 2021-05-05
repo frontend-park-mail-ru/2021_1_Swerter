@@ -18,7 +18,7 @@ userStore.bind('init-user', () => {
     profilePage.emit('init-user')
 })
 
-class ProfilePage {
+class OldProfilePage {
     state = {
         postsData: [],
         albumsData: [],
@@ -312,7 +312,7 @@ class ProfilePage {
     }
 }
 
-makeObservable(ProfilePage)
-const profilePage = new ProfilePage();
+makeObservable(OldProfilePage)
+const profilePage = new OldProfilePage();
 
 export default profilePage

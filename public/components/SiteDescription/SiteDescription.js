@@ -1,4 +1,4 @@
-import {Component} from "../../view/Component.js";
+import {Component} from "../../modules/Component.js";
 
 export class SiteDescription extends Component {
     constructor() {

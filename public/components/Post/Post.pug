@@ -1,46 +1,46 @@
 div(id="post" class="post")
     div(class="post-header")
-        img(class="avatar-in-post" src=data.imgAvatar)
+        img(class="avatar-in-post" src=imgAvatar)
         div(class="post-info")
-            span(class="post-creator") #{data.postCreator}
-            span(clss="date") #{data.date}
+            span(class="post-creator") #{postCreator}
+            span(class="date") #{date}
     div(class="post__content")
-        if data.textPost
-            p(class="post__content__text") #{data.textPost}
-        if data.imgContent
-            if data.imgContent.length === 1
-                img(id="post-img-1-"+data.ID class="new-post-form__content__image new-post-form__content__image_first" src=data.imgContent[0])
-            if data.imgContent.length === 2
-                img(id="post-img-1-"+data.ID class="new-post-form__content__image new-post-form__content__image_first" src=data.imgContent[0])
-                img(id="post-img-2-"+data.ID class="new-post-form__content__image new-post-form__content__image_second" src=data.imgContent[1])
-            if data.imgContent.length >= 3
-                img(id="post-img-1-"+data.ID class="new-post-form__content__image new-post-form__content__image_first" src=data.imgContent[0])
+        if textPost
+            p(class="post__content__text") #{textPost}
+        if imgContent
+            if imgContent.length === 1
+                img(id="post-img-1-" + ID class="new-post-form__content__image new-post-form__content__image_first" src=imgContent[0])
+            if imgContent.length === 2
+                img(id="post-img-1-" + ID class="new-post-form__content__image new-post-form__content__image_first" src=imgContent[0])
+                img(id="post-img-2-" + ID class="new-post-form__content__image new-post-form__content__image_second" src=imgContent[1])
+            if imgContent.length >= 3
+                img(id="post-img-1-" + ID class="new-post-form__content__image new-post-form__content__image_first" src=imgContent[0])
                 div.new-post-form__content__images_bottom
-                    img(id="post-img-2-"+data.ID class="new-post-form__content__image_third new-post-form__content__image" src=data.imgContent[1])
-                    img(id="post-img-3-"+data.ID class="new-post-form__content__image_fourth new-post-form__content__image" src=data.imgContent[2])
-                    if data.imgContent.length === 4
-                        img(id="post-img-4-"+data.ID class="new-post-form__content__image_fifth new-post-form__content__image" src=data.imgContent[3])
-                    if data.imgContent.length > 4
+                    img(id="post-img-2-" + ID class="new-post-form__content__image_third new-post-form__content__image" src=imgContent[1])
+                    img(id="post-img-3-" + ID class="new-post-form__content__image_fourth new-post-form__content__image" src=imgContent[2])
+                    if imgContent.length === 4
+                        img(id="post-img-4-" + ID class="new-post-form__content__image_fifth new-post-form__content__image" src=imgContent[3])
+                    if imgContent.length > 4
                         div.new-post-form__content__image__more(class="new-post-form__content__image")
-                            div.new-post-form__content__image__more-counter(id="post-img-4-"+data.ID) + #{data.imgContent.length - 4}
-                            img(class="new-post-form__content__image_fifth new-post-form__content__image" src=data.imgContent[3])
+                            div.new-post-form__content__image__more-counter(id="post-img-4-" + ID) + #{imgContent.length - 4}
+                            img(class="new-post-form__content__image_fifth new-post-form__content__image" src=imgContent[3])
     div(class="post__footer")
         div(class="post__footer__row__metric")
-            if data.liked
+            if liked
                 div(class="metric metric__like")
-                    i(class="fab fa-gratipay")  #{data.likeCounter}
+                    i(class="fab fa-gratipay") #{likeCounter}
             else
                 div(class="metric metric__like")
-                    i(class="far fa-heart")  #{data.likeCounter}
+                    i(class="far fa-heart") #{likeCounter}
             div(class="metric metric__comment")
             div(class="metric metric__repost")
 
         div(class="post__footer__row")
-            if data.liked
-                div(id="like"+data.ID class="post__footer__column post__footer__column__like post__footer__column__like_active")
+            if liked
+                div(class="post__footer__column post__footer__column__like post__footer__column__like_active")
                     i(class="post-action post-action_like fas fa-thumbs-up fa-lg") Like
             else
-                div(id="like" + data.ID class="post__footer__column post__footer__column__like post__footer__column__like_deactive")
+                div(class="post__footer__column post__footer__column__like post__footer__column__like_deactive")
                     i(class="post-action post-action_like far fa-thumbs-up fa-lg") Like
             div(class="post__footer__column")
                 i(class="post-action far fa-comment fa-lg") Comment

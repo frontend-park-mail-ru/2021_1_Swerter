@@ -1,37 +1,37 @@
-extends ../layout
-
-block content
-
-    mixin friend-request-block(data)
-        include ../../components/FriendRequestBlock/FriendRequestBlock
-
-    mixin friend-block(data)
-        include ../../components/FriendBlock/FriendBlock
-
-    mixin search-friend(data)
-        include ../../components/SearchFriend/SearchFriend
-
-    div.friends-page-content
-        div.left-block
-            div.left-block__background
-            div.left-block__content
-                +search-friend(lastRequest)
-                if isSearched
-                    div.found-friend-block
-                        each user in foundUsers
-                            +friend-block(user)
-                div.friends-request-content
-                    span.friends-request-header Friend requests
-                    hr.friends-page__line
-                    each follower in followers
-                        if !follower.isNotified
-                            +friend-request-block(follower)
-                div.friends-content
-                    span.friends-header Friends
-                    hr.friends-page__line
-                    each friend in friends
-                        +friend-block(friend)
-        div.right-block
-            img(src="./assets/friendDefault.png")
-
-
+//extends ../layout
+//
+//block content
+//
+//    mixin friend-request-block(data)
+//        include ../../components/FriendRequestBlock/FriendRequestBlock
+//
+//    mixin friend-block(data)
+//        include ../../components/FriendBlock/FriendBlock
+//
+//    mixin search-friend(data)
+//        include ../../components/SearchFriend/SearchFriend
+//
+//    div.friends-page-content
+//        div.left-block
+//            div.left-block__background
+//            div.left-block__content
+//                +search-friend(lastRequest)
+//                if isSearched
+//                    div.found-friend-block
+//                        each user in foundUsers
+//                            +friend-block(user)
+//                div.friends-request-content
+//                    span.friends-request-header Friend requests
+//                    hr.friends-page__line
+//                    each follower in followers
+//                        if !follower.isNotified
+//                            +friend-request-block(follower)
+//                div.friends-content
+//                    span.friends-header Friends
+//                    hr.friends-page__line
+//                    each friend in friends
+//                        +friend-block(friend)
+//        div.right-block
+//            img(src="./assets/friendDefault.png")
+//
+//

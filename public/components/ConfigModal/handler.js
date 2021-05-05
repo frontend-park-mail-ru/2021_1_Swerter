@@ -1,4 +1,4 @@
-import profilePage from "../../view/Profile/ProfilePage.js";
+import profilePage from "../../view/ProfilePage/ProfilePage.js";
 import Dispatcher from "../../modules/dispatcher.js";
 import userStore from "../../Stores/UserStore.js";
 

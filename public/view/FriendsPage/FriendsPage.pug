@@ -1,0 +1,24 @@
+div.friends-page
+    component(class='header')
+    div.friends-page-content
+        div.left-block
+            div.left-block__background
+            div.left-block__content
+                component(class='searchFriend')
+                if isSearched
+                    div.found-friend-block
+                        each user in foundUsers
+                            component(class='friend')
+                div.friends-request-content
+                    span.friends-request-header Friend requests
+                    hr.friends-page__line
+                    each follower in followers
+                        if !follower.isNotified
+                            component(class='friendRequest')
+                div.friends-content
+                    span.friends-header Friends
+                    hr.friends-page__line
+                    each friend in friends
+                        component(class='friend')
+        div.right-block
+            img(src="./assets/friendDefault.png")

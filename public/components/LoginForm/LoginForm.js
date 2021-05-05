@@ -1,50 +1,105 @@
-import {Component} from "../../view/Component.js";
-import Dispatcher from "../../modules/dispatcher.js";
+import {Component} from "../../modules/Component.js";
+import {UserActions} from "../../actions/UserActions.js";
+import userStore from "../../Stores/UserStore.js";
+import {UserStoreEvents} from '../../consts/events.js';
 
 export class LoginForm extends Component {
-    constructor() {
-        super(loginformTemplate);
+    constructor(props) {
+        super(loginformTemplate, props);
+        this.state = {
+            login: '',
+            password: ''
+        };
 
-        this.addEvent(
-            'click',
-            this.onSubmit,
-            () => this.element.getElementsByClassName('login-form__button-login')[0]
-        );
+        this.registerElementEvent('change', this.onChange);
+        this.registerElementEvent('click', this.onLoginClick, this.getLoginButtonElement);
+        this.registerElementEvent('click', this.onRegisterClick, this.getRegisterButtonElement);
+        
+        userStore.on(UserStoreEvents.LOGIN_FAILED, () => {
+            this.displayFormError('Login failed');
+        });
+
+        userStore.on(UserStoreEvents.LOGIN_SUCCESS, () => {
+            this.clearForm();
+        });
     }
 
-    onSubmit() {
-        const login = this.element.getElementsByClassName('login-form__input_login')[0];
-        const password = this.element.getElementsByClassName('login-form__input_password')[0];
+    onLoginClick() {
+        const validationError = this.checkFormValidity();
+        if (validationError !== '') {
+            this.displayFormError(validationError);
+            return;
+        }
 
-        let errorMsg = null;
+        const formData = this.getFormData();
+        this.dispatchUserAction(UserActions.LOGIN_REQUEST, formData);
+    }
+
+    onChange() {
+        const login = this.getLoginInputElement().value;
+        const password = this.getPasswordInputElement().value;
+
+        this.setState({login, password});
+    }
+
+    onRegisterClick() {
+        this.dispatchUserAction(UserActions.GO_REGISTER);
+    }
+
+    checkFormValidity() {
+        const login = this.getLoginInputElement();
+        const password = this.getPasswordInputElement();
+
+        let errorMsg = '';
         if (login.checkValidity() !== true) {
             errorMsg = 'Wrong login format';
         } else if (password.checkValidity() !== true) {
             errorMsg = 'Wrong password format';
         }
 
-        if (errorMsg) {
-            this.displayValidationError(errorMsg);
-            return;
-        }
-
-        Dispatcher.dispatch('send-login-request', {
-            login: login.value,
-            password: password.value
-        })
+        return errorMsg;
     }
 
-    displayValidationError(error) {
-        if (Array.from(this.element.getElementsByClassName('login-form__div-error')).length === 0) {
-            const sib = this.element.getElementsByClassName('login-form__div-item')[0];
-            const par = sib.parentNode;
-            const errorBox = document.createElement('div');
+    getFormData() {
+        const login = this.state.login;
+        const password = this.state.password;
+
+        return {login, password};
+    }
+
+    displayFormError(error) {
+        let errorBox = this.getErrorBoxElement();
+
+        if (errorBox === undefined) {
+            errorBox = document.createElement('div');
             errorBox.className = 'login-form__div-error';
-            errorBox.innerHTML = `<h2>${error}</h2>`;
-            par.insertBefore(errorBox, sib);
-        } else {
-            const errorBox = document.getElementsByClassName('login-form__div-error').item(0);
-            errorBox.innerHTML = `<h2>${error}</h2>`;
+            this.element.insertAdjacentElement('afterbegin', errorBox);
         }
+
+        errorBox.innerHTML = `<h2>${error}</h2>`;
+    }
+
+    getLoginButtonElement() {
+        return this.element.getElementsByClassName('login-form__button-login')[0];
+    }
+
+    getRegisterButtonElement() {
+        return this.element.getElementsByClassName('login-form__button-register')[0];
+    }
+
+    getLoginInputElement() {
+        return this.element.getElementsByClassName('login-form__input_login')[0];
+    }
+
+    getPasswordInputElement() {
+        return this.element.getElementsByClassName('login-form__input_password')[0];
+    }
+
+    getErrorBoxElement() {
+        return this.element.getElementsByClassName('login-form__div-error')[0];
+    }
+
+    clearForm() {
+        this.updateState({login: '', password: ''});
     }
 }

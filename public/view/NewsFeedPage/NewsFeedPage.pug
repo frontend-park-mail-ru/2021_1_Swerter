@@ -1,5 +1,6 @@
 div.news-feed-page
-    div(class="news-feed")
-        each postData in postsData
+    component(class='header')
+    div(class='news-feed')
+        each postData in posts
             div.wrap-post
                 component(class=post)
