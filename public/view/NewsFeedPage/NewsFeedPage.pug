@@ -1,6 +1,7 @@
 div.news-feed-page
-    component(class='header')
+    component(name='Header')
     div(class='news-feed')
-        each postData in posts
+        each postData in postsData
+            - const jsonPostData = JSON.stringify(postData);
             div.wrap-post
-                component(class=post)
+                component(name='Post' props=jsonPostData)

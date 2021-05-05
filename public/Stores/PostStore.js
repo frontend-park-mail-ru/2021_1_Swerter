@@ -2,12 +2,15 @@ import {UserActions} from "../actions/UserActions.js";
 import makeObservable from "../modules/observable.js";
 import dispatcher from "../modules/dispatcher.js";
 import {http} from "../modules/http.js";
-import {PostStoreEvents} from "../consts/events.js";
+import {PostStoreEvents, UserStoreEvents} from "../consts/events.js";
+import userStore from "./UserStore.js";
 
 class PostStore {
     constructor() {
         this.posts = [];
         this.dispatchToken = dispatcher.register(this.actionsHandler.bind(this));
+
+        userStore.on(UserStoreEvents.PROFILE_REQUEST_SUCCESS, () => this.handlePostsRequestAction());
     }
 
     init() {
