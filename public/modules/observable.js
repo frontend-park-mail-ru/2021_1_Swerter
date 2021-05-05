@@ -16,7 +16,12 @@ const Observable = {
             .filter(listener => listener !== callback);
     },
 
-    emit(event, data) {
+    emit(event, data = {}) {
+        console.log(event, data);
+        if (this.listeners === undefined || this.listeners[event] === undefined) {
+            return;
+        }
+
         this.listeners[event].forEach(listener => {
             listener(data);
         });

@@ -77,6 +77,7 @@ class Dispatcher {
     }
 
     _startDispatching(action) {
+        console.log('New action:', action);
         for (const id in this._callbacks) {
             this._isPending[id] = false;
             this._isHandled[id] = false;
