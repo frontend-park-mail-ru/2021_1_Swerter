@@ -130,7 +130,11 @@ class UserStore {
     handleUserProfileUpdateAction(data) {
         this.sendUpdateProfileRequest(data).then(() => {
             this.setState(data);
-        });
+            this.emit(UserStoreEvents.PROFILE_UPDATE_SUCCESS);
+        })
+            .catch(() => {
+                this.emit(UserStoreEvents.PROFILE_UPDATE_FAILED);
+            });
     }
 
     handleLogoutRequestAction() {

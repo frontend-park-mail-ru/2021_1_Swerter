@@ -22,3 +22,6 @@ div(class="header")
             img(class="img-profile" src=user.imgAvatar)
         div(class="widget logout logout-block")
             i(class="fas fa-sign-in-alt fa-2x")
+
+    if configModalOpened
+        component(name='ConfigModal' mode=configSwitch)

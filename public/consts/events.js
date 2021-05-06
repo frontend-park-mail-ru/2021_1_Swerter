@@ -6,7 +6,9 @@ const UserStoreEvents = {
     LOGIN_FAILED: 'login-failed',
     REGISTER_SUCCESS: 'register-success',
     REGISTER_FAILED: 'register-failed',
-    LOGOUT_SUCCESS: 'logout-success'
+    LOGOUT_SUCCESS: 'logout-success',
+    PROFILE_UPDATE_SUCCESS: 'profile-update-success',
+    PROFILE_UPDATE_FAILED: 'profile-update-failed'
 };
 
 const AppStateStoreEvents = {
