@@ -17,45 +17,45 @@ div.modal-wrapper
                     div(class="btn btn__edit edit-all-images-btn")
                         i(class="far fa-edit")
                         | Edit All
-                    if files.length === 1
+                    if contentUrls.length === 1
                         img(
                             class="new-post-form__content__image new-post-form__content__image_first"
-                            src=files[0]
+                            src=contentUrls[0]
                         )
-                    if files.length === 2
+                    if contentUrls.length === 2
                         img(
                             class="new-post-form__content__image new-post-form__content__image_first"
-                            src=files[0]
+                            src=contentUrls[0]
                         )
                         img(
                             class="new-post-form__content__image new-post-form__content__image_second"
-                            src=files[1]
+                            src=contentUrls[1]
                         )
-                    if files.length >= 3
+                    if contentUrls.length >= 3
                         img(
                             class="new-post-form__content__image new-post-form__content__image_first"
-                            src=files[0]
+                            src=contentUrls[0]
                         )
                         div.new-post-form__content__images_bottom
                             img(
                                 class="new-post-form__content__image_third new-post-form__content__image"
-                                src=files[1]
+                                src=contentUrls[1]
                             )
                             img(
                                 class="new-post-form__content__image_fourth new-post-form__content__image"
-                                src=files[2]
+                                src=contentUrls[2]
                             )
-                            if files.length === 4
+                            if contentUrls.length === 4
                                 img(
                                     class="new-post-form__content__image_fifth new-post-form__content__image"
-                                    src=files[3]
+                                    src=contentUrls[3]
                                 )
-                            if files.length > 4
+                            if contentUrls.length > 4
                                 div(class="new-post-form__content__image__more new-post-form__content__image")
-                                    div.new-post-form__content__image__more-counter + #{files.length - 4}
+                                    div.new-post-form__content__image__more-counter + #{contentUrls.length - 4}
                                     img(
                                         class="new-post-form__content__image_fifth new-post-form__content__image"
-                                        src=files[3]
+                                        src=contentUrls[3]
                                     )
             div.new-post-form__attach
                 div.new-post-form__attach__text Add to Your Post
@@ -71,7 +71,7 @@ div.modal-wrapper
                 div(class="btn btn__close close-post-modal-btn")
                     i(class="far fa-times-circle fa-3x")
             div.new-post-form__content
-                each img, i in files
+                each img, i in contentUrls
                     div.wrap__each__img
                         component(name='ButtonClose' button-id=i)
                         img(
