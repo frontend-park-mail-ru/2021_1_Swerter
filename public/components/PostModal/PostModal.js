@@ -1,7 +1,7 @@
 import {Component} from "../../modules/Component";
 import {ButtonClose} from "./ButtonClose/ButtonClose";
 import * as postModalTemplate from './PostModal.tmpl';
-import './PostModal.css';
+import './PostModal.sass';
 
 import userStore from "../../Stores/UserStore";
 import {UserActions} from "../../actions/UserActions";

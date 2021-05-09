@@ -1,6 +1,6 @@
 import {Component} from "../../modules/Component";
 import * as showImgModalTemplate from './ShowImgModal.tmpl';
-import './ShowImgModal.css';
+import './ShowImgModal.sass';
 
 export class ShowImgModal extends Component {
     constructor(props) {

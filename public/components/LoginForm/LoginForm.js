@@ -3,7 +3,7 @@ import {UserActions} from "../../actions/UserActions";
 import userStore from "../../Stores/UserStore";
 import {UserStoreEvents} from '../../consts/events';
 import * as loginFormTemplate from './LoginForm.tmpl';
-import './LoginForm.css';
+import './LoginForm.sass';
 
 export class LoginForm extends Component {
     constructor(props) {

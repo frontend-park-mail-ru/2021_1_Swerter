@@ -1,7 +1,7 @@
 import {Component} from "../../modules/Component";
 import {PostModal} from "../PostModal/PostModal";
 import * as addPostTemplate from './AddPost.tmpl';
-import './AddPost.css';
+import './AddPost.sass';
 
 import {UserStoreEvents} from "../../consts/events";
 import userStore from "../../Stores/UserStore";

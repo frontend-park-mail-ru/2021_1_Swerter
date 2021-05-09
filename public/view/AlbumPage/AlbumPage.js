@@ -4,7 +4,7 @@ import albumStore from "../../Stores/AlbumStore";
 import {Header} from "../../components/Header/Header";
 import {AlbumStoreEvents} from "../../consts/events";
 import * as albumPageTemplate from './AlbumPage.tmpl';
-import './AlbumPage.css';
+import './AlbumPage.sass';
 
 class AlbumPage extends Component {
     constructor() {

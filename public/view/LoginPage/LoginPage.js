@@ -3,7 +3,7 @@ import {SiteDescription} from "../../components/SiteDescription/SiteDescription"
 import {LoginForm} from "../../components/LoginForm/LoginForm";
 import userStore from "../../Stores/UserStore";
 import * as loginPageTemplate from './LoginPage.tmpl';
-import './LoginPage.css';
+import './LoginPage.sass';
 
 export class LoginPage extends Component {
     constructor(props) {

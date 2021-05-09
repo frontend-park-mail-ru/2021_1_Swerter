@@ -1,6 +1,6 @@
 import {Component} from "../../modules/Component";
 import * as friendRequestTemplate from './FriendRequest.tmpl';
-import './FriendRequest.css';
+import './FriendRequest.sass';
 
 export class FriendRequest extends Component {
     constructor(props) {

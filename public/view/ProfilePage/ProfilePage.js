@@ -5,7 +5,7 @@ import {AlbumPreview} from "../../components/AlbumPreview/AlbumPreview";
 import {Header} from "../../components/Header/Header";
 import {AddPost} from "../../components/AddPost/AddPost";
 import * as profilePageTemplate from './ProfilePage.tmpl';
-import './ProfilePage.css';
+import './ProfilePage.sass';
 
 import userStore from "../../Stores/UserStore";
 import postStore from "../../Stores/PostStore";

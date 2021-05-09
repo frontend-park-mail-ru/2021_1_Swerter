@@ -1,5 +1,5 @@
 import {Component} from "../../modules/Component";
-import './AlbumsPhoto.css';
+import './AlbumsPhoto.sass';
 
 const albumPhotoTemplate = ({src}) => `<img class=album-photo src=${src}>`;
 

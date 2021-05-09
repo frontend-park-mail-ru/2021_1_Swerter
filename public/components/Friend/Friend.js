@@ -3,7 +3,7 @@ import {UserActions} from "../../actions/UserActions";
 import friendStore from "../../Stores/FriendStore";
 import {FriendStoreEvents} from '../../consts/events';
 import * as friendTemplate from './Friend.tmpl';
-import './Friend.css';
+import './Friend.sass';
 
 export class Friend extends Component {
     constructor(props) {

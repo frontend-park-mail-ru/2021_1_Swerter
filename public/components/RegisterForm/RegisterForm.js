@@ -3,7 +3,7 @@ import {UserActions} from "../../actions/UserActions";
 import userStore from "../../Stores/UserStore";
 import {UserStoreEvents} from "../../consts/events";
 import * as registerFormTemplate from './RegisterForm.tmpl';
-import './RegisterForm.css';
+import './RegisterForm.sass';
 
 export class RegisterForm extends Component {
     constructor(props) {

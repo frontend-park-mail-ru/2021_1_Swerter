@@ -1,5 +1,5 @@
 import {Component} from "../../modules/Component";
-import './SiteDescription.css';
+import './SiteDescription.sass';
 
 const siteDescriptionTemplate = () =>
 `<div class="site-description">

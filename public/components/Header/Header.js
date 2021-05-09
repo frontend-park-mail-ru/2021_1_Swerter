@@ -4,7 +4,7 @@ import {UserStoreEvents} from "../../consts/events";
 import {UserActions} from "../../actions/UserActions";
 import {ConfigModal} from "../ConfigModal/ConfigModal";
 import * as headerTemplate from './Header.tmpl';
-import './Header.css';
+import './Header.sass';
 
 export class Header extends Component {
     constructor(props) {

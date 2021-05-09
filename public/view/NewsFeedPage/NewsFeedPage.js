@@ -5,7 +5,7 @@ import postStore from "../../Stores/PostStore";
 import {PostStoreEvents} from "../../consts/events";
 import userStore from "../../Stores/UserStore";
 import * as newsFeedPageTemplate from './NewsFeedPage.tmpl';
-import './NewsFeedPage.css';
+import './NewsFeedPage.sass';
 
 class NewsFeedPage extends Component {
     constructor(props) {

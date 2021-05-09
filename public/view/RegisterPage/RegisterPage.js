@@ -2,7 +2,7 @@ import {Component} from "../../modules/Component";
 import {RegisterForm} from "../../components/RegisterForm/RegisterForm";
 import userStore from "../../Stores/UserStore";
 import * as registerPageTemplate from './RegisterPage.tmpl';
-import './RegisterPage.css';
+import './RegisterPage.sass';
 
 class RegisterPage extends Component {
     constructor(props) {

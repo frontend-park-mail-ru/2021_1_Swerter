@@ -3,7 +3,7 @@ import {UserActions} from "../../actions/UserActions";
 import userStore from "../../Stores/UserStore";
 import {UserStoreEvents} from "../../consts/events";
 import * as configModalTemplate from './ConfigModal.tmpl';
-import './ConfigModal.css';
+import './ConfigModal.sass';
 
 export class ConfigModal extends Component {
     constructor(props) {

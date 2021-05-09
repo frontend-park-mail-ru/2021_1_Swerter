@@ -1,7 +1,7 @@
 import {Component} from "../../modules/Component";
 import {UserActions} from "../../actions/UserActions";
 import * as searchFriendTemplate from './SearchFriend.tmpl';
-import './SearchFriend.css';
+import './SearchFriend.sass';
 
 export class SearchFriend extends Component {
     constructor(props) {

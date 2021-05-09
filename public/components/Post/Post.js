@@ -4,7 +4,7 @@ import {UserActions} from "../../actions/UserActions";
 import postStore from "../../Stores/PostStore";
 import {ShowImgModal} from "../ShowImgModal/ShowImgModal";
 import * as postTemplate from './Post.tmpl';
-import './Post.css';
+import './Post.sass';
 
 export class Post extends Component {
     constructor(props) {

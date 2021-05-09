@@ -1,6 +1,6 @@
 import {Component} from "../../modules/Component";
 import * as addAlbumTemplate from './AddAlbum.tmpl';
-import './AddAlbum.css';
+import './AddAlbum.sass';
 
 export class AddAlbum extends Component {
     constructor(props) {

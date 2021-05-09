@@ -5,7 +5,7 @@ import appStateStore from "../../Stores/AppStateStore";
 import {Routes} from "../../consts/Routes";
 import {UserActions} from "../../actions/UserActions";
 import * as profileHeaderTemplate from './ProfileHeader.tmpl';
-import './ProfileHeader.css';
+import './ProfileHeader.sass';
 
 export class ProfileHeader extends Component {
     constructor(props) {

@@ -35,6 +35,8 @@
     "css-loader": "^5.2.4",
     "eslint": "^7.22.0",
     "pug": "^3.0.2",
+    "sass": "^1.32.12",
+    "sass-loader": "^11.0.1",
     "style-loader": "^2.0.0",
     "svg-inline-loader": "^0.8.2",
     "webpack": "^5.36.2",

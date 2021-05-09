@@ -1,0 +1,97 @@
+.login-form
+  border-radius: 20px
+  background-color: white
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.25)
+  padding: 30px 25px 40px 25px
+  margin-left: 5%
+
+  &__content
+    height: 100%
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: space-evenly
+
+  &__div-item
+    width: 100%
+    margin-bottom: 5%
+
+  &__input
+    width: 18em
+    font-size: 22px
+    line-height: 2.5em
+    border-radius: 10px
+    border: 2px solid rgba(221, 223, 226, 1)
+    text-indent: 1em
+
+    &::placeholder
+      font-size: 18px
+      color: rgba(144, 147, 156, 1)
+
+  &__button-login
+    width: 100%
+    height: 2.5em
+    background-color: rgba(42, 92, 243, 1)
+    color: white
+    font-weight: bold
+    font-size: 26px
+    border-radius: 10px
+    border: none
+
+    &:hover
+      opacity: 0.9
+      cursor: pointer
+
+    &:focus
+      outline: none
+
+  &__span-forget-password
+    text-align: center
+    margin-bottom: 3%
+    color: blue
+
+    &:hover
+      text-decoration: underline
+      cursor: pointer
+
+  &__hr
+    width: 95%
+    margin-bottom: 5%
+
+  &__button-register
+    width: 70%
+    height: 2.5em
+    background-color: rgba(0, 195, 38, 1)
+    color: white
+    font-size: 24px
+    font-weight: bold
+    border-radius: 10px
+    border: none
+
+    &:hover
+      opacity: 0.9
+      cursor: pointer
+
+    &:focus
+      outline: none
+
+  &__input_login
+    &:focus
+      &:invalid
+        border: 2px solid red
+
+  &__input_password
+    &:focus
+      &:invalid
+        border: 2px solid red
+
+  &__div-error
+    width: 100%
+    margin-bottom: 5%
+    color: #cd0e0e
+    display: flex
+    justify-content: center
+    align-items: center
+    border: 2px solid #e20808
+    text-align: center
+    border-radius: 10px

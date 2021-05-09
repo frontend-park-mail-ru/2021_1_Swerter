@@ -1,7 +1,7 @@
 import {Component} from "../../modules/Component";
 import {UserActions} from "../../actions/UserActions";
 import * as albumPreviewTemplate from './AlbumPreview.tmpl';
-import './AlbumPreview.css';
+import './AlbumPreview.sass';
 
 export class AlbumPreview extends Component {
     constructor(props) {

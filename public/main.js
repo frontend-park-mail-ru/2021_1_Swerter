@@ -1,5 +1,5 @@
 import '@babel/polyfill';
-import './main.css';
+import './main.sass';
 
 import appStateStore from "./Stores/AppStateStore";
 import userStore from "./Stores/UserStore";

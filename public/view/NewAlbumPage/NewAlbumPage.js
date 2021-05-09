@@ -5,7 +5,7 @@ import {Header} from "../../components/Header/Header";
 import {getFileFromUser} from "../../modules/utils";
 import {UserActions} from "../../actions/UserActions";
 import * as newAlbumPageTemplate from './NewAlbumPage.tmpl';
-import './NewAlbumPage.css';
+import './NewAlbumPage.sass';
 
 class NewAlbumPage extends Component {
     constructor() {

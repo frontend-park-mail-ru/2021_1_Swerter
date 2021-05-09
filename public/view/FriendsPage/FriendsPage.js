@@ -7,7 +7,7 @@ import friendStore from "../../Stores/FriendStore";
 import {FriendStoreEvents} from "../../consts/events";
 import userStore from "../../Stores/UserStore";
 import * as friendsPageTemplate from './FriendsPage.tmpl';
-import './FriendsPage.css';
+import './FriendsPage.sass';
 
 class FriendsPage extends Component {
     constructor() {
