@@ -4,5 +4,7 @@ export const Routes = {
     REGISTER_PAGE: '#/register',
     PROFILE_PAGE: '#/profile',
     NEWS_PAGE: '#/news',
-    FRIENDS_PAGE: '#friends'
+    FRIENDS_PAGE: '#/friends',
+    NEW_ALBUM_PAGE: '#/new-album',
+    ALBUM_PAGE: '#/album'
 };

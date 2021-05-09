@@ -23,4 +23,19 @@ const PostStoreEvents = {
     POST_LIKE_SUCCESS: 'post-like-success'
 };
 
-export {UserStoreEvents, AppStateStoreEvents, PostStoreEvents};
+const FriendStoreEvents = {
+    SEARCH_FRIEND_REQUEST_SUCCESS: 'search-friend-request-success',
+    SEARCH_FRIEND_REQUEST_FAILED: 'search-friend-request-failed',
+    ADD_FRIEND_REQUEST_SUCCESS: 'add-friend-request-success',
+    ADD_FRIEND_REQUEST_FAILED: 'add-friend-request-failed',
+    REMOVE_FRIEND_REQUEST_SUCCESS: 'remove-friend-request-success',
+    REMOVE_FRIEND_REQUEST_FAILED: 'remove-friend-request-failed'
+};
+
+const AlbumStoreEvents = {
+    USER_ALBUMS_REQUEST_SUCCESS: 'user-albums-request-success',
+    ALBUM_ADD_SUCCESS: 'album-add-success',
+    ALBUM_REQUEST_SUCCESS: 'album-request-success'
+};
+
+export {UserStoreEvents, AppStateStoreEvents, PostStoreEvents, FriendStoreEvents, AlbumStoreEvents};
