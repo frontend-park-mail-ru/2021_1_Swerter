@@ -17,7 +17,6 @@ const Observable = {
     },
 
     emit(event, data = {}) {
-        console.log(event, data);
         if (this.listeners === undefined || this.listeners[event] === undefined) {
             return;
         }
