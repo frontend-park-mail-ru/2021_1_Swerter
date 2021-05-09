@@ -1,15 +1,17 @@
-import {Component} from "../../modules/Component.js";
-import {SearchFriend} from "../../components/SearchFriend/SearchFriend.js";
-import {Friend} from "../../components/Friend/Friend.js";
-import {FriendRequest} from "../../components/FriendRequest/FriendRequest.js";
-import {Header} from "../../components/Header/Header.js";
-import friendStore from "../../Stores/FriendStore.js";
-import {FriendStoreEvents} from "../../consts/events.js";
-import userStore from "../../Stores/UserStore.js";
+import {Component} from "../../modules/Component";
+import {SearchFriend} from "../../components/SearchFriend/SearchFriend";
+import {Friend} from "../../components/Friend/Friend";
+import {FriendRequest} from "../../components/FriendRequest/FriendRequest";
+import {Header} from "../../components/Header/Header";
+import friendStore from "../../Stores/FriendStore";
+import {FriendStoreEvents} from "../../consts/events";
+import userStore from "../../Stores/UserStore";
+import * as friendsPageTemplate from './FriendsPage.tmpl';
+import './FriendsPage.css';
 
 class FriendsPage extends Component {
     constructor() {
-        super(friendspageTemplate);
+        super(friendsPageTemplate);
 
         this.state = {
             searched: false,

@@ -1,11 +1,14 @@
-import {Component} from "../../modules/Component.js";
-import {PostModal} from "../PostModal/PostModal.js";
-import userStore from "../../Stores/UserStore.js";
-import {UserStoreEvents} from "../../consts/events.js";
+import {Component} from "../../modules/Component";
+import {PostModal} from "../PostModal/PostModal";
+import * as addPostTemplate from './AddPost.tmpl';
+import './AddPost.css';
+
+import {UserStoreEvents} from "../../consts/events";
+import userStore from "../../Stores/UserStore";
 
 export class AddPost extends Component {
     constructor(props) {
-        super(addpostTemplate, props);
+        super(addPostTemplate, props);
 
         this.state = {
             user: {

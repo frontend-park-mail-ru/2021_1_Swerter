@@ -1,11 +1,13 @@
-import {Component} from "../../modules/Component.js";
-import {UserActions} from "../../actions/UserActions.js";
-import userStore from "../../Stores/UserStore.js";
-import {UserStoreEvents} from "../../consts/events.js";
+import {Component} from "../../modules/Component";
+import {UserActions} from "../../actions/UserActions";
+import userStore from "../../Stores/UserStore";
+import {UserStoreEvents} from "../../consts/events";
+import * as registerFormTemplate from './RegisterForm.tmpl';
+import './RegisterForm.css';
 
 export class RegisterForm extends Component {
     constructor(props) {
-        super(registerformTemplate, props);
+        super(registerFormTemplate, props);
         this.state = {
             login: '',
             password: '',

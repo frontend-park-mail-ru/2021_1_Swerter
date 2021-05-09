@@ -1,6 +1,6 @@
-import makeObservable from "./observable.js";
-import dispatcher from "./dispatcher.js";
-import {getApp} from "./utils.js";
+import makeObservable from "./observable";
+import dispatcher from "./dispatcher";
+import {getApp} from "./utils";
 
 class Component {
     constructor(template, props = {}) {

@@ -1,8 +1,10 @@
-import {Component} from "../../modules/Component.js";
-import userStore from "../../Stores/UserStore.js";
-import {UserStoreEvents} from "../../consts/events.js";
-import {UserActions} from "../../actions/UserActions.js";
-import {ConfigModal} from "../ConfigModal/ConfigModal.js";
+import {Component} from "../../modules/Component";
+import userStore from "../../Stores/UserStore";
+import {UserStoreEvents} from "../../consts/events";
+import {UserActions} from "../../actions/UserActions";
+import {ConfigModal} from "../ConfigModal/ConfigModal";
+import * as headerTemplate from './Header.tmpl';
+import './Header.css';
 
 export class Header extends Component {
     constructor(props) {

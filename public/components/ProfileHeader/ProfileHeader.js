@@ -1,13 +1,15 @@
-import {Component} from '../../modules/Component.js';
-import {AppStateStoreEvents, UserStoreEvents} from '../../consts/events.js';
-import userStore from "../../Stores/UserStore.js";
-import appStateStore from "../../Stores/AppStateStore.js";
-import {Routes} from "../../consts/Routes.js";
-import {UserActions} from "../../actions/UserActions.js";
+import {Component} from '../../modules/Component';
+import {AppStateStoreEvents, UserStoreEvents} from '../../consts/events';
+import userStore from "../../Stores/UserStore";
+import appStateStore from "../../Stores/AppStateStore";
+import {Routes} from "../../consts/Routes";
+import {UserActions} from "../../actions/UserActions";
+import * as profileHeaderTemplate from './ProfileHeader.tmpl';
+import './ProfileHeader.css';
 
 export class ProfileHeader extends Component {
     constructor(props) {
-        super(profileheaderTemplate, props);
+        super(profileHeaderTemplate, props);
         this.state = {
             user: {
                 firstName: '',

@@ -1,8 +1,8 @@
-import makeObservable from "../modules/observable.js";
-import dispatcher from "../modules/dispatcher.js";
-import {UserActions} from "../actions/UserActions.js";
-import {http} from "../modules/http.js";
-import {FriendStoreEvents} from "../consts/events.js";
+import makeObservable from "../modules/observable";
+import dispatcher from "../modules/dispatcher";
+import {UserActions} from "../actions/UserActions";
+import {http} from "../modules/http";
+import {FriendStoreEvents} from "../consts/events";
 
 class FriendStore {
     constructor() {

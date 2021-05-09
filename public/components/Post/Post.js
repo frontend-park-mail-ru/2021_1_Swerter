@@ -1,8 +1,10 @@
-import {Component} from "../../modules/Component.js";
-import {PostStoreEvents} from "../../consts/events.js";
-import {UserActions} from "../../actions/UserActions.js";
-import postStore from "../../Stores/PostStore.js";
-import {ShowImgModal} from "../ShowImgModal/ShowImgModal.js";
+import {Component} from "../../modules/Component";
+import {PostStoreEvents} from "../../consts/events";
+import {UserActions} from "../../actions/UserActions";
+import postStore from "../../Stores/PostStore";
+import {ShowImgModal} from "../ShowImgModal/ShowImgModal";
+import * as postTemplate from './Post.tmpl';
+import './Post.css';
 
 export class Post extends Component {
     constructor(props) {

@@ -1,11 +1,13 @@
-import {Component} from "../../modules/Component.js";
-import {UserActions} from "../../actions/UserActions.js";
-import userStore from "../../Stores/UserStore.js";
-import {UserStoreEvents} from "../../consts/events.js";
+import {Component} from "../../modules/Component";
+import {UserActions} from "../../actions/UserActions";
+import userStore from "../../Stores/UserStore";
+import {UserStoreEvents} from "../../consts/events";
+import * as configModalTemplate from './ConfigModal.tmpl';
+import './ConfigModal.css';
 
 export class ConfigModal extends Component {
     constructor(props) {
-        super(configmodalTemplate, props);
+        super(configModalTemplate, props);
 
         this.state = {
             mode: this.props.mode,

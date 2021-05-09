@@ -1,13 +1,15 @@
-import {Component} from "../../modules/Component.js";
-import {Post} from "../../components/Post/Post.js";
-import {Header} from "../../components/Header/Header.js";
-import postStore from "../../Stores/PostStore.js";
-import {PostStoreEvents} from "../../consts/events.js";
-import userStore from "../../Stores/UserStore.js";
+import {Component} from "../../modules/Component";
+import {Post} from "../../components/Post/Post";
+import {Header} from "../../components/Header/Header";
+import postStore from "../../Stores/PostStore";
+import {PostStoreEvents} from "../../consts/events";
+import userStore from "../../Stores/UserStore";
+import * as newsFeedPageTemplate from './NewsFeedPage.tmpl';
+import './NewsFeedPage.css';
 
 class NewsFeedPage extends Component {
     constructor(props) {
-        super(newsfeedpageTemplate, props);
+        super(newsFeedPageTemplate, props);
 
         this.state = {
             postsData: []

@@ -1,11 +1,13 @@
-import {Component} from "../../modules/Component.js";
-import {UserActions} from "../../actions/UserActions.js";
-import userStore from "../../Stores/UserStore.js";
-import {UserStoreEvents} from '../../consts/events.js';
+import {Component} from "../../modules/Component";
+import {UserActions} from "../../actions/UserActions";
+import userStore from "../../Stores/UserStore";
+import {UserStoreEvents} from '../../consts/events';
+import * as loginFormTemplate from './LoginForm.tmpl';
+import './LoginForm.css';
 
 export class LoginForm extends Component {
     constructor(props) {
-        super(loginformTemplate, props);
+        super(loginFormTemplate, props);
         this.state = {
             login: '',
             password: ''

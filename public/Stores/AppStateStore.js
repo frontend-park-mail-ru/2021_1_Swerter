@@ -1,10 +1,10 @@
-import dispatcher from '../modules/dispatcher.js';
-import makeObservable from '../modules/observable.js';
-import {UserActions} from "../actions/UserActions.js";
-import {Routes} from "../consts/Routes.js";
-import userStore from "./UserStore.js";
-import {AlbumStoreEvents, AppStateStoreEvents, UserStoreEvents} from "../consts/events.js";
-import albumStore from "./AlbumStore.js";
+import dispatcher from '../modules/dispatcher';
+import makeObservable from '../modules/observable';
+import {UserActions} from "../actions/UserActions";
+import {Routes} from "../consts/Routes";
+import userStore from "./UserStore";
+import {AlbumStoreEvents, AppStateStoreEvents, UserStoreEvents} from "../consts/events";
+import albumStore from "./AlbumStore";
 
 class AppStateStore {
     constructor(app) {

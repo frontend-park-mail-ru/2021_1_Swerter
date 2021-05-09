@@ -1,4 +1,4 @@
-import { fatal } from "./errors.js";
+import {fatal} from "./errors";
 
 class Dispatcher {
     constructor() {

@@ -1,7 +1,9 @@
-import {Component} from "../../modules/Component.js";
-import {UserActions} from "../../actions/UserActions.js";
-import friendStore from "../../Stores/FriendStore.js";
-import {FriendStoreEvents} from '../../consts/events.js';
+import {Component} from "../../modules/Component";
+import {UserActions} from "../../actions/UserActions";
+import friendStore from "../../Stores/FriendStore";
+import {FriendStoreEvents} from '../../consts/events';
+import * as friendTemplate from './Friend.tmpl';
+import './Friend.css';
 
 export class Friend extends Component {
     constructor(props) {

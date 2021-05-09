@@ -1,8 +1,10 @@
-import {Component} from "../../modules/Component.js";
+import {Component} from "../../modules/Component";
+import * as addAlbumTemplate from './AddAlbum.tmpl';
+import './AddAlbum.css';
 
 export class AddAlbum extends Component {
     constructor(props) {
-        super(addalbumTemplate, props);
+        super(addAlbumTemplate, props);
 
         this.state = {
             title: this.props.title,

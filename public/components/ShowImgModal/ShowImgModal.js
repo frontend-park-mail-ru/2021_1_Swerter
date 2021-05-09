@@ -1,8 +1,10 @@
-import {Component} from "../../modules/Component.js";
+import {Component} from "../../modules/Component";
+import * as showImgModalTemplate from './ShowImgModal.tmpl';
+import './ShowImgModal.css';
 
 export class ShowImgModal extends Component {
     constructor(props) {
-        super(showimgmodalTemplate, props);
+        super(showImgModalTemplate, props);
 
         this.state = {
             images: this.props.images,

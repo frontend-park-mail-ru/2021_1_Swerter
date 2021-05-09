@@ -1,8 +1,8 @@
-import dispatcher from "../modules/dispatcher.js";
-import {http} from "../modules/http.js";
-import {UserActions} from "../actions/UserActions.js";
-import {AlbumStoreEvents} from "../consts/events.js";
-import makeObservable from "../modules/observable.js";
+import dispatcher from "../modules/dispatcher";
+import {http} from "../modules/http";
+import {UserActions} from "../actions/UserActions";
+import {AlbumStoreEvents} from "../consts/events";
+import makeObservable from "../modules/observable";
 
 class AlbumStore {
     constructor() {

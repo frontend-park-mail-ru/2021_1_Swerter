@@ -1,12 +1,14 @@
-import {Component} from "../../modules/Component.js";
-import {AlbumPhoto} from "../../components/AlbumPhoto/AlbumPhoto.js";
-import albumStore from "../../Stores/AlbumStore.js";
-import {Header} from "../../components/Header/Header.js";
-import {AlbumStoreEvents} from "../../consts/events.js";
+import {Component} from "../../modules/Component";
+import {AlbumPhoto} from "../../components/AlbumPhoto/AlbumPhoto";
+import albumStore from "../../Stores/AlbumStore";
+import {Header} from "../../components/Header/Header";
+import {AlbumStoreEvents} from "../../consts/events";
+import * as albumPageTemplate from './AlbumPage.tmpl';
+import './AlbumPage.css';
 
 class AlbumPage extends Component {
     constructor() {
-        super(albumpageTemplate);
+        super(albumPageTemplate);
 
         this.state = {
             imgUrls: []

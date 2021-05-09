@@ -1,8 +1,8 @@
-import dispatcher from '../modules/dispatcher.js';
-import makeObservable from '../modules/observable.js';
-import {http} from "../modules/http.js";
-import {UserActions} from "../actions/UserActions.js";
-import {UserStoreEvents} from '../consts/events.js';
+import dispatcher from '../modules/dispatcher';
+import makeObservable from '../modules/observable';
+import {http} from "../modules/http";
+import {UserActions} from "../actions/UserActions";
+import {UserStoreEvents} from '../consts/events';
 
 class UserStore {
     constructor() {

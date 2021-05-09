@@ -1,14 +1,16 @@
-import {Component} from "../../modules/Component.js";
-import {ButtonClose} from "./ButtonClose/ButtonClose.js";
+import {Component} from "../../modules/Component";
+import {ButtonClose} from "./ButtonClose/ButtonClose";
+import * as postModalTemplate from './PostModal.tmpl';
+import './PostModal.css';
 
-import userStore from "../../Stores/UserStore.js";
-import {UserActions} from "../../actions/UserActions.js";
-import postStore from "../../Stores/PostStore.js";
-import {PostStoreEvents} from "../../consts/events.js";
+import userStore from "../../Stores/UserStore";
+import {UserActions} from "../../actions/UserActions";
+import postStore from "../../Stores/PostStore";
+import {PostStoreEvents} from "../../consts/events";
 
 export class PostModal extends Component {
     constructor(props) {
-        super(postmodalTemplate, props);
+        super(postModalTemplate, props);
 
         this.state = {
             postEditing: false,

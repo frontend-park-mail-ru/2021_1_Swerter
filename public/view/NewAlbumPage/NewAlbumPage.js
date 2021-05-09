@@ -1,13 +1,15 @@
-import {Component} from "../../modules/Component.js";
-import {AddAlbum} from '../../components/AddAlbum/AddAlbum.js';
-import {AlbumPhoto} from "../../components/AlbumPhoto/AlbumPhoto.js";
-import {Header} from "../../components/Header/Header.js";
-import {getFileFromUser} from "../../modules/utils.js";
-import {UserActions} from "../../actions/UserActions.js";
+import {Component} from "../../modules/Component";
+import {AddAlbum} from '../../components/AddAlbum/AddAlbum';
+import {AlbumPhoto} from "../../components/AlbumPhoto/AlbumPhoto";
+import {Header} from "../../components/Header/Header";
+import {getFileFromUser} from "../../modules/utils";
+import {UserActions} from "../../actions/UserActions";
+import * as newAlbumPageTemplate from './NewAlbumPage.tmpl';
+import './NewAlbumPage.css';
 
 class NewAlbumPage extends Component {
     constructor() {
-        super(newalbumpageTemplate);
+        super(newAlbumPageTemplate);
 
         this.state = {
             title: '',

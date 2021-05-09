@@ -1,21 +1,23 @@
-import {Component} from "../../modules/Component.js";
-import {ProfileHeader} from "../../components/ProfileHeader/ProfileHeader.js";
-import {Post} from "../../components/Post/Post.js";
-import {AlbumPreview} from "../../components/AlbumPreview/AlbumPreview.js";
-import {Header} from "../../components/Header/Header.js";
-import {AddPost} from "../../components/AddPost/AddPost.js";
+import {Component} from "../../modules/Component";
+import {ProfileHeader} from "../../components/ProfileHeader/ProfileHeader";
+import {Post} from "../../components/Post/Post";
+import {AlbumPreview} from "../../components/AlbumPreview/AlbumPreview";
+import {Header} from "../../components/Header/Header";
+import {AddPost} from "../../components/AddPost/AddPost";
+import * as profilePageTemplate from './ProfilePage.tmpl';
+import './ProfilePage.css';
 
-import userStore from "../../Stores/UserStore.js";
-import postStore from "../../Stores/PostStore.js";
-import albumStore from "../../Stores/AlbumStore.js";
+import userStore from "../../Stores/UserStore";
+import postStore from "../../Stores/PostStore";
+import albumStore from "../../Stores/AlbumStore";
 
-import {AlbumStoreEvents, PostStoreEvents} from "../../consts/events.js";
-import {AddAlbum} from "../../components/AddAlbum/AddAlbum.js";
-import {UserActions} from "../../actions/UserActions.js";
+import {AlbumStoreEvents, PostStoreEvents} from "../../consts/events";
+import {AddAlbum} from "../../components/AddAlbum/AddAlbum";
+import {UserActions} from "../../actions/UserActions";
 
 class ProfilePage extends Component {
     constructor(props) {
-        super(profilepageTemplate, props);
+        super(profilePageTemplate, props);
 
         this.state = {
             myPage: true,

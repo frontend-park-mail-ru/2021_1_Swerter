@@ -1,9 +1,11 @@
-import {Component} from "../../modules/Component.js";
-import {UserActions} from "../../actions/UserActions.js";
+import {Component} from "../../modules/Component";
+import {UserActions} from "../../actions/UserActions";
+import * as albumPreviewTemplate from './AlbumPreview.tmpl';
+import './AlbumPreview.css';
 
 export class AlbumPreview extends Component {
     constructor(props) {
-        super(albumpreviewTemplate, props);
+        super(albumPreviewTemplate, props);
 
         this.state = {
             id: this.props.id,

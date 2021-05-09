@@ -1,10 +1,12 @@
-import {Component} from "../../modules/Component.js";
-import {RegisterForm} from "../../components/RegisterForm/RegisterForm.js";
-import userStore from "../../Stores/UserStore.js";
+import {Component} from "../../modules/Component";
+import {RegisterForm} from "../../components/RegisterForm/RegisterForm";
+import userStore from "../../Stores/UserStore";
+import * as registerPageTemplate from './RegisterPage.tmpl';
+import './RegisterPage.css';
 
 class RegisterPage extends Component {
     constructor(props) {
-        super(registerpageTemplate, props);
+        super(registerPageTemplate, props);
 
         this.registerChildComponent('RegisterForm', RegisterForm);
     }

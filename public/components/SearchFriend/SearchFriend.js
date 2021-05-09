@@ -1,9 +1,11 @@
-import {Component} from "../../modules/Component.js";
-import {UserActions} from "../../actions/UserActions.js";
+import {Component} from "../../modules/Component";
+import {UserActions} from "../../actions/UserActions";
+import * as searchFriendTemplate from './SearchFriend.tmpl';
+import './SearchFriend.css';
 
 export class SearchFriend extends Component {
     constructor(props) {
-        super(searchfriendTemplate, props);
+        super(searchFriendTemplate, props);
 
         this.state = {
             firstName: '',

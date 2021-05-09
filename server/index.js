@@ -16,7 +16,7 @@ const server = http.createServer((req, res) => {
         file = req.url.replace('/', '');
     }
 
-    fs.readFile(`public/${file}`, (err, data) => {
+    fs.readFile(`dist/${file}`, (err, data) => {
         if (err) {
             log('error', err);
             res.end();

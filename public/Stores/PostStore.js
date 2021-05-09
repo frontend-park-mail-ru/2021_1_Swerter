@@ -1,9 +1,9 @@
-import {UserActions} from "../actions/UserActions.js";
-import makeObservable from "../modules/observable.js";
-import dispatcher from "../modules/dispatcher.js";
-import {http} from "../modules/http.js";
-import {PostStoreEvents, UserStoreEvents} from "../consts/events.js";
-import userStore from "./UserStore.js";
+import {UserActions} from "../actions/UserActions";
+import makeObservable from "../modules/observable";
+import dispatcher from "../modules/dispatcher";
+import {http} from "../modules/http";
+import {PostStoreEvents, UserStoreEvents} from "../consts/events";
+import userStore from "./UserStore";
 
 class PostStore {
     constructor() {

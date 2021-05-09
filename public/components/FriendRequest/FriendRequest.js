@@ -1,8 +1,10 @@
-import {Component} from "../../modules/Component.js";
+import {Component} from "../../modules/Component";
+import * as friendRequestTemplate from './FriendRequest.tmpl';
+import './FriendRequest.css';
 
 export class FriendRequest extends Component {
     constructor(props) {
-        super(friendrequestTemplate, props);
+        super(friendRequestTemplate, props);
 
         this.state = {
             avatar: this.props.avatar,
