@@ -1,5 +1,6 @@
 import makeObservable from "./observable.js";
 import dispatcher from "./dispatcher.js";
+import {getApp} from "./utils.js";
 
 class Component {
     constructor(template, props = {}) {
@@ -13,7 +14,7 @@ class Component {
         this.props = props;
     }
 
-    updateState(updater) {
+    updateState(updater = {}) {
         this.setState(updater);
         this._reRender();
     }
@@ -61,6 +62,7 @@ class Component {
 
             const attrs = Array.from(childPlaceElement.attributes);
             let componentName = null;
+            let isModal = false;
             attrs.forEach(({name, value}) => {
                 switch (name) {
                     case 'name':
@@ -69,6 +71,10 @@ class Component {
 
                     case 'props':
                         Object.assign(additionalProps, JSON.parse(value));
+                        break;
+
+                    case 'modal':
+                        isModal = true;
                         break;
 
                     default:
@@ -84,7 +90,12 @@ class Component {
             this._childrenInstances.push(childComponent);
 
             const renderedChild = childComponent.render();
-            childPlaceElement.insertAdjacentElement('beforebegin', renderedChild);
+
+            if (!isModal) {
+                childPlaceElement.insertAdjacentElement('beforebegin', renderedChild);
+            } else {
+                getApp().insertAdjacentElement('beforeend', renderedChild);
+            }
 
             childPlaceElement.remove();
         });
