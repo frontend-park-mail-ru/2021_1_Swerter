@@ -3,6 +3,7 @@ import {Post} from "../../components/Post/Post.js";
 import {Header} from "../../components/Header/Header.js";
 import postStore from "../../Stores/PostStore.js";
 import {PostStoreEvents} from "../../consts/events.js";
+import userStore from "../../Stores/UserStore.js";
 
 class NewsFeedPage extends Component {
     constructor(props) {
@@ -23,6 +24,10 @@ class NewsFeedPage extends Component {
     onPostsRequestSuccess() {
         const postsData = postStore.getState();
         this.updateState({postsData});
+    }
+
+    allowed() {
+        return userStore.isUserAuthorized();
     }
 }
 
