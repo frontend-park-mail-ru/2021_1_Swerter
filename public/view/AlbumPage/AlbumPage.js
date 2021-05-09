@@ -1,52 +1,28 @@
-import {addHeaderListeners} from "../../components/Header/handler.js";
-import makeObservable from "../../modules/observable.js";
-import {router} from "../../modules/router.js";
-import profilePage from '../Profile/ProfilePage.js'
-import albumStore from '../../Stores/AlbumStore.js';
+import {Component} from "../../modules/Component.js";
+import {AlbumPhoto} from "../../components/AlbumPhoto/AlbumPhoto.js";
+import albumStore from "../../Stores/AlbumStore.js";
+import {Header} from "../../components/Header/Header.js";
+import {AlbumStoreEvents} from "../../consts/events.js";
 
+class AlbumPage extends Component {
+    constructor() {
+        super(albumpageTemplate);
 
-export function addAlbumPageListeners() {
-  addHeaderListeners();
+        this.state = {
+            imgUrls: []
+        };
+        this.registerChildComponent('Header', Header);
+        this.registerChildComponent('AlbumPhoto', AlbumPhoto);
+
+        albumStore.on(AlbumStoreEvents.ALBUM_REQUEST_SUCCESS, () => this.onAlbumRequestSuccess());
+        this.onAlbumRequestSuccess();
+    }
+
+    onAlbumRequestSuccess() {
+        this.updateState({imgUrls: albumStore.getState().currentAlbum.imgContent});
+    }
 }
 
-class AlbumPage {
-  state = {
-      album:{}
-  }
-
-  constructor() {
-    this.registerEvents();
-  }
-
-  render() {
-    window.application.innerHTML = albumpageTemplate(this.state);
-    this.addListeners();
-  }
-
-  setInfo() {
-    this.state.album = albumStore.currentAlbum;
-    console.log(this.state.album)
-    //костыль хедера
-    this.state.userData = profilePage.state.userData
-    this.state.viewState = profilePage.state.viewState
-  }
-
-
-  addListeners() {
-    addHeaderListeners();
-
-  }
-
-  registerEvents() {
-    this.bind('album-received', () => {
-      this.setInfo();
-      this.render();
-      router.addEventsForLinks();
-    })
-  }
-}
-
-makeObservable(AlbumPage)
 const albumPage = new AlbumPage();
 
-export default albumPage
+export default albumPage;
