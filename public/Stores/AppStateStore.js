@@ -3,7 +3,8 @@ import makeObservable from '../modules/observable.js';
 import {UserActions} from "../actions/UserActions.js";
 import {Routes} from "../consts/Routes.js";
 import userStore from "./UserStore.js";
-import {AppStateStoreEvents, UserStoreEvents} from "../consts/events.js";
+import {AlbumStoreEvents, AppStateStoreEvents, UserStoreEvents} from "../consts/events.js";
+import albumStore from "./AlbumStore.js";
 
 class AppStateStore {
     constructor(app) {
@@ -14,10 +15,9 @@ class AppStateStore {
         window.addEventListener('popstate', () => this.go(window.location.hash));
 
         this.dispatchToken = dispatcher.register(this.actionsHandler.bind(this));
-        this.addEventListeners();
     }
 
-    add(route, view) {
+    register(route, view) {
         this.routes[route] = view;
     }
 
@@ -40,7 +40,6 @@ class AppStateStore {
         this.activeView = view;
         this.activeRoute = route;
         view.renderTo(this.app);
-        console.log(route, view);
         if (window.location.hash !== route) {
             window.history.pushState(null, '', route);
         }
@@ -48,7 +47,9 @@ class AppStateStore {
     }
 
     start() {
+        console.log(window.location.hash);
         this.go(window.location.hash);
+        this.addEventListeners();
     }
 
     actionsHandler(action) {
@@ -73,11 +74,13 @@ class AppStateStore {
                 this.go(Routes.NEWS_PAGE);
                 break;
 
+            case UserActions.GO_NEW_ALBUM:
+                this.go(Routes.NEW_ALBUM_PAGE);
+                break;
+
             default:
                 return;
         }
-
-        console.log(`AppStateStore action ${action} handled.`);
     }
 
     getActiveRoute() {
@@ -86,9 +89,16 @@ class AppStateStore {
 
     addEventListeners() {
         userStore.on(UserStoreEvents.LOGIN_SUCCESS, () => this.go(Routes.DEFAULT_PAGE));
-        userStore.on(UserStoreEvents.PROFILE_REQUEST_SUCCESS, () => this.go(Routes.PROFILE_PAGE));
+        userStore.on(UserStoreEvents.PROFILE_REQUEST_SUCCESS, () => this.onProfileRequestSuccess());
         userStore.on(UserStoreEvents.PROFILE_REQUEST_FAILED, () => this.go(Routes.LOGIN_PAGE));
         userStore.on(UserStoreEvents.LOGOUT_SUCCESS, () => this.go(Routes.LOGIN_PAGE));
+        albumStore.on(AlbumStoreEvents.ALBUM_REQUEST_SUCCESS, () => this.go(Routes.ALBUM_PAGE));
+    }
+
+    onProfileRequestSuccess() {
+        if (!this.activeView || !this.activeView.allowed()) {
+            this.go(Routes.PROFILE_PAGE)
+        }
     }
 }
 
