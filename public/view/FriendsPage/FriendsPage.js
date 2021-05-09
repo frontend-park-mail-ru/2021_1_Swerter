@@ -40,12 +40,10 @@ class FriendsPage extends Component {
         });
 
         friendStore.on('changed', () => this.onFriendStoreChanged());
-        console.log('fs state', this.state)
     }
 
     onFriendStoreChanged() {
         this.updateState(friendStore.getState());
-        console.log('fs state', this.state)
     }
 
     allowed() {

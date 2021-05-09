@@ -47,7 +47,6 @@ class AppStateStore {
     }
 
     start() {
-        console.log(window.location.hash);
         this.go(window.location.hash);
         this.addEventListeners();
     }
