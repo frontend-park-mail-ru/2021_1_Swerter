@@ -55,10 +55,12 @@ class PostStore {
 
         formData.append('textPost', data.text);
         formData.append('date', data.date);
-        formData.
 
         this.sendAddPostRequest(formData)
-            .then(response => this.emit(PostStoreEvents.POST_ADD_SUCCESS))
+            .then(response => {
+                this.emit(PostStoreEvents.POST_ADD_SUCCESS);
+                this.handlePostsRequestAction();
+            })
             .catch(() => this.emit(PostStoreEvents.POST_ADD_FAILED));
     }
 

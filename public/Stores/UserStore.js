@@ -183,10 +183,6 @@ class UserStore {
             url: '/profile', data: JSON.stringify(newProfileData),
         });
     }
-
-    async sendAddPostRequest(post) {
-
-    }
 }
 
 makeObservable(UserStore);
