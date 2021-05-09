@@ -1,3 +1,10 @@
+.add-album {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 95%;
+}
+
 .album-upload-photos-btn {
     margin-top: 20px;
     border-radius: 8px;

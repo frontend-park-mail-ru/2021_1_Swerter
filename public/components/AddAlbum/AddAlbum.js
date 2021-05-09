@@ -1,46 +1,33 @@
 import {Component} from "../../modules/Component.js";
-import {UserActions} from "../../actions/UserActions.js";
 
 export class AddAlbum extends Component {
     constructor(props) {
         super(addalbumTemplate, props);
 
         this.state = {
-            albumTitle: '',
-            albumDescription: '',
-            files: [],
-            contentUrls: []
+            title: this.props.title,
+            description: this.props.description
         }
 
         this.registerElementEvent('click', this.onAddPhotoClick, this.getAddPhotoToAlbumButtonElement);
         this.registerElementEvent('click', this.onCreateAlbumClick, this.getCreateNewAlbumButtonElement);
+        this.registerElementEvent('change', this.onChange);
+    }
+
+    onChange() {
+        const title = this.getAlbumTitleInputElement().value.replace(/<\/?[^>]+(>|$)/g, '');
+        const description = this.getAlbumDescriptionElement().value.replace(/<\/?[^>]+(>|$)/g, '');
+
+        this.props.onTitleChange(title);
+        this.props.onDescriptionChange(description);
     }
 
     onCreateAlbumClick() {
-        const albumTitle = document.getElementById('album-title').value.replace(/<\/?[^>]+(>|$)/g, '');
-        const albumDescription = document.getElementById('album-description').value.replace(/<\/?[^>]+(>|$)/g, '');
-        this.dispatchUserAction(UserActions.NEW_ALBUM, {
-            albumTitle,
-            albumDescription,
-            attachments: this.state.files
-        });
+        this.props.onCreateAlbumClick();
     }
 
     onAddPhotoClick() {
-        const inputAlbumImg = document.createElement('input');
-        inputAlbumImg.type = 'file';
-        inputAlbumImg.onchange = (e) => {
-            const reader = new FileReader();
-
-            reader.onload = (event) => {
-                const img = event.target.result;
-                this.updateState({contentUrls: this.state.contentUrls.concat(img)});
-            };
-
-            const imgContentFile = inputAlbumImg.files[0];
-            this.updateState({files: this.state.files.concat(imgContentFile)});
-            reader.readAsDataURL(imgContentFile);
-        };
+        this.props.onAddPhotoClick();
     }
 
     getCreateNewAlbumButtonElement() {
@@ -51,4 +38,11 @@ export class AddAlbum extends Component {
         return this.element.getElementsByClassName('add-photo-to-album')[0];
     }
 
+    getAlbumTitleInputElement() {
+        return this.element.getElementsByClassName('album-title')[0];
+    }
+
+    getAlbumDescriptionElement() {
+        return this.element.getElementsByClassName('album-description')[0];
+    }
 }

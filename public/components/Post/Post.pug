@@ -9,21 +9,21 @@ div(id="post" class="post")
             p(class="post__content__text") #{textPost}
         if imgContent
             if imgContent.length === 1
-                img(id="post-img-1-" + ID class="new-post-form__content__image new-post-form__content__image_first" src=imgContent[0])
+                img(index=0 class="new-post-form__content__image new-post-form__content__image_first" src=imgContent[0])
             if imgContent.length === 2
-                img(id="post-img-1-" + ID class="new-post-form__content__image new-post-form__content__image_first" src=imgContent[0])
-                img(id="post-img-2-" + ID class="new-post-form__content__image new-post-form__content__image_second" src=imgContent[1])
+                img(index=0 class="new-post-form__content__image new-post-form__content__image_first" src=imgContent[0])
+                img(index=1 class="new-post-form__content__image new-post-form__content__image_second" src=imgContent[1])
             if imgContent.length >= 3
-                img(id="post-img-1-" + ID class="new-post-form__content__image new-post-form__content__image_first" src=imgContent[0])
+                img(index=0 class="new-post-form__content__image new-post-form__content__image_first" src=imgContent[0])
                 div.new-post-form__content__images_bottom
-                    img(id="post-img-2-" + ID class="new-post-form__content__image_third new-post-form__content__image" src=imgContent[1])
-                    img(id="post-img-3-" + ID class="new-post-form__content__image_fourth new-post-form__content__image" src=imgContent[2])
+                    img(index=1 class="new-post-form__content__image_third new-post-form__content__image" src=imgContent[1])
+                    img(index=2 class="new-post-form__content__image_fourth new-post-form__content__image" src=imgContent[2])
                     if imgContent.length === 4
-                        img(id="post-img-4-" + ID class="new-post-form__content__image_fifth new-post-form__content__image" src=imgContent[3])
+                        img(index=3 class="new-post-form__content__image_fifth new-post-form__content__image" src=imgContent[3])
                     if imgContent.length > 4
                         div.new-post-form__content__image__more(class="new-post-form__content__image")
-                            div.new-post-form__content__image__more-counter(id="post-img-4-" + ID) + #{imgContent.length - 4}
-                            img(class="new-post-form__content__image_fifth new-post-form__content__image" src=imgContent[3])
+                            div.new-post-form__content__image__more-counter(index=4) + #{imgContent.length - 4}
+                            img(index=3 class="new-post-form__content__image_fifth new-post-form__content__image" src=imgContent[3])
     div(class="post__footer")
         div(class="post__footer__row__metric")
             if liked
@@ -46,3 +46,5 @@ div(id="post" class="post")
                 i(class="post-action far fa-comment fa-lg") Comment
             div(class="post__footer__column")
                 i(class="post-action post-action_repost far fa-share-square fa-lg") Share
+    if showModal
+        component(name='ShowImgModal' modal selected=selectedImgIndex)

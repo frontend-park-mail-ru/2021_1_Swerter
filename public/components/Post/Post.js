@@ -1,21 +1,43 @@
 import {Component} from "../../modules/Component.js";
-import userStore from "../../Stores/UserStore.js";
-import {PostStoreEvents, UserStoreEvents} from "../../consts/events.js";
+import {PostStoreEvents} from "../../consts/events.js";
 import {UserActions} from "../../actions/UserActions.js";
 import postStore from "../../Stores/PostStore.js";
+import {ShowImgModal} from "../ShowImgModal/ShowImgModal.js";
 
 export class Post extends Component {
     constructor(props) {
         super(postTemplate, props);
 
+        this.state = {
+            showModal: false,
+            selectedImgIndex: 0
+        };
+
         Object.assign(this.state, props);
 
-        userStore.on(UserStoreEvents.STORE_CHANGED, () => this.userStoreChanged());
-        postStore.on(PostStoreEvents.POST_LIKE_SUCCESS, ({postId}) => {this.onLikeSuccess(postId)})
+        const showImgModalProps = {
+            images: this.state.imgContent,
+            _onClose: () => this.updateState({showModal: false}),
+            hideThis(element) {
+                this._onClose();
+                element.hide();
+            }
+        };
+        this.registerChildComponent('ShowImgModal', ShowImgModal, showImgModalProps);
 
         this.registerElementEvent('click', this.onLikeClick, this.getLikeButtonElement);
+        this.registerElementEvent('click', this.onPostContentClick, this.getPostContentElement);
 
-        this.userStoreChanged();
+        postStore.on(PostStoreEvents.POST_LIKE_SUCCESS, ({postId}) => {
+            this.onLikeSuccess(postId);
+        });
+    }
+
+    onPostContentClick(event) {
+        const element = event.target;
+        if (element.tagName === 'IMG') {
+            this.updateState({selectedImgIndex: element.getAttribute('index'), showModal: true});
+        }
     }
 
     onLikeClick() {
@@ -32,9 +54,8 @@ export class Post extends Component {
         }
     }
 
-    userStoreChanged() {
-        const {imgAvatar} = userStore.getState();
-        this.updateState({imgAvatar});
+    getPostContentElement() {
+        return this.element.getElementsByClassName('post__content')[0];
     }
 
     getLikeButtonElement() {

@@ -55,7 +55,7 @@ export class PostModal extends Component {
     }
 
     onModalClose() {
-        this.props.onModalClose();
+        this.props.hideThis(this);
     }
 
     onAddPostClick() {

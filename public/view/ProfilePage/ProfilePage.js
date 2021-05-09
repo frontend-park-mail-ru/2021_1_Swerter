@@ -4,12 +4,14 @@ import {Post} from "../../components/Post/Post.js";
 import {AlbumPreview} from "../../components/AlbumPreview/AlbumPreview.js";
 import {Header} from "../../components/Header/Header.js";
 import {AddPost} from "../../components/AddPost/AddPost.js";
-import {PostModal} from "../../components/PostModal/PostModal.js";
 
 import userStore from "../../Stores/UserStore.js";
 import postStore from "../../Stores/PostStore.js";
-import {PostStoreEvents} from "../../consts/events.js";
+import albumStore from "../../Stores/AlbumStore.js";
+
+import {AlbumStoreEvents, PostStoreEvents} from "../../consts/events.js";
 import {AddAlbum} from "../../components/AddAlbum/AddAlbum.js";
+import {UserActions} from "../../actions/UserActions.js";
 
 class ProfilePage extends Component {
     constructor(props) {
@@ -18,7 +20,6 @@ class ProfilePage extends Component {
         this.state = {
             myPage: true,
             postModalOpened: false,
-            albumEditMode: false,
             switchContent: 'POSTS',
             postsData: [],
             albumsData: []
@@ -38,27 +39,9 @@ class ProfilePage extends Component {
 
         this.registerChildComponent('ProfileHeader', ProfileHeader, profileHeaderProps);
 
-        const addPostProps = {
-            onAttachPhotoClick: () => {
-                this.updateState({postModalOpened: true});
-            },
-
-            onAddNewPostClick: () => {
-                this.updateState({postModalOpened: true});
-            }
-        };
-
-        this.registerChildComponent('AddPost', AddPost, addPostProps);
+        this.registerChildComponent('AddPost', AddPost);
         this.registerChildComponent('Post', Post);
         this.registerChildComponent('AlbumPreview', AlbumPreview);
-
-        const postModalProps = {
-            onModalClose: () => {
-                this.updateState({postModalOpened: false});
-            }
-        };
-
-        this.registerChildComponent('PostModal', PostModal, postModalProps);
 
         const addAlbumProps = {
             onClose: () => {
@@ -70,7 +53,11 @@ class ProfilePage extends Component {
         this.registerElementEvent('click', this.onCreateAlbumClick, this.getCreateNewAlbumBlockElement);
 
         postStore.on(PostStoreEvents.POSTS_REQUEST_SUCCESS, () => this.onPostsRequestSuccess());
+        postStore.on(PostStoreEvents.POST_ADD_SUCCESS, () => this.onPostsRequestSuccess());
+        albumStore.on(AlbumStoreEvents.USER_ALBUMS_REQUEST_SUCCESS, () => this.onAlbumsRequestSuccess());
+
         this.onPostsRequestSuccess();
+        this.onAlbumsRequestSuccess();
     }
 
     onPostsRequestSuccess() {
@@ -78,8 +65,13 @@ class ProfilePage extends Component {
         this.updateState({postsData});
     }
 
+    onAlbumsRequestSuccess() {
+        const albumsData = albumStore.getState().albums;
+        this.updateState({albumsData});
+    }
+
     onCreateAlbumClick() {
-        this.updateState({albumEditMode: true});
+        this.dispatchUserAction(UserActions.GO_NEW_ALBUM);
     }
 
     getCreateNewAlbumBlockElement() {

@@ -1,4 +1,5 @@
 import {Component} from "../../modules/Component.js";
+import {PostModal} from "../PostModal/PostModal.js";
 import userStore from "../../Stores/UserStore.js";
 import {UserStoreEvents} from "../../consts/events.js";
 
@@ -9,8 +10,18 @@ export class AddPost extends Component {
         this.state = {
             user: {
                 imgAvatar: null
+            },
+            postModalOpened: false
+        };
+
+        const postModalProps = {
+            _onModalClose: () => this.updateState({postModalOpened: false}),
+            hideThis(element) {
+                this._onModalClose();
+                element.hide();
             }
         };
+        this.registerChildComponent('PostModal', PostModal, postModalProps);
 
         userStore.on(UserStoreEvents.STORE_CHANGED, () => this.userStoreChanged());
         this.registerElementEvent('click', this.onAddNewPostClick, this.getAddNewPostButtonElement);
@@ -19,12 +30,13 @@ export class AddPost extends Component {
         this.userStoreChanged();
     }
 
+
     onAttachPhotoClick() {
-        this.props.onAttachPhotoClick();
+        this.updateState({postModalOpened: true});
     }
 
     onAddNewPostClick() {
-        this.props.onAddNewPostClick();
+        this.updateState({postModalOpened: true});
     }
 
     getAddNewPostButtonElement() {
