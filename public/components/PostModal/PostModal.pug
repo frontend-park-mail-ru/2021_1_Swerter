@@ -1,0 +1,80 @@
+div.modal-wrapper
+    div.modal-bg(class="modal-bg-close")
+    div.new-post-form
+        if !postEditing
+            div.new-post-form__header
+                div.modal__title Create Post
+                div(class="btn close-post-modal-btn btn__close")
+                    i(class="far fa-times-circle fa-3x")
+            div.new-post-form__content
+                textarea(
+                    class="new-post-text new-post-form__content__text"
+                    placeholder="What's on your mind"
+                ) #{postText}
+                div.new-post-form__content__images
+                    div(class="btn btn__close del-all-images-btn")
+                        i(class="far fa-times-circle fa-2x")
+                    div(class="btn btn__edit edit-all-images-btn")
+                        i(class="far fa-edit")
+                        | Edit All
+                    if contentUrls.length === 1
+                        img(
+                            class="new-post-form__content__image new-post-form__content__image_first"
+                            src=contentUrls[0]
+                        )
+                    if contentUrls.length === 2
+                        img(
+                            class="new-post-form__content__image new-post-form__content__image_first"
+                            src=contentUrls[0]
+                        )
+                        img(
+                            class="new-post-form__content__image new-post-form__content__image_second"
+                            src=contentUrls[1]
+                        )
+                    if contentUrls.length >= 3
+                        img(
+                            class="new-post-form__content__image new-post-form__content__image_first"
+                            src=contentUrls[0]
+                        )
+                        div.new-post-form__content__images_bottom
+                            img(
+                                class="new-post-form__content__image_third new-post-form__content__image"
+                                src=contentUrls[1]
+                            )
+                            img(
+                                class="new-post-form__content__image_fourth new-post-form__content__image"
+                                src=contentUrls[2]
+                            )
+                            if contentUrls.length === 4
+                                img(
+                                    class="new-post-form__content__image_fifth new-post-form__content__image"
+                                    src=contentUrls[3]
+                                )
+                            if contentUrls.length > 4
+                                div(class="new-post-form__content__image__more new-post-form__content__image")
+                                    div.new-post-form__content__image__more-counter + #{contentUrls.length - 4}
+                                    img(
+                                        class="new-post-form__content__image_fifth new-post-form__content__image"
+                                        src=contentUrls[3]
+                                    )
+            div.new-post-form__attach
+                div.new-post-form__attach__text Add to Your Post
+                div(class="btn new-post-form__attach__photo attach__photo")
+                    i(class="fas fa-images fa-3x" style="color: #45BD62;")
+
+            div(class="new-post-form__post-btn new-post__add-btn") Post
+        else
+            div.new-post-form__header
+                div.btn__back(class="btn btn-edit-post-end")
+                    i(class="fas fa-arrow-circle-left fa-2x")
+                div.modal__title Edit Photos
+                div(class="btn btn__close close-post-modal-btn")
+                    i(class="far fa-times-circle fa-3x")
+            div.new-post-form__content
+                each img, i in contentUrls
+                    div.wrap__each__img
+                        component(name='ButtonClose' button-id=i)
+                        img(
+                            class="new-post-form__content__image new-post-form__content__image_list"
+                            src=img
+                        )

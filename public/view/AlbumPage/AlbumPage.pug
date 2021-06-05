@@ -1,0 +1,6 @@
+div.album-page
+    component(name='Header')
+    div.album-page-wrap
+        div.album-page-content
+            each src in imgUrls
+                component(name='AlbumPhoto' src=src)

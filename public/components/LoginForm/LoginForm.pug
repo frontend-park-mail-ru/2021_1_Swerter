@@ -1,11 +1,26 @@
 div(class='login-form')
     div(class='login-form__content')
         div(class='login-form__div-item')
-            input(type='text' name='login' class='login-form__input login-form__input_login' required pattern='^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$|^(\\+7|7|8)?[\\s\\-]?\\(?[489][0-9]{2}\\)?[\\s\\-]?[0-9]{3}[\\s\\-]?[0-9]{2}[\\s\\-]?[0-9]{2}$' autocomplete='on' placeholder='Email address or telephone number')
+            input(
+                type='text'
+                class='login-form__input login-form__input_login'
+                required
+                pattern='^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$|^(\\+7|7|8)?[\\s\\-]?\\(?[489][0-9]{2}\\)?[\\s\\-]?[0-9]{3}[\\s\\-]?[0-9]{2}[\\s\\-]?[0-9]{2}$'
+                autocomplete='on'
+                placeholder='Email address or telephone number'
+                value=login
+            )
         div(class='login-form__div-item')
-            input(type='password' name='password' class='login-form__input login-form__input_password' required pattern='^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$' autocomplete='on' placeholder='Password')
+            input(
+                type='password'
+                class='login-form__input login-form__input_password'
+                required
+                pattern='^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$'
+                autocomplete='on'
+                placeholder='Password'
+                value=password
+            )
         div(class='login-form__div-item')
-            button(id='submit-login-form' type='button' class='login-form__button-login') Enter
+            button(type='button' class='login-form__button-login') Login
         hr(class='login-form__hr')
-        button(id="submit-go-register" type='button' class='login-form__button-register') Create account
-
+        button(type='button' class='login-form__button-register') Create account

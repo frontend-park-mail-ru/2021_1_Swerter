@@ -1,12 +1,15 @@
-div.add-post-content
-    div.add-text-content
-        img.ava-add(src=data.imgAvatar)
-        textarea.add-text(id="text-post" placeholder="What's new?")
-        div.add-btn-wrapper
-            div.btn-add-media(id="upload-post-content")
-                b
-                    | Add
-            div.uploaded-post-img(id="uploaded-post-img")
-    div.btn-post-wr
-        div.btn-add-post(id="add-post")
-            b Post
+div.add-post
+    div.add-post__header
+        div.add-post__header__ava__wrapper
+            img.add-post__header__ava(src=user.imgAvatar)
+        div.add-post__header__new-post(class="new-post-btn")
+            | What's on your mind?
+    div.add-post__bottom
+        div.add-post_bottom__attach(class="attach-post-photo-btn")
+            i(class="fas fa-images fa-2x" style="color: #45BD62;")
+            .
+                Photo's
+
+
+    if postModalOpened
+        component(name='PostModal' modal)

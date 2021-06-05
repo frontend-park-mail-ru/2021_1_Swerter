@@ -1,0 +1,8 @@
+div.album-page
+    component(name='Header')
+    div.new-album-page-content
+        div.new-album-page-content__left-block
+            component(name='AddAlbum' title=title description=description)
+        div.new-album-page-content__right-block
+            each url in contentUrls
+                component(name='AlbumPhoto' src=url)

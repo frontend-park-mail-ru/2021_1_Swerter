@@ -1,0 +1,11 @@
+div.friend-block
+    img.friend-block__avatar(src=avatar)
+    div.friend-block__content
+        div.friend-info
+            span.friend-info__user-name #{firstName} &nbsp;
+            span.friend-info__user-surname #{lastName}
+    if searched
+        if !isFriend
+            img.action-friend-btn(src="./assets/iconAdd.png")
+        else
+            img.action-friend-btn(src="./assets/iconCheckMark.png")
