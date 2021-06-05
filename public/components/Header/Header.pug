@@ -2,30 +2,26 @@ div(class="header")
     div(class="section-h-1")
         div(class="logo-container")
             img(class="logo" src="./assets/imgLogo.jpg")
-        //div(class="search")
-        //    i(class="fas fa-search" style="color:#6B717A")
     div(class="section-h-2")
         div(class="menu")
-            //из-за того, что это 1 и та же страницая, мб стоит далее в роутере вызывать диспатчер
-            a(href="@/profile")
-                div(id="profile-block" class="menu-item home")
-                    i(class="fas fa-home fa-2x")
-            a(href="@/friends")
-                div(id="friends-block" class="menu-item friends")
-                    i(class="fas fa-users fa-2x")
-            a(href="@/news")
-                div(id="news-block" class="menu-item news")
-                    i(class="fas fa-newspaper fa-2x")
+            div(class="menu-item home profile-block")
+                i(class="fas fa-home fa-2x")
+            div(class="menu-item friends friends-block")
+                i(class="fas fa-users fa-2x")
+            div(class="menu-item news news-block")
+                i(class="fas fa-newspaper fa-2x")
     div(class="section-h-3")
-        div(id="header__edit-creds" class="widget settings")
+        div(class="widget settings header__edit-creds")
             i(class="fas fa-cog fa-2x")
-            if data.viewState.editCreds
+            if editMode
                 div.popup-wrapper
                     div.popup-settings
-                        div.popup-field(id="header__change-password") Change password
-                        div.popup-field(id="header__change-login") Change login
-        if data.viewState.myPage
-            div(class="widget account")
-                img(class="img-profile" src =data.userData.imgAvatar)
-        div(id="logout-block" class="widget logout")
+                        div.popup-field(class="header__change-password") Change password
+                        div.popup-field(class="header__change-login") Change login
+        div(class="widget account")
+            img(class="img-profile" src=user.imgAvatar)
+        div(class="widget logout logout-block")
             i(class="fas fa-sign-in-alt fa-2x")
+
+    if configModalOpened
+        component(name='ConfigModal' mode=configSwitch)

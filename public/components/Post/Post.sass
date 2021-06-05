@@ -1,0 +1,130 @@
+.post
+  display: flex
+  width: 690px
+  border-radius: 15px
+  flex-direction: column
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25)
+  background-color: #FFF
+
+  &__content
+    position: relative
+    display: flex
+    flex-direction: column
+    margin-top: 15px
+    background-color: #FFFFFF
+
+    &__text
+      display: block
+      margin: 15px
+
+    &__img
+      object-fit: cover
+
+  &__footer
+    border-radius: 10px
+
+    &__row
+      display: flex
+      margin-top: 15px
+      align-items: center
+      justify-content: space-around
+
+      &__metric
+        position: relative
+        display: flex
+        margin-top: 25px
+        align-items: center
+        justify-content: center
+
+        &::after
+          content: ""
+          position: absolute
+          background-color: #D8DADF
+          bottom: -15px
+          height: 2px
+          width: 94%
+          left: 3%
+
+    &__column
+      flex: 0 0 33.333%
+      display: flex
+      justify-content: center
+      cursor: pointer
+
+      &__like
+        &_active
+          color: #0571ED
+
+      &__like
+        &_deactive
+          color: #2C2C2C
+
+.post-header
+  height: 74px
+  background-color: #FFF
+  border-radius: 10px
+  display: flex
+  justify-content: flex-start
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25)
+
+.avatar-in-post
+  width: 50px
+  height: 50px
+  border-radius: 100%
+  object-fit: cover
+  box-shadow: 0 0 7px #666
+  margin-left: 15px
+  margin-top: 12px
+
+.post-info
+  margin-left: 30px
+  display: flex
+  flex-direction: column
+  justify-content: space-around
+  align-items: end
+
+.post-creator
+  font-family: Roboto
+  font-weight: 600
+  font-size: 18px
+
+.date
+  font-family: Roboto
+  font-weight: lighter
+  font-size: 12px
+
+.post-action
+  width: 100%
+  border-radius: 5px
+  display: flex
+  justify-content: center
+  padding: 15px
+  margin: 5px
+
+  &:hover
+    background-color: #F2F2F2
+
+  &_like
+    margin-left: 15px
+
+    &:active
+      background-color: #3B70E6
+
+  &_repost
+    margin-right: 15px
+
+.metric
+  flex: 0 0 33.333%
+  display: flex
+  justify-content: center
+
+  &:first-child
+    margin-left: 15px
+
+  &:last-child
+    margin-left: 15px
+
+  &__like
+    display: flex
+    justify-content: center
+    color: #E61B43

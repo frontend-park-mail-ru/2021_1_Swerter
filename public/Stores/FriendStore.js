@@ -1,183 +1,144 @@
-import Dispatcher from '../modules/dispatcher.js';
-import {http} from '../modules/http.js';
-import makeObservable from '../modules/observable.js';
-import postStore from './PostStore.js';
+import makeObservable from "../modules/observable";
+import dispatcher from "../modules/dispatcher";
+import {UserActions} from "../actions/UserActions";
+import {http} from "../modules/http";
+import {FriendStoreEvents} from "../consts/events";
 
 class FriendStore {
+    constructor() {
+        this.state = {
+            friends: [],
+            followers: [],
+            foundUsers: []
+        };
 
-  constructor() {
-    this.state = {
-      friends: [],
-      followers: [],
-      foundUsers: [],
-      lastRequest: {
-        firstName: "",
-        lastName: ""
-      }
+        this.dispatchToken = dispatcher.register(this.actionsHandler.bind(this));
     }
-  }
 
-  async getProfileFriends() {
-    const response = await http.get({url: '/user/friends'});
-    const friendsData = response.body;
-    return friendsData;
-  }
+    init() {
+        this.sendProfileFollowersRequest()
+            .then((res) => {
+                const avatarPath = http.getHost() + '/static/usersAvatar/';
+                const followers = res.body.map(user => {
+                    user.imgAvatar = user.avatar === '' ? avatarPath + 'defaultUser.jpg' : avatarPath + user.avatar;
+                    return user;
+                });
+                this.setState({followers});
+            });
 
-  async addFriend(details) {
-      const response = await http.post({
-        url: '/user/friend/add',
-        data: JSON.stringify(details),
-        headers: {}
-      });
-      return response;
-  }
-
-  async removeFriend(details) {
-      const response = await http.post({
-        url: '/user/friend/remove',
-        data: JSON.stringify(details),
-        headers: {}
-      });
-      return response;
-  }
-
-  async getProfileFollowers() {
-    const response = await http.get({url: '/user/followers'});
-    const followersData = response.body;
-    return followersData;
-  }
-
-  async searchFriend(details) {
-    const response = await http.get({
-        url: `/user/friend/search?first_name=${details.firstName}&last_name=${details.lastName}`
-    });
-    const users = response.body;
-    return users;
-  }
-
-  async getProfileFriend(id) {
-    const response = await http.get({url: `/profile/id${id}`});
-    const userData = response.body;
-    return userData;
-  }
-
-  clearFriendsData() {
-    this.state.friends = []
-  }
-  clearLastRequest() {
-    this.state.lastRequest = {
-        firstName: "",
-        lastName: ""
-      }
-  }
-
-
-  clearFollowersData() {
-    this.state.followers = []
-  }
-
-  clearFoundUsers() {
-    this.state.foundUsers = []
-  }
-
-  setFriendsData(friendsData) {
-    this.clearFriendsData();
-    friendsData.forEach((friend) => {
-      let saveFriend = {};
-      saveFriend.id = friend['id'];
-      saveFriend.avatar = http.getHost() + '/static/usersAvatar/';
-      saveFriend.avatar += friend['avatar'] ?
-        friend['avatar'] :
-        'defaultUser.jpg';
-      saveFriend.firstName = friend['firstName'];
-      saveFriend.lastName = friend['lastName'];
-      this.state.friends.push(saveFriend);
-    });
-  }
-
-  setFoundUsers(users, lastRequest) {
-    this.clearFoundUsers();
-    if (lastRequest.firstName !== "") {
-      this.state.lastRequest = lastRequest;
+        this.sendProfileFriendsRequest()
+            .then((res) => {
+                const avatarPath = http.getHost() + '/static/usersAvatar/';
+                const friends = res.body.map(user => {
+                    user.imgAvatar = user.avatar === '' ? avatarPath + 'defaultUser.jpg' : avatarPath + user.avatar;
+                    return user;
+                });
+                this.setState({friends});
+            });
     }
-    users.forEach((user) => {
-      let saveUser = {};
-      saveUser.id = user['id'];
-      saveUser.avatar = http.getHost() + '/static/usersAvatar/';
-      saveUser.avatar += user['avatar'] ?
-        user['avatar'] :
-        'defaultUser.jpg';
-      saveUser.firstName = user['firstName'];
-      saveUser.lastName = user['lastName'];
-      saveUser.isFriend = user['isFriend']
-      this.state.foundUsers.push(saveUser);
-    })
-  }
 
-  setFollowersData(followersData) {
-    this.clearFollowersData();
-    followersData.forEach((follower) => {
-      let saveFollower = {};
-      saveFollower.id = follower['id'];
-      saveFollower.avatar = http.getHost() + '/static/usersAvatar/';
-      saveFollower.avatar += follower['avatar'] ?
-        follower['avatar'] :
-        'defaultUser.jpg';
-      saveFollower.firstName = follower['firstName'];
-      saveFollower.lastName = follower['lastName'];
-      saveFollower.isNotified = follower['isNotified'];
-      this.state.followers.push(saveFollower);
-    });
-  }
+    actionsHandler(action) {
+        switch (action.type) {
+            case UserActions.SEARCH_FRIEND:
+                this.handleSearchFriendAction(action.data);
+                break;
 
+            case UserActions.ADD_FRIEND:
+                this.handleAddFriendAction(action.data);
+                break;
+
+            case UserActions.REMOVE_FRIEND:
+                this.handleRemoveFriendAction(action.data);
+                break;
+
+            case UserActions.FRIEND_PROFILE_REQUEST:
+                break;
+
+            case UserActions.FRIENDS_REQUEST:
+                break;
+
+            default:
+                return;
+        }
+    }
+
+    setState(updater) {
+        Object.assign(this.state, updater);
+
+        this.emit('changed', updater);
+    }
+
+    getState() {
+        return this.state;
+    }
+
+    handleSearchFriendAction(data) {
+        this.sendSearchFriendRequest(data)
+            .then((res) => {
+                const avatarPath = http.getHost() + '/static/usersAvatar/';
+                const foundUsers = res.body.map(user => {
+                    user.imgAvatar = user.avatar === '' ? avatarPath + 'defaultUser.jpg' : avatarPath + user.avatar;
+                    return user;
+                });
+                this.setState({foundUsers});
+                this.emit(FriendStoreEvents.SEARCH_FRIEND_REQUEST_SUCCESS, {foundUsers: this.state.foundUsers});
+            })
+            .catch(() => {
+                this.emit(FriendStoreEvents.SEARCH_FRIEND_REQUEST_FAILED);
+            });
+    }
+
+    handleAddFriendAction(data) {
+        this.sendAddFriendRequest(data)
+            .then(() => {
+                this.emit(FriendStoreEvents.ADD_FRIEND_REQUEST_SUCCESS, data);
+            })
+            .catch(() => {
+                this.emit(FriendStoreEvents.ADD_FRIEND_REQUEST_FAILED, data);
+            });
+    }
+
+    handleRemoveFriendAction(data) {
+        this.sendRemoveFriendRequest(data)
+            .then(() => {
+                this.emit(FriendStoreEvents.REMOVE_FRIEND_REQUEST_SUCCESS, data);
+            })
+            .catch(() => {
+                this.emit(FriendStoreEvents.REMOVE_FRIEND_REQUEST_FAILED, data);
+            });
+    }
+
+    async sendProfileFriendsRequest() {
+        return await http.get({url: '/user/friends'});
+    }
+
+    async sendProfileFollowersRequest() {
+        return await http.get({url: '/user/followers'});
+    }
+
+    async sendSearchFriendRequest({firstName, lastName}) {
+        return await http.get({
+            url: `/user/friend/search?first_name=${firstName}&last_name=${lastName}`
+        });
+    }
+
+    async sendAddFriendRequest(data) {
+        return await http.post({
+            url: '/user/friend/add',
+            data: JSON.stringify(data)
+        });
+    }
+
+    async sendRemoveFriendRequest(data) {
+        return await http.post({
+            url: '/user/friend/remove',
+            data: JSON.stringify(data)
+        });
+    }
 }
 
 makeObservable(FriendStore);
+
 const friendStore = new FriendStore();
-
-Dispatcher.register('access-friend-request', (details) => {
-  friendStore.addFriend(details).then((response) => {
-    friendStore.emit('added-new-friend');
-  })
-});
-
-Dispatcher.register('send-friend-request', (details) => {
-  friendStore.addFriend(details).then((response) => {
-    friendStore.emit('searched-friend-add');
-  })
-});
-
-Dispatcher.register('cancel-friend-request', (details) => {
-  friendStore.removeFriend(details).then((response) => {
-    friendStore.emit('canceled-friend-request');
-  })
-});
-
-Dispatcher.register('search-friend', (details) => {
-  if (details === null)
-    details = friendStore.state.lastRequest
-  if (details.firstName === "" && details.lastName === "")
-    return;
-
-  friendStore.searchFriend(details).then((users) => {
-    friendStore.setFoundUsers(users, details);
-    friendStore.emit("users-found");
-  });
-});
-
-Dispatcher.register('go-friends-page', () => {
-  (async function () {
-    const friendsData = await friendStore.getProfileFriends();
-    friendStore.setFriendsData(friendsData);
-
-    const followersData = await friendStore.getProfileFollowers()
-    friendStore.setFollowersData(followersData);
-  })().then(()=>{
-    friendStore.clearLastRequest();
-    friendStore.clearFoundUsers();
-    friendStore.emit('friends-page-received');
-  });
-});
-
 
 export default friendStore;

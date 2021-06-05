@@ -1,33 +1,21 @@
-import {addRegisterFormListeners} from "../../components/RegisterForm/handler.js";
-import makeObservable from "../../modules/observable.js";
+import {Component} from "../../modules/Component";
+import {RegisterForm} from "../../components/RegisterForm/RegisterForm";
+import userStore from "../../Stores/UserStore";
+import * as registerPageTemplate from './RegisterPage.tmpl';
+import './RegisterPage.sass';
 
+class RegisterPage extends Component {
+    constructor(props) {
+        super(registerPageTemplate, props);
 
-class RegisterPage {
-    state = {}
-
-
-    constructor() {
-        this.registerEvents()
+        this.registerChildComponent('RegisterForm', RegisterForm);
     }
 
-    render() {
-        application.innerHTML = registerpageTemplate(this.state);
-        this.addListeners()
-    }
-
-    addListeners() {
-        addRegisterFormListeners();
-    }
-
-    registerEvents() {
-        this.bind('authorized', () => {
-            router.go('/profile');
-        });
+    allowed() {
+        return !userStore.isUserAuthorized();
     }
 }
 
-
-makeObservable(RegisterPage)
 const registerPage = new RegisterPage();
 
-export default registerPage
+export default registerPage;

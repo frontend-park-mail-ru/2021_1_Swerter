@@ -1,239 +1,192 @@
-import Dispatcher from '../modules/dispatcher.js';
-import {http} from '../modules/http.js';
-import makeObservable from '../modules/observable.js';
-import postStore from "./PostStore.js";
-import albumStore from './AlbumStore.js';
+import dispatcher from '../modules/dispatcher';
+import makeObservable from '../modules/observable';
+import {http} from "../modules/http";
+import {UserActions} from "../actions/UserActions";
+import {UserStoreEvents} from '../consts/events';
 
 class UserStore {
-
     constructor() {
-        this.user = {}
+        this.user = {};
+        this.dispatchToken = dispatcher.register(this.actionsHandler.bind(this));
     }
 
-    async getProfile() {
-        const response = await http.get({url: '/profile'});
-        const userData = response.body;
-        return userData;
+    init() {
+        this.handleProfileRequestAction();
     }
 
-    async getProfileFriend(id) {
-        const response = await http.get({url: `/profile/id${id}`});
-        console.log(`/profile/${id}`)
-        const userData = response.body;
-        return userData;
+    getState() {
+        return this.user;
     }
 
-    async getAva() {
-        const userData = await http.get({url: '/profile'});
-        let imgAvatar = http.getHost() + '/static/usersAvatar/';
-        imgAvatar += userData.body['avatar'] ? userData.body['avatar'] : 'defaultUser.jpg';
-        console.log(imgAvatar)
-        return imgAvatar;
+    setState(updater) {
+        Object.assign(this.user, updater);
+
+        this.emit('changed', updater);
     }
 
-    async uploadAva(imgInfo) {
-        const formData = new FormData();
-        const imgContent = imgInfo.imgAvaFile;
-        formData.append('avatar', imgContent);
-        const response = http.post({url: '/profile/loadImg', data: formData, headers: {}});
-        return response;
+    _setUserAuthorized() {
+        this.setState({isAuthorized: true});
     }
 
-    async uploadName(newUserInfo) {
-        const response = http.post({
-            url: '/profile', data: JSON.stringify({
-                firstName: newUserInfo.firstName,
-                lastName: newUserInfo.lastName,
-            }),
+    isUserAuthorized() {
+        return this.user.isAuthorized === true;
+    }
+
+    actionsHandler(action) {
+        switch (action.type) {
+            case UserActions.LOGIN_REQUEST:
+                this.handleLoginRequestAction(action.data);
+                break;
+
+            case UserActions.REGISTER_REQUEST:
+                this.handleRegisterRequestAction(action.data);
+                break;
+
+            case UserActions.PROFILE_REQUEST:
+                this.handleProfileRequestAction();
+                break;
+
+            case UserActions.NEW_USER_AVATAR:
+                this.handleNewUserAvatarAction(action.data);
+                break;
+
+            case UserActions.USER_PROFILE_UPDATE:
+                this.handleUserProfileUpdateAction(action.data);
+                break;
+
+            case UserActions.LOGOUT_REQUEST:
+                this.handleLogoutRequestAction();
+                break;
+
+
+            default:
+                return;
+        }
+    }
+
+    handleProfileRequestAction() {
+        this.sendProfileRequest()
+            .then(({status, body}) => {
+                switch (status) {
+                    case http.STATUS.OK:
+                        this.setState(body);
+                        let imgAvatar = http.getHost() + '/static/usersAvatar/';
+                        imgAvatar += body['avatar'] ? body['avatar'] : 'defaultUser.jpg';
+                        this.setState({imgAvatar});
+                        this._setUserAuthorized();
+                        this.emit(UserStoreEvents.PROFILE_REQUEST_SUCCESS);
+                        break;
+
+                    default:
+                        this.emit(UserStoreEvents.PROFILE_REQUEST_FAILED);
+                }
+            });
+    }
+
+    handleLoginRequestAction(data) {
+        this.sendLoginRequest(data)
+            .then(({status}) => {
+                switch (status) {
+                    case http.STATUS.OK:
+                        this.setState({isAuthorized: true});
+                        this.emit(UserStoreEvents.LOGIN_SUCCESS);
+                        this.handleProfileRequestAction();
+                        break;
+
+                    default:
+                        this.setState({isAuthorized: false});
+                        this.emit(UserStoreEvents.LOGIN_FAILED);
+                }
+            });
+    }
+
+    handleRegisterRequestAction(data) {
+        this.sendRegisterRequest(data)
+            .then(({status}) => {
+                switch (status) {
+                    case http.STATUS.OK:
+                    case http.STATUS.CREATED:
+                        this.emit(UserStoreEvents.REGISTER_SUCCESS, data);
+                        const credentials = {login: data.login, password: data.password};
+                        this.handleLoginRequestAction(credentials);
+                        break;
+
+                    default:
+                        this.emit(UserStoreEvents.REGISTER_FAILED);
+                }
+            });
+    }
+
+    handleNewUserAvatarAction(data) {
+        this.sendUploadUserAvatarRequest(data.imgInfo).then((response) => {
+                this.sendUserAvatarRequest().then((imgAvatar) => {
+                    this.setState({imgAvatar});
+                    this.emit(UserStoreEvents.STORE_CHANGED, {imgAvatar});
+                })
+            }
+        );
+    }
+
+    handleUserProfileUpdateAction(data) {
+        this.sendUpdateProfileRequest(data).then(() => {
+            this.setState(data);
+            this.emit(UserStoreEvents.PROFILE_UPDATE_SUCCESS);
+        })
+            .catch(() => {
+                this.emit(UserStoreEvents.PROFILE_UPDATE_FAILED);
+            });
+    }
+
+    handleLogoutRequestAction() {
+        this.sendLogoutRequest().then(() => {
+            this.setState({isAuthorized: false});
+            this.emit(UserStoreEvents.LOGOUT_SUCCESS);
         });
-        return response
     }
 
-    async uploadLogin(newLogin) {
-        const response = await http.post({
-            url: '/profile',
-            data: JSON.stringify({login: newLogin.login}),
-        });
-        return response
+    handleNewPostAction() {
+
     }
 
-    async uploadPassword(newPassword) {
-        const response = await http.post({
-            url: '/profile',
-            data: JSON.stringify({
-                'password': newPassword.password,
-                'oldPassword': newPassword.oldPassword,
-            }),
-        });
-        return response
-    }
-
-    async sendLoginRequest(creds) {
-        const response = await http.post({url: '/login', data: JSON.stringify(creds)});
-        return response;
+    async sendLoginRequest(credentials) {
+        return await http.post({url: '/login', data: JSON.stringify(credentials)});
     }
 
     async sendLogoutRequest() {
-        const response = await http.post({url: '/logout'});
-        return response;
+        return await http.post({url: '/logout'});
     }
 
-    async sendRegisterRequest(creds) {
-        console.log(JSON.stringify(creds));
-        const response = await http.post({url: '/register', data: JSON.stringify(creds)});
-        return response;
+    async sendRegisterRequest(data) {
+        return await http.post({url: '/register', data: JSON.stringify(data)});
     }
 
-    setUserData(userData) {
-        this.user.firstName = userData['firstName'];
-        this.user.lastName = userData['lastName'];
+    async sendProfileRequest() {
+        return await http.get({url: '/profile'});
+    }
+
+    async sendUploadUserAvatarRequest(imgInfo) {
+        const formData = new FormData();
+        const imgContent = imgInfo.imgAvaFile;
+        formData.append('avatar', imgContent);
+        return http.post({url: '/profile/loadImg', data: formData, headers: {}});
+    }
+
+    async sendUserAvatarRequest() {
+        const userData = await http.get({url: '/profile'});
         let imgAvatar = http.getHost() + '/static/usersAvatar/';
-        imgAvatar += userData['avatar'] ? userData['avatar'] : 'defaultUser.jpg';
-        this.user.imgAvatar = imgAvatar;
-        const posts = userData['postsData']
-        console.log(posts)
-        let listPosts = [];
-        if (posts) {
-            for (const key in posts) {
-                let imgUrls = [];
-                posts[key].imgContent.forEach((img)=>{
-                    img.Url = http.getHost() + img.Url
-                    imgUrls.push(img.Url)
-                })
-                posts[key].imgContent = imgUrls
-                listPosts.push(posts[key]);
-            }
-        }
-        console.log(listPosts)
-        postStore.userPosts = listPosts.reverse();
-        const albums = userData['albumsData']
-        console.log(albums)
-        let listAlbums = [];
-        if (albums) {
-            for (const key in albums) {
-                let imgUrls = [];
-                albums[key].imgContent.forEach((img)=>{
-                    img.Url = http.getHost() + img.Url
-                    imgUrls.push(img.Url)
-                })
-                albums[key].imgContent = imgUrls
-                listAlbums.push(albums[key]);
-            }
-        }
-        console.log(listAlbums)
-        albumStore.userAlbums = listAlbums.reverse();
+        imgAvatar += userData.body['avatar'] ? userData.body['avatar'] : 'defaultUser.jpg';
+        return imgAvatar;
     }
 
+    async sendUpdateProfileRequest(newProfileData) {
+        return http.post({
+            url: '/profile', data: JSON.stringify(newProfileData),
+        });
+    }
 }
 
 makeObservable(UserStore);
+
 const userStore = new UserStore();
-
-Dispatcher.register('upload-ava', (details) => {
-    userStore.uploadAva(details.imgInfo).then((response) => {
-            userStore.getAva().then((avaUrl) => {
-                userStore.user.imgAvatar = avaUrl;
-                userStore.emit('ava-uploaded');
-            })
-        }
-    );
-});
-
-Dispatcher.register('new-name', (details) => {
-    userStore.uploadName(details).then(() => {
-            userStore.user.firstName = details.firstName;
-            userStore.user.lastName = details.lastName;
-            userStore.emit('new-name-setted')
-        }
-    );
-});
-
-Dispatcher.register('new-login', (details) => {
-    userStore.uploadLogin(details).then((response) => {
-            if (response.status === 200) {
-                userStore.emit('new-login-setted')
-            } else {
-                userStore.emit('new-login-failed')
-            }
-        }
-    );
-});
-
-Dispatcher.register('new-password', (details) => {
-    userStore.uploadPassword(details).then((response) => {
-            if (response.status === 200) {
-                userStore.emit('new-password-setted')
-            } else if (response.status === 403) {
-                userStore.emit('new-password-failed')
-            }
-        }
-    );
-});
-//4
-Dispatcher.register('send-login-request', (details) => {
-    userStore.sendLoginRequest(details).then((response) => {
-            if (response.status === 200) {
-                userStore.getProfile().then((userData) => {
-                        userStore.setUserData(userData);
-                        //5
-                        userStore.emit('authorized')
-                        postStore.emit('authorized')
-                    }
-                )
-            } else if (response.status === 403) {
-                userStore.emit('send-login-request-failed')
-            }
-        }
-    );
-});
-
-
-Dispatcher.register('logout', (details) => {
-    userStore.sendLogoutRequest().then(response => {
-        if (response.status === 200) {
-            userStore.user.firstName = '';
-            userStore.user.lastName = '';
-            userStore.user.imgAvatar = '';
-            userStore.emit('logouted');
-        }
-    })
-});
-
-Dispatcher.register('send-register-request', (details) => {
-    userStore.sendRegisterRequest(details).then(response => {
-        if (response.status === 200) {
-            //Не по флаксу отправлять инфу о событии
-            userStore.emit('registered', details);
-        } else if (response.status === 403) {
-            userStore.emit('registration-failed');
-        }
-    })
-});
-
-Dispatcher.register('go-friend-profile', (datails) => {
-    userStore.getProfileFriend(datails.id).then((userData) => {
-        userStore.setUserData(userData);
-        console.log(userData)
-        userStore.emit('friend-page-received');
-    });
-});
-
-Dispatcher.register('get-user-profile', () => {
-    userStore.getProfile().then((userData) => {
-        userStore.setUserData(userData);
-        //рудимент
-        // userStore.emit('profile-getted');
-        userStore.emit('authorized');
-    });
-});
-
-Dispatcher.register('init-user', () => {
-    userStore.getProfile().then((userData) => {
-        userStore.setUserData(userData);
-        userStore.emit('init-user');
-    });
-});
-
-
 
 export default userStore;

@@ -1,67 +1,56 @@
-import {addHeaderListeners} from "../../components/Header/handler.js";
-import makeObservable from "../../modules/observable.js";
-import {router} from "../../modules/router.js";
-import profilePage from '../Profile/ProfilePage.js'
-import {addAlbumListeners} from "../../components/AddAlbum/handler.js"
-import albumStore from '../../Stores/AlbumStore.js';
+import {Component} from "../../modules/Component";
+import {AddAlbum} from '../../components/AddAlbum/AddAlbum';
+import {AlbumPhoto} from "../../components/AlbumPhoto/AlbumPhoto";
+import {Header} from "../../components/Header/Header";
+import {getFileFromUser} from "../../modules/utils";
+import {UserActions} from "../../actions/UserActions";
+import * as newAlbumPageTemplate from './NewAlbumPage.tmpl';
+import './NewAlbumPage.sass';
 
+class NewAlbumPage extends Component {
+    constructor() {
+        super(newAlbumPageTemplate);
 
-export function addNewAlbumPageListeners() {
-  addHeaderListeners();
-  addAlbumListeners();
+        this.state = {
+            title: '',
+            description: '',
+            files: [],
+            contentUrls: []
+        };
+
+        this.registerChildComponent('Header', Header);
+
+        const addAlbumProps = {
+            onAddPhotoClick: () => {
+                getFileFromUser().then(({file, url}) => this.appendImg(file, url))
+            },
+            onTitleChange: title => this.setState({title}),
+            onDescriptionChange: description => this.setState({description}),
+            onCreateAlbumClick: () => this.onCreateAlbumClick()
+        };
+        this.registerChildComponent('AddAlbum', AddAlbum, addAlbumProps);
+        this.registerChildComponent('AlbumPhoto', AlbumPhoto);
+    }
+
+    onCreateAlbumClick() {
+        this.dispatchUserAction(UserActions.NEW_ALBUM, {
+            albumTitle: this.state.title,
+            albumDescription: this.state.description,
+            attachments: this.state.files
+        });
+    }
+
+    appendImg(img, url) {
+        this.state.files.push(img);
+        this.state.contentUrls.push(url);
+        this.updateState();
+    }
+
+    // allowed() {
+    //     return userStore.isUserAuthorized();
+    // }
 }
 
-class AddNewAlbumPage {
-  state = {
-    title: "",
-    description: "",
-    photos: [],
-    userData : {},
-    viewState : {}
-  }
+const newAlbumPage = new NewAlbumPage();
 
-  constructor() {
-    this.registerEvents();
-  }
-
-  render() {
-    window.application.innerHTML = newalbumpageTemplate(this.state);
-    this.addListeners();
-  }
-
-  setNewPhoto() {
-    this.state.photos = albumStore.getUrlsContent()
-  }
-
-  setAlbumInfo() {
-    this.state.photos = albumStore.getUrlsContent()
-    //костыль хедера
-    this.state.userData = profilePage.state.userData
-    this.state.viewState = profilePage.state.viewState
-  }
-
-  addListeners() {
-    addHeaderListeners();
-    addAlbumListeners();
-  }
-
-  registerEvents() {
-    this.bind('go-new-album-page', () => {
-      this.setAlbumInfo()
-      console.log(this.state.photos)
-      this.render();
-      router.addEventsForLinks();
-    })
-
-    this.bind('album-content-loaded', () => {
-      this.setNewPhoto();
-      this.render();
-      router.addEventsForLinks();
-    })
-  }
-}
-
-makeObservable(AddNewAlbumPage);
-const newAlbumPage = new AddNewAlbumPage();
-
-export default newAlbumPage
+export default newAlbumPage;

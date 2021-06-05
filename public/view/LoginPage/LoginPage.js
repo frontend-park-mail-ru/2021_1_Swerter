@@ -1,33 +1,23 @@
-import {addLoginFormListeners} from "../../components/LoginForm/handler.js";
-import {router} from "../../modules/router.js";
-import makeObservable from "../../modules/observable.js";
+import {Component} from "../../modules/Component";
+import {SiteDescription} from "../../components/SiteDescription/SiteDescription";
+import {LoginForm} from "../../components/LoginForm/LoginForm";
+import userStore from "../../Stores/UserStore";
+import * as loginPageTemplate from './LoginPage.tmpl';
+import './LoginPage.sass';
 
-class LoginPage {
-    state = {
+export class LoginPage extends Component {
+    constructor(props) {
+        super(loginPageTemplate, props);
 
+        this.registerChildComponent('SiteDescription', SiteDescription);
+        this.registerChildComponent('LoginForm', LoginForm);
     }
 
-    constructor() {
-        this.registerEvents()
-    }
-
-    render() {
-        application.innerHTML = loginpageTemplate(this.state);
-        this.addListeners()
-    }
-
-    addListeners() {
-        addLoginFormListeners();
-    }
-
-    registerEvents() {
-        this.bind('authorized', () => {
-            router.go('/profile');
-        });
+    allowed() {
+        return !userStore.isUserAuthorized();
     }
 }
 
-makeObservable(LoginPage)
 const loginPage = new LoginPage();
 
-export default loginPage
+export default loginPage;

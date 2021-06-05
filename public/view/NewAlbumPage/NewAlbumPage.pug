@@ -1,18 +1,8 @@
-extends ../layout
-
-block content
-
-    mixin add-album(data)
-        include ../../components/AddAlbum/AddAlbum
-
-    mixin album-photo(data)
-        include ../../components/AlbumPhotos/AlbumsPhotos
-
+div.album-page
+    component(name='Header')
     div.new-album-page-content
         div.new-album-page-content__left-block
-            +add-album({title, description})
+            component(name='AddAlbum' title=title description=description)
         div.new-album-page-content__right-block
-            each photo in photos
-              +album-photo(photo)
-
-
+            each url in contentUrls
+                component(name='AlbumPhoto' src=url)

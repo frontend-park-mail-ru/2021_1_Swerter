@@ -1,78 +1,38 @@
-import {router} from './modules/router.js';
-import {http} from './modules/http.js';
+import '@babel/polyfill';
+import './main.sass';
 
-import profilePage from "./view/Profile/ProfilePage.js";
-import loginPage from "./view/LoginPage/LoginPage.js";
-import newsFeedPage from "./view/NewsFeed/NewsFeedPage.js";
-import registerPage from "./view/RegisterPage/RegisterPage.js";
-import friendPage from "./view/FriendsPage/FriendsPage.js";
-import Dispatcher from "./modules/dispatcher.js"
-import postStore from "./Stores/PostStore.js";
+import appStateStore from "./Stores/AppStateStore";
+import userStore from "./Stores/UserStore";
+import postStore from "./Stores/PostStore";
+import albumStore from "./Stores/AlbumStore";
+import friendStore from "./Stores/FriendStore";
 
-if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('sw.js', {scope:'/'})
-        .then((registration) => {
-            console.log('scope:', registration.scope);
-        })
-        .catch((err) => {
-            console.log('sw err')
-        })
-}
+import loginPage from "./view/LoginPage/LoginPage";
+import registerPage from "./view/RegisterPage/RegisterPage";
+import profilePage from "./view/ProfilePage/ProfilePage";
+import newsFeedPage from "./view/NewsFeedPage/NewsFeedPage";
+import friendsPage from "./view/FriendsPage/FriendsPage";
+import albumPage from "./view/AlbumPage/AlbumPage";
+import newAlbumPage from "./view/NewAlbumPage/NewAlbumPage";
 
-window.application = document.getElementById('app');
+import {Routes} from "./consts/Routes";
 
-registerUrls()
+const initStores = async () => {
+    userStore.init();
+    postStore.init();
+    friendStore.init();
+    albumStore.init();
+};
 
-window.addEventListener('load', () => {
-    console.log('loaded')
-    let location = window.location.hash.split('#')[1]
-    const user = http.get({url: '/profile'});
-    user.then((response) => {
-        switch (response.status) {
-            case 200:
-                Dispatcher.dispatch('init-user')
-                postStore.emit('authorized')
-                profilePage.bind('user-inited', () => {
-                    if (!location) {
-                        router.go('/profile')
-                        return
-                    }
-                    switch (location) {
-                        case '/profile':
-                            Dispatcher.dispatch('get-user-profile', {});
-                            break;
-                            //Проброс авторизованных
-                        case '/login':
-                            Dispatcher.dispatch('get-user-profile', {});
-                            break;
-                        case '/register':
-                            Dispatcher.dispatch('get-user-profile', {});
-                            break;
+appStateStore.register(Routes.LOGIN_PAGE, loginPage);
+appStateStore.register(Routes.REGISTER_PAGE, registerPage);
 
-                        case '/friends':
-                            Dispatcher.dispatch('go-friends-page', {});
-                            break
-                        case '/news':
-                            postStore.bind('init-news', () => {
-                                router.go('/news')
-                            })
-                            break
-                    }
-                })
-                break
-            case 401:
-                router.go('/login')
-                break
-        }
-    })
-})
+appStateStore.register(Routes.DEFAULT_PAGE, profilePage);
+appStateStore.register(Routes.PROFILE_PAGE, profilePage);
+appStateStore.register(Routes.NEWS_PAGE, newsFeedPage);
+appStateStore.register(Routes.FRIENDS_PAGE, friendsPage);
 
+appStateStore.register(Routes.NEW_ALBUM_PAGE, newAlbumPage);
+appStateStore.register(Routes.ALBUM_PAGE, albumPage);
 
-
-function registerUrls() {
-    router.register('/login', loginPage.render.bind(loginPage))
-    router.register('/register', registerPage.render.bind(registerPage))
-    router.register('/profile', profilePage.render.bind(profilePage))
-    router.register('/friends', friendPage.render.bind(friendPage))
-    router.register('/news', newsFeedPage.render.bind(newsFeedPage))
-}
+initStores().then(() => appStateStore.start());

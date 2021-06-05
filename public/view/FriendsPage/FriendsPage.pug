@@ -1,37 +1,27 @@
-extends ../layout
-
-block content
-
-    mixin friend-request-block(data)
-        include ../../components/FriendRequestBlock/FriendRequestBlock
-
-    mixin friend-block(data)
-        include ../../components/FriendBlock/FriendBlock
-
-    mixin search-friend(data)
-        include ../../components/SearchFriend/SearchFriend
-
+div.friends-page
+    component(name='Header')
     div.friends-page-content
         div.left-block
             div.left-block__background
             div.left-block__content
-                +search-friend(lastRequest)
-                if isSearched
+                component(name='SearchFriend')
+                if searched
                     div.found-friend-block
                         each user in foundUsers
-                            +friend-block(user)
+                            - jsonUser = JSON.stringify(user);
+                            component(name='Friend' props=jsonUser searched=true)
                 div.friends-request-content
                     span.friends-request-header Friend requests
                     hr.friends-page__line
                     each follower in followers
                         if !follower.isNotified
-                            +friend-request-block(follower)
+                            - const jsonFollower = JSON.stringify(follower);
+                            component(name='FriendRequest')
                 div.friends-content
                     span.friends-header Friends
                     hr.friends-page__line
                     each friend in friends
-                        +friend-block(friend)
+                        - const jsonFriend = JSON.stringify(friend);
+                        component(name='Friend' props=friend)
         div.right-block
             img(src="./assets/friendDefault.png")
-
-

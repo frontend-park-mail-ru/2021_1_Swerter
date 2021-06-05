@@ -1,12 +1,6 @@
-mixin header(data)
-    include ../../components/Header/Header
-
-+header({userData, viewState})
-
-mixin album-photo(data)
-    include ../../components/AlbumPhotos/AlbumsPhotos
-
-div.album-page-wrap
-    div.album-page-content
-        each img in album.imgContent
-            +album-photo(img)
+div.album-page
+    component(name='Header')
+    div.album-page-wrap
+        div.album-page-content
+            each src in imgUrls
+                component(name='AlbumPhoto' src=src)
